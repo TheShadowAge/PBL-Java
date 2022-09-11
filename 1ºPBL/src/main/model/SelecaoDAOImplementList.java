@@ -28,13 +28,23 @@ public class SelecaoDAOImplementList implements SelecaoDAO {
 
 	@Override
 	public void update(int id, int opcao, String atributo) {
+		switch(id) {
+		case 1:
+			selecoes.get(id).setNome(atributo);
+			break;
+		case 2:
+			selecoes.get(id).setGrupo(atributo);
+			break;
+		case 3:
+			selecoes.get(id).setPosicaoGrupo(Integer.parseInt(atributo));
+			break;
+		}
 
 	}
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-
+		selecoes.remove(id);
 	}
 
 }
