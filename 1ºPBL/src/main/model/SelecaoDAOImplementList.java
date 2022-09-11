@@ -38,13 +38,16 @@ public class SelecaoDAOImplementList implements SelecaoDAO {
 		case 3:
 			selecoes.get(id).setPosicaoGrupo(Integer.parseInt(atributo));
 			break;
+		case 4:
+			selecoes.get(id).setTecnico(Integer.parseInt(atributo));
+			break;
+		case 5:
+			selecoes.get(id).getJogadores().add(atributo);
 		}
-
 	}
 
 	@Override
 	public void delete(int id) {
 		selecoes.remove(id);
 	}
-
 }
