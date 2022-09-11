@@ -1,7 +1,7 @@
 package main.model;
 import java.util.List;
 
-public class Selecao {
+public class Selecao extends Entidade{
 	private List<String> jogadores;
 	private Tecnico tecnico;
 	private String grupo;
