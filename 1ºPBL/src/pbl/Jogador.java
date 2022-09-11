@@ -2,6 +2,7 @@ package pbl;
 
 public class Jogador extends Pessoa{
 	private String posicao;
+	private String codJog;
 	private int cartaoAmarelo;
 	private int cartaoVermelho;
 	private int golsQuantidade;
