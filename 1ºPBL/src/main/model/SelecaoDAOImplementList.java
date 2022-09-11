@@ -4,12 +4,13 @@ import java.util.*;
 
 public class SelecaoDAOImplementList implements SelecaoDAO {
 
-	int contagem_ids = 0;
+	private int contagemIds = 0;
 	private Map<Integer, Selecao> selecoes = new HashMap<Integer, Selecao>();
 	
 	@Override
 	public void create(Selecao selecao) {
 		selecoes.put(selecao.getId(), selecao);
+		contagemIds++;
 	}
 
 	@Override
@@ -49,5 +50,10 @@ public class SelecaoDAOImplementList implements SelecaoDAO {
 	@Override
 	public void delete(int id) {
 		selecoes.remove(id);
+	}
+
+	@Override
+	public int getContagem() {
+		return contagemIds;
 	}
 }

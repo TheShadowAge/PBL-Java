@@ -2,6 +2,7 @@ package main.model;
 
 public class Jogador extends Pessoa{
 	private String posicao;
+	private String codJog;
 	private int cartaoAmarelo;
 	private int cartaoVermelho;
 	private int golsQuantidade;
@@ -45,5 +46,13 @@ public class Jogador extends Pessoa{
 	
 	public void setTitular(boolean titular) {
 		this.titular = titular;
+	}
+
+	public String getCodJog() {
+		return codJog;
+	}
+
+	public void setCodJog(String codJog) {
+		this.codJog = codJog;
 	}
 }

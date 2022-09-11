@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Selecao extends Entidade{
 	private List<String> jogadores;
-	private Tecnico tecnico;
+	private int tecnico = -1;
 	private String grupo;
 	private int posicaoGrupo;
 	
@@ -19,10 +19,10 @@ public class Selecao extends Entidade{
 	public void setGrupo(String grupo) {
 		this.grupo = grupo;
 	}
-	public Tecnico getTecnico() {
+	public int getTecnico() {
 		return tecnico;
 	}
-	public void setTecnico(Tecnico tecnico) {
+	public void setTecnico(int tecnico) {
 		this.tecnico = tecnico;
 	}
 	public List<String> getJogadores() {
