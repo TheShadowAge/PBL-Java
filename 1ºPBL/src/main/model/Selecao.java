@@ -25,10 +25,10 @@ public class Selecao {
 	public void setTecnico(Tecnico tecnico) {
 		this.tecnico = tecnico;
 	}
-	public List<Jogador> getJogadores() {
+	public List<String> getJogadores() {
 		return jogadores;
 	}
-	public void setJogadores(List<Jogador> jogadores) {
+	public void setJogadores(List<String> jogadores) {
 		this.jogadores = jogadores;
 	}
 	
