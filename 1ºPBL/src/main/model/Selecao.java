@@ -2,7 +2,7 @@ package main.model;
 import java.util.List;
 
 public class Selecao extends Entidade{
-	private List<String> jogadores;
+	private List<Integer> jogadores;
 	private int tecnico = -1;
 	private String grupo;
 	private int posicaoGrupo;
@@ -25,10 +25,10 @@ public class Selecao extends Entidade{
 	public void setTecnico(int tecnico) {
 		this.tecnico = tecnico;
 	}
-	public List<String> getJogadores() {
+	public List<Integer> getJogadores() {
 		return jogadores;
 	}
-	public void setJogadores(List<String> jogadores) {
+	public void setJogadores(List<Integer> jogadores) {
 		this.jogadores = jogadores;
 	}
 	

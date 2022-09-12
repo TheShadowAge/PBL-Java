@@ -1,7 +1,7 @@
 package main.model;
 
 public class PessoaSelecao extends Pessoa {
-	private int selecao;
+	private int selecao = -1;
 
 	public int getSelecao() {
 		return selecao;
