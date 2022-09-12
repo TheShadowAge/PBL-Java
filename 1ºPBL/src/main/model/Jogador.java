@@ -1,6 +1,6 @@
 package main.model;
 
-public class Jogador extends Pessoa{
+public class Jogador extends PessoaSelecao{
 	private String posicao;
 	private String codJog;
 	private int cartaoAmarelo;

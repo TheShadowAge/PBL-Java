@@ -1,6 +1,6 @@
 package main.model;
 
-public class Tecnico extends Pessoa{
+public class Tecnico extends PessoaSelecao{
 	private String timeAnterior;
 
 	public String getTimeAnterior() {
