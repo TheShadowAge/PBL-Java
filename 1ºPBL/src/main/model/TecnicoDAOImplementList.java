@@ -29,18 +29,22 @@ public class TecnicoDAOImplementList implements TecnicoDAO {
 
 	@Override
 	public void update(int id, int opcao, String atributo) {
-		switch(id) {
+		switch(opcao) {
 		case 1:
 			tecnicos.get(id).setNome(atributo);
 			break;
 		case 2:
-			tecnicos.get(id).setIdade(Integer.parseInt(atributo));
+			tecnicos.get(id).setSelecao(Integer.parseInt(atributo));
 			break;
 		case 3:
-			tecnicos.get(id).setNacionalidade(atributo);
+			tecnicos.get(id).setIdade(Integer.parseInt(atributo));
 			break;
 		case 4:
+			tecnicos.get(id).setNacionalidade(atributo);
+			break;
+		case 5:
 			tecnicos.get(id).setTimeAnterior(atributo);
+			break;
 		}
 
 	}
