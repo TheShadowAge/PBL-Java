@@ -29,7 +29,7 @@ public class SelecaoDAOImplementList implements SelecaoDAO {
 
 	@Override
 	public void update(int id, int opcao, String atributo) {
-		switch(id) {
+		switch(opcao) {
 		case 1:
 			selecoes.get(id).setNome(atributo);
 			break;
