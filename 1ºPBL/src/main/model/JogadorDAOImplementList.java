@@ -34,53 +34,20 @@ public class JogadorDAOImplementList implements JogadorDAO {
 
 	@Override
 	public void update(int id, int opcao, String atributo) {
-		switch(opcao) {
-		case 1:
-			jogadores.get(id).setNome(atributo);
-			break;
-		case 2:
-			jogadores.get(id).setSelecao(Integer.parseInt(atributo));
-			break;
-		case 3:
-			jogadores.get(id).setPosicao(atributo);
-			break;
-		case 4:
-			jogadores.get(id).setCartaoAmarelo(Integer.parseInt(atributo));
-			break;
-		case 5:
-			jogadores.get(id).setCartaoVermelho(Integer.parseInt(atributo));
-			break;
-		case 6:
-			jogadores.get(id).setIdade(Integer.parseInt(atributo));
-			break;
-		case 7:
-			jogadores.get(id).setNacionalidade(atributo);
-			break;
-		case 8:
-			jogadores.get(id).setTitular(Boolean.parseBoolean(atributo));
-			break;
-		case 9:
-			jogadores.get(id).setGolsQuantidade(Integer.parseInt(atributo));
-			break;
-		case 10:
-			jogadores.get(id).setIdade(Integer.parseInt(atributo));
-			break;
-		case 11:
-			jogadores.get(id).setCodJog(atributo);
-			break;
-		}	
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void delete(int id) {
-		jogadores.remove(id);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public int getContagem() {
-		return contagemIds;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
