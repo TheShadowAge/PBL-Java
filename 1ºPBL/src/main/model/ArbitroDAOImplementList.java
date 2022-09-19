@@ -7,13 +7,11 @@ import java.util.Map;
 
 public class ArbitroDAOImplementList implements ArbitroDAO {
 
-	private int contagemIds = 0;
 	private Map<Integer, Arbitro> arbitros = new HashMap<Integer, Arbitro>();
 	
 	@Override
 	public void create(Arbitro arbitro) {
 		arbitros.put(arbitro.getId(), arbitro);
-		contagemIds++;
 	}
 
 	@Override
@@ -51,10 +49,5 @@ public class ArbitroDAOImplementList implements ArbitroDAO {
 	@Override
 	public void delete(int id) {
 		arbitros.remove(id);
-	}
-	
-	@Override
-	public int getContagem() {
-		return contagemIds;
 	}
 }

@@ -9,8 +9,8 @@ public class SelecaoDAOImplementList implements SelecaoDAO {
 	
 	@Override
 	public void create(Selecao selecao) {
+		selecao.setCodSel(contagemIds++);
 		selecoes.put(selecao.getId(), selecao);
-		contagemIds++;
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class SelecaoDAOImplementList implements SelecaoDAO {
 
 	@Override
 	public List<Selecao> readAll() {
-		List<Selecao> listSelecao = new LinkedList<Selecao>();
+		List<Selecao> listSelecao = new ArrayList<Selecao>();
 		for (Selecao selecoesIterator: selecoes.values()) {
 			listSelecao.add(selecoesIterator);
 		}

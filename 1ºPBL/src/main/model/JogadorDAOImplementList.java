@@ -7,15 +7,12 @@ import java.util.Map;
 
 public class JogadorDAOImplementList implements JogadorDAO {
 
-	private int contagemIds = 0;
 	private Map<Integer, Jogador> jogadores = new HashMap<Integer, Jogador>();
 
 	
 	@Override
 	public void create(Jogador jogador) {
 		jogadores.put(jogador.getId(), jogador);
-		contagemIds++;
-
 	}
 
 	@Override
@@ -76,11 +73,6 @@ public class JogadorDAOImplementList implements JogadorDAO {
 	public void delete(int id) {
 		jogadores.remove(id);
 
-	}
-
-	@Override
-	public int getContagem() {
-		return contagemIds;
 	}
 
 }

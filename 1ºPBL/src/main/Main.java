@@ -1,11 +1,16 @@
 package main;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
+import main.model.*;
 
 public class Main {
   public static void main(String[] args) throws IOException, InterruptedException {
-	  
 	  int opcao,opcao1,opcao2,opcao3,opcao4;
+	  JogadorDAO jogadorDAO = DAO.getJogadores();
+	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
+	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
+	  ArbitroDAO arbitroDAO = DAO.getArbitros();
 	  Scanner entrada = new Scanner(System.in);
 	  do {
 		  System.out.println("   ┌─────────┐ ");
@@ -35,7 +40,30 @@ public class Main {
 				  System.out.println("5) Voltar");
 				  System.out.print("Opcao: ");
 				  opcao1 = entrada.nextInt();
-				  // falta implementar switch case para o DAO   
+				  switch(opcao1) {
+				  	case 1:
+				  		String nome, grupo;
+				  		int posicaoGrupo;
+				  		System.out.print("Digite o nome da Seleçao: ");
+				  		nome = entrada.nextLine();
+				  		System.out.print("Digite o grupo da Seleção: ");
+				  		grupo = entrada.nextLine();
+				  		System.out.print("Digite a posição no grupo da Seleção: ");
+				  		posicaoGrupo = entrada.nextInt();
+				  		Selecao selecao = new Selecao();
+				  		selecao.setNome(nome);
+				  		selecao.setGrupo(grupo);
+				  		selecao.setPosicaoGrupo(posicaoGrupo);
+				  		selecaoDAO.create(selecao);
+				  	case 5:
+				  		int cont = 1;
+				  		List<Selecao> listSelecoes = selecaoDAO.readAll();
+				  		System.out.println("Essas são as Seleções inscritas:");
+				  		for (Selecao selecaoIterator: listSelecoes) {
+				  			System.out.println(cont + "-" + selecaoIterator.getNome());
+				  		}
+				  	  			  		
+				  }
 			  }while (opcao1 != 5);
 			break;
 			

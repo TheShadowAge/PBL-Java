@@ -1,4 +1,5 @@
 package main.model;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Selecao extends Entidade{
@@ -6,6 +7,7 @@ public class Selecao extends Entidade{
 	private int tecnico = -1;
 	private String grupo;
 	private int posicaoGrupo;
+	private int codSel;
 	
 	public int getPosicaoGrupo() {
 		return posicaoGrupo;
@@ -25,11 +27,27 @@ public class Selecao extends Entidade{
 	public void setTecnico(int tecnico) {
 		this.tecnico = tecnico;
 	}
+	
 	public List<Integer> getJogadores() {
 		return jogadores;
 	}
+	
+	public List<Jogador> getJogadoresList() {
+		JogadorDAO jogDAO = DAO.getJogadores();
+		List<Jogador> listJogadores = new LinkedList<Jogador>();
+		for (Integer jogadorIterator: jogadores) {
+			listJogadores.add(jogDAO.read(jogadorIterator));
+		}
+		return listJogadores;
+	}
 	public void setJogadores(List<Integer> jogadores) {
 		this.jogadores = jogadores;
+	}
+	public int getCodSel() {
+		return codSel;
+	}
+	public void setCodSel(int codSel) {
+		this.codSel = codSel;
 	}
 	
 }

@@ -4,13 +4,11 @@ import java.util.*;
 
 public class TecnicoDAOImplementList implements TecnicoDAO {
 
-	int contagemIds = 0;
 	private Map<Integer, Tecnico> tecnicos = new HashMap<Integer, Tecnico>();
 	
 	@Override
 	public void create(Tecnico tecnico) {
 		tecnicos.put(tecnico.getId(), tecnico);
-		contagemIds++;
 	}
 
 	@Override
@@ -52,11 +50,6 @@ public class TecnicoDAOImplementList implements TecnicoDAO {
 	@Override
 	public void delete(int id) {
 		tecnicos.remove(id);
-	}
-	
-	@Override
-	public int getContagem() {
-		return contagemIds;
 	}
 
 }
