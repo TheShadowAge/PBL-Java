@@ -1,6 +1,8 @@
 package main.model;
 public class Entidade {
-	private int id;
+	private static int idContagem = 0;
+	
+	private int id = idContagem++;
 	private String nome;
 	
 	public String getNome() {
@@ -13,9 +15,5 @@ public class Entidade {
 	
 	public int getId() {
 		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
 	}
 }
