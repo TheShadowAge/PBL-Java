@@ -8,7 +8,7 @@ public class Main {
 	
   public static void mostrarSelecao(SelecaoDAO selecaoDAO) {
 	List<Selecao> listSelecoes = selecaoDAO.readAll();
-		System.out.println("Essas são as Seleções inscritas:");
+		System.out.println("Essas sao as Selecoes inscritas:");
 		for (Selecao selecaoIterator: listSelecoes) {
 			System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
 		}
@@ -16,15 +16,13 @@ public class Main {
 	
   public static void main(String[] args){
 	  
-	  List<String> posicoesJogadores = Arrays.asList("Goleiro","Lateral direito","Zagueiro central","Quarto zagueiro","Meia defensivo/Volante","Lateral esquerdo","Meia atacante/Ponta direita","Meia defensivo/Segundo volante","Centroavante/Atacante","Meia armador","Meia atacante/Ponta esquerda");
-	  List<String> posicoesGrupos = Arrays.asList("A","B","C","D","E","F","G","H");
-	  
 	  int opcao,opcao1,opcao2,opcao3,opcao4;
 	  JogadorDAO jogadorDAO = DAO.getJogadores();
 	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	  ArbitroDAO arbitroDAO = DAO.getArbitros();
 	  Scanner entrada = new Scanner(System.in);
+	  
 	  do {
 		  System.out.println("   +---------+ ");
 		  System.out.println("   | SysCopa | "); 
@@ -49,17 +47,23 @@ public class Main {
 				  System.out.println("1) Inserir");
 				  System.out.println("2) Editar");
 				  System.out.println("3) Excluir");
-				  System.out.println("4) Listar Seleções");
+				  System.out.println("4) Listar jelecoes");
 				  System.out.println("5) Voltar");
 				  System.out.print("Opcao: ");
 				  opcao1 = entrada.nextInt();
 				  switch(opcao1) {
 				  	case 1:
+				  		
 				  		String nome, grupo;
 				  		int posicaoGrupo;
-				  		System.out.print("Digite o nome da Selecao: ");
+				  		List<String> posicoesGrupos = Arrays.asList("A","B","C","D","E","F","G","H");
+				  		
+				  		System.out.println("   +---------+ ");
+						System.out.println("   | Inserir | "); 
+						System.out.println("   +---------+ ");
+				  		System.out.print("Digite o nome da selecao: ");
 				  		nome = entrada.next();
-				  		System.out.print("Digite o grupo da Selecao: ");
+				  		System.out.print("Digite o grupo da selecao: ");
 				  		grupo = entrada.next();
 				  		System.out.println("Essas são as posicoes dos grupos:");
 				  		for(int i=0;i<posicoesGrupos.size(); i++) {
@@ -89,15 +93,18 @@ public class Main {
 				  System.out.println("1) Inserir");
 				  System.out.println("2) Editar");
 				  System.out.println("3) Excluir");
-				  System.out.println("4) Listar Jogadores");
+				  System.out.println("4) Listar jogadores");
 				  System.out.println("5) Voltar");
 				  System.out.print("Opcao: ");
 				  opcao2 = entrada.nextInt();
 				  switch(opcao2) {
 				  	case 1:
-				  		String nome,posicaoJogador, nacionalidade ,titular;
-				  		int selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
+				  		String nome, nacionalidade ,titular;
+				  		int numPosicaoJogador, selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
 				  		boolean rtitular;
+				  		List<String> posicoesJogadores = Arrays.asList("Goleiro","Lateral direito","Zagueiro central","Quarto zagueiro","Meia defensivo/Volante","Lateral esquerdo","Meia atacante/Ponta direita","Meia defensivo/Segundo volante","Centroavante/Atacante","Meia armador","Meia atacante/Ponta esquerda");
+				  	  
+				  		
 				  		System.out.println("   +---------+ ");
 						System.out.println("   | Inserir | "); 
 						System.out.println("   +---------+ ");
@@ -110,8 +117,8 @@ public class Main {
 				  		for(int i=0;i<posicoesJogadores.size(); i++) {
 				  			System.out.println((i+1) + " - " + posicoesJogadores.get(i));
 				  		}
-				  		System.out.println("Digite a posicao  do jogador: ");
-				  		posicaoJogador = entrada.next();
+				  		System.out.println("Digite o numero da posicao  do jogador: ");
+				  		numPosicaoJogador = entrada.nextInt();
 				  		System.out.print("Digite a quantidade de cartoes Amarelos do jogador: ");
 				  		cartaoAmarelo = entrada.nextInt();
 				  		System.out.print("Digite a quantidade de cartoes Vermelhos do jogador: ");
@@ -131,7 +138,7 @@ public class Main {
 				  		Jogador jogador = new Jogador();
 				  		jogador.setNome(nome);
 				  		jogador.setSelecao(selecao);
-				  		jogador.setPosicao(posicaoJogador);
+				  		jogador.setPosicao(posicoesJogadores.get(numPosicaoJogador));
 				  		jogador.setCartaoAmarelo(cartaoAmarelo);
 				  		jogador.setCartaoVermelho(cartaoVermelho);
 				  		jogador.setIdade(idade);
@@ -158,19 +165,44 @@ public class Main {
 				  System.out.println("5) Voltar");
 				  System.out.print("Opcao: ");
 				  opcao3 = entrada.nextInt();
+				  switch(opcao3) {
+				  	case 1:
+				  		String nome, nacionalidade;
+				  		int idade, numTipo;
+				  		List<String> tipoArbitro = Arrays.asList("arbitro de vídeo","arbitro","arbitro auxiliar");
+				  		
+				  		
+				  		System.out.println("   +---------+ ");
+						System.out.println("   | Inserir | "); 
+						System.out.println("   +---------+ ");
+				  		System.out.print("Digite o nome do arbitro: ");
+				  		nome = entrada.next();
+				  		System.out.print("Digite a idade do arbitro: ");
+				  		idade = entrada.nextInt();
+				  		System.out.print("Digite a nacionalidade do arbitro: ");
+				  		nacionalidade = entrada.next();
+				  		System.out.println("Essas são os tipos de arbitros:");
+				  		for(int i=0;i<tipoArbitro.size(); i++) {
+				  			System.out.println((i+1) + " - " + tipoArbitro.get(i));
+				  		}
+				  		System.out.print("Digite o numero do tipo de arbitro: ");
+				  		numTipo = entrada.nextInt();
+				  		Arbitro arbitro = new Arbitro();
+				  		arbitro.setNome(nome);
+				  		arbitro.setIdade(idade);
+				  		arbitro.setNacionalidade(nacionalidade);
+				  		arbitro.setTipo(tipoArbitro.get(numTipo));
+				  		arbitroDAO.create(arbitro);
+				  		break;
+				  }
 			  } while (opcao3 != 5);
-			  switch(opcao3) {
-			  	case 1:
-			  		
-			  
-			  }
 			break;
 			
 		  case 4:
 			  do {
-				  System.out.println("   +----------+ ");
-				  System.out.println("   | Técnicos | "); 
-				  System.out.println("   +----------+ ");
+				  System.out.println("   +---------+ ");
+				  System.out.println("   | Tecnico | "); 
+				  System.out.println("   +---------+ ");
 				  System.out.println("Escolha uma opcao:");
 				  System.out.println("1) Inserir");
 				  System.out.println("2) Editar");
@@ -179,9 +211,38 @@ public class Main {
 				  System.out.println("5) Voltar");
 				  System.out.print("Opcao: ");
 				  opcao4 = entrada.nextInt();
+				  switch(opcao4) {
+				  	case 1:
+				  		String nome, nacionalidade, timeAnterior;
+				  		int idade, selecao;
+				  		
+				  		System.out.println("   +---------+ ");
+						System.out.println("   | Inserir | "); 
+						System.out.println("   +---------+ ");
+				  		System.out.print("Digite o nome do tecnico: ");
+				  		nome = entrada.next();
+				  		mostrarSelecao(selecaoDAO);
+				  		System.out.print("Digite o numero da selecao do tecnico: ");
+				  		selecao = entrada.nextInt();
+				  		System.out.print("Digite a idade do Tecnico: ");
+				  		idade = entrada.nextInt();
+				  		System.out.print("Digite a nacionalidade do tecnico: ");
+				  		nacionalidade = entrada.next();
+				  		System.out.print("Digite o time anterior do tecnico: ");
+				  		timeAnterior = entrada.next();
+				  		Tecnico tecnico = new Tecnico();
+				  		tecnico.setNome(nome);
+				  		tecnico.setSelecao(selecao);
+				  		tecnico.setIdade(idade);
+				  		tecnico.setNacionalidade(nacionalidade);
+				  		tecnico.setTimeAnterior(timeAnterior);
+				  		tecnicoDAO.create(tecnico);
+				  		break;
+				  		
+				  }
 			  } while (opcao4 != 5);
-		  
 			break;
+			
 		  case 5:
 			System.out.println(" ");
 			System.out.println("Fim do programa!!!");
