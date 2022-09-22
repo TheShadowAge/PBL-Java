@@ -1,8 +1,8 @@
 package main.model;
 
 public class Pessoa extends Entidade{
-	private int idade;
-	private String nacionalidade;
+	protected int idade;
+	protected String nacionalidade;
 	
 	public int getIdade() {
 		return idade;

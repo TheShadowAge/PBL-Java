@@ -9,6 +9,12 @@ public class Selecao extends Entidade{
 	private int posicaoGrupo;
 	private int codSel;
 	
+	public Selecao(String nome, String grupo, int posicaoGrupo) {
+		this.nome = nome;
+		this.grupo = grupo;
+		this.posicaoGrupo = posicaoGrupo;
+	}
+	
 	public int getPosicaoGrupo() {
 		return posicaoGrupo;
 	}

@@ -3,7 +3,7 @@ public class Entidade {
 	private static int idContagem = 1;
 	
 	private int id = idContagem++;
-	private String nome;
+	protected String nome;
 	
 	public String getNome() {
 		return nome;

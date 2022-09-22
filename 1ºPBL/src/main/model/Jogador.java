@@ -8,6 +8,18 @@ public class Jogador extends PessoaSelecao{
 	private int golsQuantidade;
 	private boolean titular;
 	
+	public Jogador(String nome, int selecao, String nacionalidade, int idade, String posicao, int cartaoAmarelo, int cartaoVermelho, int golsQuantidade, boolean titular){
+		this.nome = nome;
+		this.selecao = selecao;
+		this.nacionalidade = nacionalidade;
+		this.idade = idade;
+		this.posicao = posicao;
+		this.cartaoAmarelo = cartaoAmarelo;
+		this.cartaoVermelho = cartaoVermelho;
+		this.titular = titular;
+		this.golsQuantidade = golsQuantidade;
+	}
+	
 	public String getPosicao() {
 		return posicao;
 	}

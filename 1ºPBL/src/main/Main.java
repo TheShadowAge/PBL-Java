@@ -71,10 +71,7 @@ public class Main {
 				  		}
 				  		System.out.print("Digite a posicao no grupo da Selecao: ");
 				  		posicaoGrupo = entrada.nextInt();
-				  		Selecao selecao = new Selecao();
-				  		selecao.setNome(nome);
-				  		selecao.setGrupo(grupo);
-				  		selecao.setPosicaoGrupo(posicaoGrupo);
+				  		Selecao selecao = new Selecao(nome, grupo, posicaoGrupo);
 				  		selecaoDAO.create(selecao);
 				  		break;
 				  	case 4:
@@ -135,16 +132,7 @@ public class Main {
 				  				rtitular = false;
 				  		System.out.print("Digite a quantidade de gols do jogador: ");
 				  		gols = entrada.nextInt();
-				  		Jogador jogador = new Jogador();
-				  		jogador.setNome(nome);
-				  		jogador.setSelecao(selecao);
-				  		jogador.setPosicao(posicoesJogadores.get(numPosicaoJogador));
-				  		jogador.setCartaoAmarelo(cartaoAmarelo);
-				  		jogador.setCartaoVermelho(cartaoVermelho);
-				  		jogador.setIdade(idade);
-				  		jogador.setNacionalidade(nacionalidade);
-				  		jogador.setTitular(rtitular);
-				  		jogador.setGolsQuantidade(gols);
+				  		Jogador jogador = new Jogador(nome, selecao, nacionalidade, idade, posicoesJogadores.get(numPosicaoJogador), cartaoAmarelo, cartaoVermelho, gols, rtitular);
 				  		jogadorDAO.create(jogador);
 				  		break;
 				  		
@@ -187,11 +175,7 @@ public class Main {
 				  		}
 				  		System.out.print("Digite o numero do tipo de arbitro: ");
 				  		numTipo = entrada.nextInt();
-				  		Arbitro arbitro = new Arbitro();
-				  		arbitro.setNome(nome);
-				  		arbitro.setIdade(idade);
-				  		arbitro.setNacionalidade(nacionalidade);
-				  		arbitro.setTipo(tipoArbitro.get(numTipo));
+				  		Arbitro arbitro = new Arbitro(nome, nacionalidade, tipoArbitro.get(numTipo), idade);
 				  		arbitroDAO.create(arbitro);
 				  		break;
 				  }
@@ -230,12 +214,7 @@ public class Main {
 				  		nacionalidade = entrada.next();
 				  		System.out.print("Digite o time anterior do tecnico: ");
 				  		timeAnterior = entrada.next();
-				  		Tecnico tecnico = new Tecnico();
-				  		tecnico.setNome(nome);
-				  		tecnico.setSelecao(selecao);
-				  		tecnico.setIdade(idade);
-				  		tecnico.setNacionalidade(nacionalidade);
-				  		tecnico.setTimeAnterior(timeAnterior);
+				  		Tecnico tecnico = new Tecnico(nacionalidade, selecao, timeAnterior, nome, idade);
 				  		tecnicoDAO.create(tecnico);
 				  		break;
 				  		
