@@ -1,6 +1,6 @@
 package main.model;
 public class Entidade {
-	private static int idContagem = 0;
+	private static int idContagem = 1;
 	
 	private int id = idContagem++;
 	private String nome;

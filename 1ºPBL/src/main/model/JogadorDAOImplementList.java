@@ -60,9 +60,6 @@ public class JogadorDAOImplementList implements JogadorDAO {
 			jogadores.get(id).setGolsQuantidade(Integer.parseInt(atributo));
 			break;
 		case 10:
-			jogadores.get(id).setIdade(Integer.parseInt(atributo));
-			break;
-		case 11:
 			jogadores.get(id).setCodJog(atributo);
 			break;
 		}	
