@@ -47,7 +47,7 @@ public class Main {
 				  System.out.println("1) Inserir");
 				  System.out.println("2) Editar");
 				  System.out.println("3) Excluir");
-				  System.out.println("4) Listar jelecoes");
+				  System.out.println("4) Listar selecoes");
 				  System.out.println("5) Voltar");
 				  System.out.print("Opcao: ");
 				  opcao1 = entrada.nextInt();

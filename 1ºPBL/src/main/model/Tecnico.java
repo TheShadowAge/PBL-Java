@@ -19,6 +19,6 @@ public class Tecnico extends PessoaSelecao{
 	}
 	
 	public String toString() {
-		return "Nome: " + nome + "\nSelecao: " + selecao + "\nNacionalidade: " + nacionalidade + "\nIdade: " + idade + "\nTime Anterior: " + timeAnterior;
+		return "ID do tecnico: "+ id + "\nNome do tecnico: " + nome + "\nSelecao do tecnico: " + selecao + "\nNacionalidade do tecnico: " + nacionalidade + "\nIdade do tecnico: " + idade + "\nTime Anterior do tecnico: " + timeAnterior;
 	}
 }

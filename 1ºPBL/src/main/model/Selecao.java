@@ -16,7 +16,7 @@ public class Selecao extends Entidade{
 	}
 	
 	public String toString() {
-		return "Nome: " + nome + "\nGrupo: " + grupo + "\nPosicao no Grupo: " + posicaoGrupo + "\nQuantidade de jogadores: " + jogadores.size();
+		return "ID da selecao: "+ id + "\nCodigo da selecao: " + codSel + "\nNome da selecao: " + nome + "\nGrupo da selecao: " + grupo + "\nPosicao no Grupo da selecao: " + posicaoGrupo + "\nQuantidade de jogadores da selecao: " + jogadores.size();
 	}
 	
 	public int getPosicaoGrupo() {
@@ -60,4 +60,9 @@ public class Selecao extends Entidade{
 		this.codSel = codSel;
 	}
 	
+	public boolean isFull() {
+		if (jogadores.size() > 26)
+			return true;
+		return false;
+	}
 }

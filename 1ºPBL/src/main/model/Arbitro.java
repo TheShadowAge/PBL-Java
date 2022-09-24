@@ -19,7 +19,7 @@ public class Arbitro extends Pessoa{
 	}
 	
 	public String toString() {
-		return "Nome: " + nome + "\nNacionalidade: " + nacionalidade + "\nTipo: " + tipo + "\nIdade: " + idade;
+		return "ID do arbitro: "+ id + "\nNome do arbitro: " + nome + "\nNacionalidade do arbitro: " + nacionalidade + "\nTipo do arbitro: " + tipo + "\nIdade do arbitro: " + idade;
 	}
 	
 }
