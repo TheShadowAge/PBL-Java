@@ -4,28 +4,31 @@ import main.model.*;
 
 public class Main {
 	
-  public static void mostrarSelecao(SelecaoDAO selecaoDAO) {
-	List<Selecao> listSelecoes = selecaoDAO.readAll();
+  public static void mostrarSelecao() {
+		SelecaoDAO selecaoDAO = DAO.getSelecoes();
+		List<Selecao> listSelecoes = selecaoDAO.readAll();
 		System.out.println("Essas sao as Selecoes inscritas:");
 		for (Selecao selecaoIterator: listSelecoes) {
 			System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
 		}
   }
   
-  public static void mostrarSelecao(SelecaoDAO selecaoDAO, boolean fullOrNot) {
+  public static void mostrarSelecao( boolean fullOrNot) {
+	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 		List<Selecao> listSelecoes = selecaoDAO.readAll();
-			System.out.println("Essas sao as Selecoes inscritas:");
-			for (Selecao selecaoIterator: listSelecoes) {
-				if (fullOrNot && selecaoIterator.isFull()) {
-					System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
-				}
-				else if (!(fullOrNot) && !selecaoIterator.isFull()) {
-					System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
-				}
+		System.out.println("Essas sao as Selecoes inscritas:");
+		for (Selecao selecaoIterator: listSelecoes) {
+			if (fullOrNot && selecaoIterator.isFull()) {
+				System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
 			}
+			else if (!(fullOrNot) && !selecaoIterator.isFull()) {
+				System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
+			}
+		}
 	  }
   
-  public static boolean isSelecoesFull(SelecaoDAO selecaoDAO) {
+  public static boolean isSelecoesFull() {
+	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	  Set<Boolean> selecoesFull = new HashSet<Boolean>();
 	  List<Selecao> listSelecoes = selecaoDAO.readAll();
 	  for (Selecao selecaoIterator: listSelecoes) {
@@ -116,7 +119,7 @@ public class Main {
 				  opcao2 = entrada.nextInt();
 				  switch(opcao2) {
 				  	case 1:
-				  		if (!(isSelecoesFull(selecaoDAO))) {
+				  		if (!(isSelecoesFull())) {
 					  		String nome, nacionalidade ,titular;
 					  		int numPosicaoJogador, selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
 					  		boolean rtitular;
@@ -128,7 +131,7 @@ public class Main {
 							System.out.println("   +---------+ ");
 					  		System.out.print("Digite o nome do jogador: ");
 					  		nome = entrada.next();
-					  		mostrarSelecao(selecaoDAO, false);
+					  		mostrarSelecao(false);
 					  		System.out.print("Digite o numero da selecao do Jogador: ");
 					  		selecao = entrada.nextInt();
 					  		System.out.println("Essas são as posicoes dos jogadores:");
