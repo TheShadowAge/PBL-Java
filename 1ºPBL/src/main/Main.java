@@ -1,7 +1,5 @@
 package main;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import main.model.*;
 
 public class Main {
@@ -12,6 +10,28 @@ public class Main {
 		for (Selecao selecaoIterator: listSelecoes) {
 			System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
 		}
+  }
+  
+  public static void mostrarSelecao(SelecaoDAO selecaoDAO, boolean fullOrNot) {
+		List<Selecao> listSelecoes = selecaoDAO.readAll();
+			System.out.println("Essas sao as Selecoes inscritas:");
+			for (Selecao selecaoIterator: listSelecoes) {
+				if (fullOrNot && selecaoIterator.isFull()) {
+					System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
+				}
+				else if (!(fullOrNot) && !selecaoIterator.isFull()) {
+					System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
+				}
+			}
+	  }
+  
+  public static boolean isSelecoesFull(SelecaoDAO selecaoDAO) {
+	  Set<Boolean> selecoesFull = new HashSet<Boolean>();
+	  List<Selecao> listSelecoes = selecaoDAO.readAll();
+	  for (Selecao selecaoIterator: listSelecoes) {
+			selecoesFull.add(selecaoIterator.isFull());
+		}
+	  return selecoesFull.contains(false);
   }
 	
   public static void main(String[] args){
@@ -96,45 +116,49 @@ public class Main {
 				  opcao2 = entrada.nextInt();
 				  switch(opcao2) {
 				  	case 1:
-				  		String nome, nacionalidade ,titular;
-				  		int numPosicaoJogador, selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
-				  		boolean rtitular;
-				  		List<String> posicoesJogadores = Arrays.asList("Goleiro","Lateral direito","Zagueiro central","Quarto zagueiro","Meia defensivo/Volante","Lateral esquerdo","Meia atacante/Ponta direita","Meia defensivo/Segundo volante","Centroavante/Atacante","Meia armador","Meia atacante/Ponta esquerda");
-				  	  
-				  		
-				  		System.out.println("   +---------+ ");
-						System.out.println("   | Inserir | "); 
-						System.out.println("   +---------+ ");
-				  		System.out.print("Digite o nome do jogador: ");
-				  		nome = entrada.next();
-				  		mostrarSelecao(selecaoDAO);
-				  		System.out.print("Digite o numero da selecao do Jogador: ");
-				  		selecao = entrada.nextInt();
-				  		System.out.println("Essas são as posicoes dos jogadores:");
-				  		for(int i=0;i<posicoesJogadores.size(); i++) {
-				  			System.out.println((i+1) + " - " + posicoesJogadores.get(i));
+				  		if (!(isSelecoesFull(selecaoDAO))) {
+					  		String nome, nacionalidade ,titular;
+					  		int numPosicaoJogador, selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
+					  		boolean rtitular;
+					  		List<String> posicoesJogadores = Arrays.asList("Goleiro","Lateral direito","Zagueiro central","Quarto zagueiro","Meia defensivo/Volante","Lateral esquerdo","Meia atacante/Ponta direita","Meia defensivo/Segundo volante","Centroavante/Atacante","Meia armador","Meia atacante/Ponta esquerda");
+					  	  
+					  		
+					  		System.out.println("   +---------+ ");
+							System.out.println("   | Inserir | "); 
+							System.out.println("   +---------+ ");
+					  		System.out.print("Digite o nome do jogador: ");
+					  		nome = entrada.next();
+					  		mostrarSelecao(selecaoDAO, false);
+					  		System.out.print("Digite o numero da selecao do Jogador: ");
+					  		selecao = entrada.nextInt();
+					  		System.out.println("Essas são as posicoes dos jogadores:");
+					  		for(int i=0;i<posicoesJogadores.size(); i++) {
+					  			System.out.println((i+1) + " - " + posicoesJogadores.get(i));
+					  		}
+					  		System.out.println("Digite o numero da posicao  do jogador: ");
+					  		numPosicaoJogador = entrada.nextInt();
+					  		System.out.print("Digite a quantidade de cartoes Amarelos do jogador: ");
+					  		cartaoAmarelo = entrada.nextInt();
+					  		System.out.print("Digite a quantidade de cartoes Vermelhos do jogador: ");
+					  		cartaoVermelho = entrada.nextInt();
+					  		System.out.println("Digite a idade do jogador: ");
+					  		idade = entrada.nextInt();
+					  		System.out.println("Digite a nacionalidade do jogador: ");
+					  		nacionalidade = entrada.next();
+					  		System.out.println("Digite se o jogador é titular ou reserva: ");
+					  		titular = entrada.next();
+					  			if(titular.equals("titular"))
+					  				rtitular = true;
+					  			else
+					  				rtitular = false;
+					  		System.out.print("Digite a quantidade de gols do jogador: ");
+					  		gols = entrada.nextInt();
+					  		Jogador jogador = new Jogador(nome, selecao, nacionalidade, idade, posicoesJogadores.get(numPosicaoJogador), cartaoAmarelo, cartaoVermelho, gols, rtitular);
+					  		jogadorDAO.create(jogador);
+					  		break;
+				  		} else {
+				  			System.out.println("Não há espaço nas seleções para um novo jogador.\nFavor criar uma nova selecao ou remover um jogador.");
 				  		}
-				  		System.out.println("Digite o numero da posicao  do jogador: ");
-				  		numPosicaoJogador = entrada.nextInt();
-				  		System.out.print("Digite a quantidade de cartoes Amarelos do jogador: ");
-				  		cartaoAmarelo = entrada.nextInt();
-				  		System.out.print("Digite a quantidade de cartoes Vermelhos do jogador: ");
-				  		cartaoVermelho = entrada.nextInt();
-				  		System.out.println("Digite a idade do jogador: ");
-				  		idade = entrada.nextInt();
-				  		System.out.println("Digite a nacionalidade do jogador: ");
-				  		nacionalidade = entrada.next();
-				  		System.out.println("Digite se o jogador é titular ou reserva: ");
-				  		titular = entrada.next();
-				  			if(titular.equals("titular"))
-				  				rtitular = true;
-				  			else
-				  				rtitular = false;
-				  		System.out.print("Digite a quantidade de gols do jogador: ");
-				  		gols = entrada.nextInt();
-				  		Jogador jogador = new Jogador(nome, selecao, nacionalidade, idade, posicoesJogadores.get(numPosicaoJogador), cartaoAmarelo, cartaoVermelho, gols, rtitular);
-				  		jogadorDAO.create(jogador);
-				  		break;
 				  		
 				  }
 			  } while (opcao2 != 5);
