@@ -17,5 +17,9 @@ public class Arbitro extends Pessoa{
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
+	
+	public String toString() {
+		return "Nome: " + nome + "\nNacionalidade: " + nacionalidade + "\nTipo: " + tipo + "\nIdade: " + idade;
+	}
+	
 }

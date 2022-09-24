@@ -17,4 +17,8 @@ public class Tecnico extends PessoaSelecao{
 	public void setTimeAnterior(String timeAnterior) {
 		this.timeAnterior = timeAnterior;
 	}
+	
+	public String toString() {
+		return "Nome: " + nome + "\nSelecao: " + selecao + "\nNacionalidade: " + nacionalidade + "\nIdade: " + idade + "\nTime Anterior: " + timeAnterior;
+	}
 }

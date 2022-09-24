@@ -15,6 +15,10 @@ public class Selecao extends Entidade{
 		this.posicaoGrupo = posicaoGrupo;
 	}
 	
+	public String toString() {
+		return "Nome: " + nome + "\nGrupo: " + grupo + "\nPosicao no Grupo: " + posicaoGrupo + "\nQuantidade de jogadores: " + jogadores.size();
+	}
+	
 	public int getPosicaoGrupo() {
 		return posicaoGrupo;
 	}

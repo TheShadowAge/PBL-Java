@@ -3,8 +3,9 @@ package main.model;
 public class PessoaSelecao extends Pessoa {
 	protected int selecao = -1;
 
-	public int getSelecao() {
-		return selecao;
+	public Selecao getSelecao() {
+		SelecaoDAO selecaoDAO = DAO.getSelecoes();
+		return selecaoDAO.read(selecao);
 	}
 
 	public void setSelecao(int selecao) {

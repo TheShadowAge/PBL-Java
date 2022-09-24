@@ -20,6 +20,14 @@ public class Jogador extends PessoaSelecao{
 		this.golsQuantidade = golsQuantidade;
 	}
 	
+	public String toString() {
+		String titularSimNao = "Nao";
+		if (titular) {
+			titularSimNao = "Sim";
+		}
+		return "Nome: " + nome + "\nSelecao: " + selecao + "\nNacionalidade: " + nacionalidade + "\nIdade: " + idade + "\nPosicao: " + posicao + "\nCartoes Amarelos: " + cartaoAmarelo + "\nCartoes Vermelhos: " + cartaoVermelho + "\nTitular: " + titularSimNao + "\nQuantidade de Gols: " + golsQuantidade;
+	}
+	
 	public String getPosicao() {
 		return posicao;
 	}
