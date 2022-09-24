@@ -4,25 +4,30 @@ import main.model.*;
 
 public class Main {
 	
-  public static void mostrarSelecao() {
-		SelecaoDAO selecaoDAO = DAO.getSelecoes();
-		List<Selecao> listSelecoes = selecaoDAO.readAll();
-		System.out.println("Essas sao as Selecoes inscritas:");
-		for (Selecao selecaoIterator: listSelecoes) {
-			System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
-		}
-  }
+	public static void mostrarGrupos() {
+		System.out.println("Esses sao os grupos:");
+		List<String> grupos = Arrays.asList("A","B","C","D","E","F","G","H");
+		for(int i=0;i<grupos.size(); i++) {
+  			System.out.println("Grupo " + grupos.get(i));
+  		}
+	}
+	
+	public static void mostrarLista(List<String> lista) {
+		for(int i=0;i<lista.size(); i++) {
+  			System.out.println((i+1) + " - " + lista.get(i));
+  		}
+	}
   
   public static void mostrarSelecao(boolean fullOrNot) {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
-		List<Selecao> listSelecoes = selecaoDAO.readAll();
-		System.out.println("Essas sao as Selecoes inscritas:");
-		for (Selecao selecaoIterator: listSelecoes) {
-			if (fullOrNot && selecaoIterator.isFull()) {
-				System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
+	  List<Selecao> listSelecoes = selecaoDAO.readAll();
+	  System.out.println("Essas sao as Selecoes inscritas:");
+	  for (Selecao selecaoIterator: listSelecoes) {
+		  if (fullOrNot && selecaoIterator.isFull()) {
+			  System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
 			}
-			else if (!(fullOrNot) && !selecaoIterator.isFull()) {
-				System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
+		  else if (!(fullOrNot) && !selecaoIterator.isFull()) {
+			  System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
 			}
 		}
 	  }
@@ -63,6 +68,7 @@ public class Main {
 		  switch (opcao) {
 		  case 1:
 			  do {
+				  
 				  System.out.println("   +----------+ ");
 				  System.out.println("   | Selecoes | "); 
 				  System.out.println("   +----------+ ");
@@ -76,20 +82,15 @@ public class Main {
 				  opcao1 = entrada.nextInt();
 				  switch(opcao1) {
 				  	case 1:
-				  		
 				  		String nome, grupo;
 				  		int posicaoGrupo;
-				  		List<String> posicoesGrupos = Arrays.asList("A","B","C","D","E","F","G","H");
 				  		
 				  		System.out.println("   +---------+ ");
 						System.out.println("   | Inserir | "); 
 						System.out.println("   +---------+ ");
 				  		System.out.print("Digite o nome da selecao: ");
 				  		nome = entrada.next();
-				  		System.out.println("Esses são os grupos:");
-				  		for(int i=0;i<posicoesGrupos.size(); i++) {
-				  			System.out.println("Grupo" + posicoesGrupos.get(i));
-				  		}
+				  		mostrarGrupos();
 				  		System.out.print("Digite o grupo da selecao: ");
 				  		grupo = entrada.next();
 				  		System.out.print("Digite a posicao no grupo da Selecao [1 a 4]: ");
@@ -99,15 +100,12 @@ public class Main {
 				  		break;
 				  		
 				  	case 2:
+				  		String atributo;
 				  		int idSelecao, selecaoEditar;
 						  
 						if(!selecaoDAO.readAll().isEmpty()) {
-							List<Selecao> listSelecao = selecaoDAO.readAll();
-							System.out.println("Essas sao as selecoes cadastradas:");
-							for (Selecao selecaoIterator: listSelecao) {
-								System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
-							}
-							System.out.println("Digite a selecao que vc deseja editar:");
+							mostrarSelecao(false);
+							System.out.println("Digite o id da selecao que vc deseja editar:");
 							idSelecao = entrada.nextInt();
 							selecao = selecaoDAO.read(idSelecao);
 							if(selecao == null) {
@@ -120,19 +118,50 @@ public class Main {
 									System.out.println("   +--------+ ");
 									System.out.println("1) Nome:" + selecao.getNome());
 									System.out.println("2) Grupo:" + selecao.getGrupo());
-									System.out.println("3) Posicao do grupo:" + selecao.getPosicaoGrupo());
+									System.out.println("3) Posicao da selecao:" + selecao.getPosicaoGrupo());
 									System.out.println("4) Voltar");
+									System.out.print("Qual atributo deseja editar: ");
 									selecaoEditar = entrada.nextInt();
+									switch(selecaoEditar) {
+									case 1:
+										System.out.print("Digite o novo nome:");
+										atributo = entrada.next();
+										selecaoDAO.update(idSelecao, selecaoEditar, atributo);
+										System.out.println("Nome alterado com sucesso");
+										break;
+										
+									case 2:
+										mostrarGrupos();
+										System.out.print("Digite o novo grupo:");
+										atributo = entrada.next();
+										selecaoDAO.update(idSelecao, selecaoEditar, atributo);
+										System.out.println("Selecao alterada com sucesso");
+										break;	
+										
+									case 3:
+										System.out.print("Digite a nova posicao da selecao no grupo:");
+										atributo = entrada.next();
+										selecaoDAO.update(idSelecao, selecaoEditar, atributo);
+										System.out.println("Posicao da selecao alterada com sucesso");
+										break;
+										
+									case 4:
+										break;
+										
+									default:
+										System.out.print("Atributo não encontrado");
+										
+									}
 								} while (selecaoEditar != 4);
-							}
-						} 
+							}	
+						}
 						else {
 							System.out.println("Não ha Selecaos cadastrados!");
 						}
 				  		break;
 				  		
 				  	case 4:
-				  		mostrarSelecao();
+				  		mostrarSelecao(false);
 				  	  	break;  		
 				  }
 			  }while (opcao1 != 5);
@@ -140,6 +169,8 @@ public class Main {
 			
 		  case 2:
 			  do {
+				  List<String> posicoesJogadores = Arrays.asList("Goleiro","Lateral direito","Zagueiro central","Quarto zagueiro","Meia defensivo/Volante","Lateral esquerdo","Meia atacante/Ponta direita","Meia defensivo/Segundo volante","Centroavante/Atacante","Meia armador","Meia atacante/Ponta esquerda");
+				  
 				  System.out.println("   +-----------+ ");
 				  System.out.println("   | Jogadores | "); 
 				  System.out.println("   +-----------+ ");
@@ -156,9 +187,8 @@ public class Main {
 				  		if (!(isSelecoesFull())) {
 					  		String nome, nacionalidade ,titular;
 					  		int numPosicaoJogador, selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
-					  		boolean rtitular;
-					  		List<String> posicoesJogadores = Arrays.asList("Goleiro","Lateral direito","Zagueiro central","Quarto zagueiro","Meia defensivo/Volante","Lateral esquerdo","Meia atacante/Ponta direita","Meia defensivo/Segundo volante","Centroavante/Atacante","Meia armador","Meia atacante/Ponta esquerda");
-					  	  
+					  		boolean rtitular = false;
+					  
 					  		System.out.println("   +---------+ ");
 							System.out.println("   | Inserir | "); 
 							System.out.println("   +---------+ ");
@@ -167,10 +197,8 @@ public class Main {
 					  		mostrarSelecao(false);
 					  		System.out.print("Digite o numero da selecao do Jogador: ");
 					  		selecao = entrada.nextInt();
-					  		System.out.println("Essas são as posicoes dos jogadores:");
-					  		for(int i=0;i<posicoesJogadores.size(); i++) {
-					  			System.out.println((i+1) + " - " + posicoesJogadores.get(i));
-					  		}
+					  		System.out.println("Essas sao as posicoes dos jogadores:");
+					  		mostrarLista(posicoesJogadores);
 					  		System.out.println("Digite o numero da posicao  do jogador: ");
 					  		numPosicaoJogador = entrada.nextInt();
 					  		System.out.print("Digite a quantidade de cartoes Amarelos do jogador: ");
@@ -181,18 +209,16 @@ public class Main {
 					  		idade = entrada.nextInt();
 					  		System.out.println("Digite a nacionalidade do jogador: ");
 					  		nacionalidade = entrada.next();
-					  		System.out.println("Digite se o jogador e titular ou reserva: ");
+					  		System.out.println("O jogador e titular? [Sim/Nao]:");
 					  		titular = entrada.next();
-					  		rtitular = false;
-					  		while(rtitular) {
-					  			switch(titular) {
-					  				case "titular":
-					  					rtitular = true;
-					  					break;
-					  				case "reserva":
-					  					rtitular = false;
-					  					break;
-					  			}
+					  		if (titular.equals("Sim")) {
+					  			rtitular = true;
+					  		}
+					  		else if (titular.equals("Nao")) {
+					  			rtitular = false;
+					  		}
+					  		else {
+					  			System.out.print("entrada invalida");
 					  		}
 					  		System.out.print("Digite a quantidade de gols do jogador: ");
 					  		gols = entrada.nextInt();
@@ -204,6 +230,7 @@ public class Main {
 				  		break;
 				  	
 				  	case 2:
+				  		String atributo;
 				  		int idJogador, jogadorEditar;
 						  
 						if(!jogadorDAO.readAll().isEmpty()) {
@@ -212,7 +239,7 @@ public class Main {
 							for (Jogador jogadorIterator: listJogador) {
 								System.out.println(jogadorIterator.getId() + "-" + jogadorIterator.getNome());
 							}
-							System.out.println("Digite a jogador que vc deseja editar:");
+							System.out.println("Digite o id do jogador que vc deseja editar:");
 							idJogador = entrada.nextInt();
 							Jogador jogador = jogadorDAO.read(idJogador);
 							if(jogador == null) {
@@ -220,25 +247,101 @@ public class Main {
 							}
 							else {
 								do {
+									int numAtributo;
+									String titular = ((jogador.isTitular() == true) ? "Sim" : "Nao");
+									
 									System.out.println("   +--------+ ");
 									System.out.println("   | Editar | "); 
 									System.out.println("   +--------+ ");
 									System.out.println("1) Nome:" + jogador.getNome());
 									System.out.println("2) Selecao:" + jogador.getSelecao());
 									System.out.println("3) Posicao:" + jogador.getPosicao());
-									System.out.println("4) Quantidade de cartões amarelos:" + jogador.getCartaoAmarelo());
-									System.out.println("5) Quantidade de cartões Vermelhos:" + jogador.getCartaoAmarelo());
+									System.out.println("4) Quantidade de cartoes amarelos:" + jogador.getCartaoAmarelo());
+									System.out.println("5) Quantidade de cartoes Vermelhos:" + jogador.getCartaoAmarelo());
 									System.out.println("6) Idade:" + jogador.getIdade());
 									System.out.println("7) Nacionalide:" + jogador.getNacionalidade());
-									System.out.println("8) Titular:" + jogador.isTitular());
+									System.out.println("8) Titular:" + titular);
 									System.out.println("9) gols:" + jogador.getGolsQuantidade());
 									System.out.println("10) Voltar");
+									System.out.print("Qual atributo deseja editar: ");
 									jogadorEditar = entrada.nextInt();
+									switch(jogadorEditar) {
+									case 1:
+										System.out.print("Digite o novo nome:");
+										atributo = entrada.next();
+										jogadorDAO.update(idJogador, jogadorEditar, atributo);
+										System.out.println("Nome alterado com sucesso");
+										break;
+										
+									case 2:
+										mostrarSelecao(false);
+										System.out.print("Digite a nova selecao:");
+										atributo = entrada.next();
+										jogadorDAO.update(idJogador, jogadorEditar, atributo);
+										System.out.println("Selecao alterada com sucesso");
+										break;	
+										
+									case 3:
+										mostrarLista(posicoesJogadores);
+										System.out.print("Digite o numero da nova Posicao:");
+										numAtributo = entrada.nextInt();
+										jogadorDAO.update(idJogador, jogadorEditar, posicoesJogadores.get(numAtributo-1));
+										System.out.println("Posicao alterada com sucesso");
+										break;
+										
+									case 4:
+										System.out.print("Digite a nova quantidade de cartões amarelos:");
+										atributo = entrada.next();
+										jogadorDAO.update(idJogador, jogadorEditar, atributo);
+										System.out.println("Quantidade de cartoes amarelos alterada com sucesso");
+										break;
+										
+									case 5:
+										System.out.print("Digite a nova quantidade de cartões vermelhos:");
+										atributo = entrada.next();
+										jogadorDAO.update(idJogador, jogadorEditar, atributo);
+										System.out.println("Quantidade de cartoes vermelhos alterada com sucesso");
+										break;
+										
+									case 6:
+										System.out.print("Digite a nova idade:");
+										atributo = entrada.next();
+										jogadorDAO.update(idJogador, jogadorEditar, atributo);
+										System.out.println("Idade alterada com sucesso");
+										break;
+										
+									case 7:
+										System.out.print("Digite a nova nacionalidade:");
+										atributo = entrada.next();
+										jogadorDAO.update(idJogador, jogadorEditar, atributo);
+										System.out.println("Nacionalidade alterada com sucesso");
+										break;
+									case 8:
+										System.out.print("Digite se o jogador e titular:");
+										atributo = entrada.next();
+										jogadorDAO.update(idJogador, jogadorEditar, atributo);
+										System.out.println("Titular alterado com sucesso");
+										break;
+										
+									case 9:
+										System.out.print("Digite a nova Quantidade de gols:");
+										atributo = entrada.next();
+										jogadorDAO.update(idJogador, jogadorEditar, atributo);
+										System.out.println("Quantidade de gols alterada com sucesso");
+										break;
+										
+									case 10:
+										break;
+										
+									default:
+										System.out.print("Atributo nao encontrado");
+										
+									}
 								} while (jogadorEditar != 10);
 							}
 						} 
 						else {
-							System.out.println("Não ha Jogadores cadastrados!");
+							System.out.println("Nao ha jogadores cadastrados!");
 						}
 				  		break;
 				  		
@@ -249,6 +352,8 @@ public class Main {
 	       	
 		  case 3:
 			  do {
+				  List<String> tipoArbitro = Arrays.asList("arbitro de vídeo","arbitro","arbitro auxiliar");
+				  
 				  System.out.println("   +----------+ ");
 				  System.out.println("   | Arbitros | "); 
 				  System.out.println("   +----------+ ");
@@ -264,7 +369,6 @@ public class Main {
 				  	case 1:
 				  		String nome, nacionalidade;
 				  		int idade, numTipo;
-				  		List<String> tipoArbitro = Arrays.asList("arbitro de vídeo","arbitro","arbitro auxiliar");
 				  		
 				  		System.out.println("   +---------+ ");
 						System.out.println("   | Inserir | "); 
@@ -275,10 +379,8 @@ public class Main {
 				  		idade = entrada.nextInt();
 				  		System.out.print("Digite a nacionalidade do arbitro: ");
 				  		nacionalidade = entrada.next();
-				  		System.out.println("Essas são os tipos de arbitros:");
-				  		for(int i=0;i<tipoArbitro.size(); i++) {
-				  			System.out.println((i+1) + " - " + tipoArbitro.get(i));
-				  		}
+				  		System.out.println("Essas sao os tipos de arbitros:");
+				  		mostrarLista(tipoArbitro);
 				  		System.out.print("Digite o numero do tipo de arbitro: ");
 				  		numTipo = entrada.nextInt();
 				  		Arbitro arbitro = new Arbitro(nome, nacionalidade, tipoArbitro.get(numTipo-1), idade);
@@ -286,19 +388,21 @@ public class Main {
 				  		break;
 				  	
 				  	case 2:
-				  		int idArbitro, arbitroEditar;
-						  
+				  		String atributo;
+				  		int idArbitro, arbitroEditar, numAtributo;
+				  		
+				  		
 						if(!arbitroDAO.readAll().isEmpty()) {
 							List<Arbitro> listArbitro = arbitroDAO.readAll();
 							System.out.println("Esses sao os arbitros cadastrados:");
 							for (Arbitro arbitroIterator: listArbitro) {
 								System.out.println(arbitroIterator.getId() + "-" + arbitroIterator.getNome());
 							}
-							System.out.println("Digite a arbitro que vc deseja editar:");
+							System.out.println("Digite o id do arbitro que vc deseja editar:");
 							idArbitro = entrada.nextInt();
 							arbitro = arbitroDAO.read(idArbitro);
 							if(arbitro == null) {
-								System.out.println("Arbitro não encontrado!");
+								System.out.println("Arbitro nao encontrado!");
 							}
 							else {
 								do {
@@ -310,14 +414,52 @@ public class Main {
 									System.out.println("3) Nacionalidade:" + arbitro.getNacionalidade());
 									System.out.println("4) Tipo:" + arbitro.getTipo());
 									System.out.println("5) Voltar");
+									System.out.print("Qual atributo deseja editar: ");
 									arbitroEditar = entrada.nextInt();
+									switch(arbitroEditar) {
+									case 1:
+										System.out.print("Digite o novo nome:");
+										atributo = entrada.next();
+										arbitroDAO.update(idArbitro, arbitroEditar, atributo);
+										System.out.println("Nome alterado com sucesso");
+										break;
+										
+									case 2:
+										System.out.print("Digite a nova idade:");
+										atributo = entrada.next();
+										arbitroDAO.update(idArbitro, arbitroEditar, atributo);
+										System.out.println("Idade alterada com sucesso");
+										break;
+										
+									case 3:
+										System.out.print("Digite a nova nacionalidade:");
+										atributo = entrada.next();
+										arbitroDAO.update(idArbitro, arbitroEditar, atributo);
+										System.out.println("Nacionalidade alterada com sucesso");
+										break;
+										
+									case 4:
+										mostrarLista(tipoArbitro);
+										System.out.print("Digite o novo tipo:");
+										numAtributo = entrada.nextInt();
+										arbitroDAO.update(idArbitro, arbitroEditar, tipoArbitro.get(numAtributo-1));
+										System.out.println("Idade alterada com sucesso");
+										
+									case 5:
+										break;
+										
+									default:
+										System.out.println("Atributo nao encontrado");
+									}
 								} while (arbitroEditar != 5);
 							}
 						} 
 						else {
-							System.out.println("Não ha Arbitros cadastrados!");
+							System.out.println("Nao ha Arbitros cadastrados!");
 						}
 				  		break;
+				  		
+				  	case 3:
 				  }
 			  } while (opcao3 != 5);
 			break;
@@ -345,7 +487,7 @@ public class Main {
 						System.out.println("   +---------+ ");
 				  		System.out.print("Digite o nome do tecnico: ");
 				  		nome = entrada.next();
-				  		mostrarSelecao();
+				  		mostrarSelecao(false);
 				  		System.out.print("Digite o numero da selecao do tecnico: ");
 				  		selecao = entrada.nextInt();
 				  		System.out.print("Digite a idade do Tecnico: ");
@@ -371,10 +513,11 @@ public class Main {
 							idTecnico = entrada.nextInt();
 							tecnico = tecnicoDAO.read(idTecnico);
 							if(tecnico == null) {
-								System.out.println("Tecnico não encontrado!");
+								System.out.println("Tecnico nao encontrado!");
 							}
 							else {
 								do {
+									String atributo;
 									System.out.println("   +--------+ ");
 									System.out.println("   | Editar | "); 
 									System.out.println("   +--------+ ");
@@ -384,13 +527,60 @@ public class Main {
 									System.out.println("4) Nacionalidade:" + tecnico.getNacionalidade());
 									System.out.println("5) Time anterior:" + tecnico.getTimeAnterior());
 									System.out.println("6) Voltar");
+									System.out.print("Qual atributo deseja editar: ");
 									tecnicoEditar = entrada.nextInt();
+									switch(tecnicoEditar) {
+									case 1:
+										System.out.print("Digite o novo nome:");
+										atributo = entrada.next();
+										tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
+										System.out.println("Nome alterado com sucesso");
+										break;
+										
+									case 2:
+										mostrarSelecao(false);
+										System.out.print("Digite a nova selecao:");
+										atributo = entrada.next();
+										tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
+										System.out.println("Selecao alterada com sucesso");
+										break;	
+										
+									case 3:
+										System.out.print("Digite a nova idade:");
+										atributo = entrada.next();
+										tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
+										System.out.println("Idade alterada com sucesso");
+										break;
+										
+									case 4:
+										System.out.print("Digite a nova nacionalidade:");
+										atributo = entrada.next();
+										tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
+										System.out.println("Nacionalidade alterada com sucesso");
+										break;
+										
+									case 5:
+										System.out.print("Digite o novo time anterior:");
+										atributo = entrada.next();
+										tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
+										System.out.println("time anterior alterado com sucesso");
+										
+									case 6:
+										break;
+										
+									default:
+										System.out.println("Atributo nao encontrado");
+									}	
 								} while (tecnicoEditar != 6);
 							}
 						} 
 						else {
 							System.out.println("Nao ha Tecnicos cadastrados!");
 						}
+						break;
+						
+				  	case 3:
+				  		
 						
 				  }
 			  } while (opcao4 != 5);
@@ -407,9 +597,6 @@ public class Main {
 		  }
 		  // aqui vai utilizar um comando pra limpar o console (ainda não sei como vou fazer isso mas depois faço)
 	  }while (opcao != 5);
-	  
-	  entrada.close();
+	 entrada.close();
   }
-  
-  
 }

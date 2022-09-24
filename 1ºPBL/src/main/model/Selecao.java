@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Selecao extends Entidade{
 	private List<Integer> jogadores;
-	private int contagemJogs = 0;
 	private int tecnico = -1;
 	private String grupo;
 	private int posicaoGrupo;
@@ -17,7 +16,7 @@ public class Selecao extends Entidade{
 	}
 	
 	public String toString() {
-		return "ID da selecao: "+ id + "\nCodigo da selecao: " + codSel + "\nNome da selecao: " + nome + "\nGrupo da selecao: " + grupo + "\nPosicao no Grupo da selecao: " + posicaoGrupo + "\nQuantidade de jogadores da selecao: " + jogadores.size();
+		return "ID da selecao: "+ id + "\nCodigo da selecao: " + codSel + "\nNome da selecao: " + nome + "\nGrupo da selecao: " + grupo + "\nPosicao no Grupo da selecao: " + posicaoGrupo + "\nQuantidade de jogadores da selecao: " + jogadores.size() + "\n ID tecnico da selecao: " + tecnico;
 	}
 	
 	public int getPosicaoGrupo() {
@@ -65,9 +64,5 @@ public class Selecao extends Entidade{
 		if (jogadores.size() > 26)
 			return true;
 		return false;
-	}
-
-	public int getContagemJogs() {
-		return contagemJogs++;
 	}
 }
