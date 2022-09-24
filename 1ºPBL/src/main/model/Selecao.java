@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Selecao extends Entidade{
 	private List<Integer> jogadores;
+	private int contagemJogs = 0;
 	private int tecnico = -1;
 	private String grupo;
 	private int posicaoGrupo;
@@ -64,5 +65,9 @@ public class Selecao extends Entidade{
 		if (jogadores.size() > 26)
 			return true;
 		return false;
+	}
+
+	public int getContagemJogs() {
+		return contagemJogs++;
 	}
 }

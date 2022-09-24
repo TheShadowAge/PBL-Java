@@ -2,7 +2,7 @@ package main.model;
 public class Entidade {
 	private static int idContagem = 1;
 	
-	private int id = idContagem++;
+	protected int id = idContagem++;
 	protected String nome;
 	
 	public String getNome() {

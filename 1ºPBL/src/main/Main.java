@@ -98,7 +98,7 @@ public class Main {
 				  		selecaoDAO.create(selecao);
 				  		break;
 				  	case 4:
-				  		mostrarSelecao(selecaoDAO);
+				  		mostrarSelecao();
 				  	  			  		
 				  }
 			  }while (opcao1 != 5);
