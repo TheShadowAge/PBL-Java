@@ -25,7 +25,7 @@ public class Jogador extends PessoaSelecao{
 		if (titular) {
 			titularSimNao = "Sim";
 		}
-		return "ID do jogador: "+ id + "\nNome do jogador: " + nome + "\nSelecao do jogador: " + selecao + "\nNacionalidade do jogador: " + nacionalidade + "\nIdade do jogador: " + idade + "\nPosicao do jogador: " + posicao + "\nCartoes Amarelos do jogador: " + cartaoAmarelo + "\nCartoes Vermelhos do jogador: " + cartaoVermelho + "\nO jogador é titular? " + titularSimNao + "\nQuantidade de Gols do jogador: " + golsQuantidade;
+		return "ID do jogador: "+ id + "\nCodigo de jogador: " + codJog + "\nNome do jogador: " + nome + "\nSelecao do jogador: " + selecao + "\nNacionalidade do jogador: " + nacionalidade + "\nIdade do jogador: " + idade + "\nPosicao do jogador: " + posicao + "\nCartoes Amarelos do jogador: " + cartaoAmarelo + "\nCartoes Vermelhos do jogador: " + cartaoVermelho + "\nO jogador é titular? " + titularSimNao + "\nQuantidade de Gols do jogador: " + golsQuantidade;
 	}
 	
 	public String getPosicao() {

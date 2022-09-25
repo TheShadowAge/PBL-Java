@@ -4,7 +4,7 @@ import java.util.*;
 
 public class SelecaoDAOImplementList implements SelecaoDAO {
 
-	private int contagemIds = 0;
+	private int contagemIds = 1;
 	private Map<Integer, Selecao> selecoes = new HashMap<Integer, Selecao>();
 	
 	@Override

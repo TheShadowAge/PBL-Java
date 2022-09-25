@@ -16,7 +16,7 @@ public class Selecao extends Entidade{
 	}
 	
 	public String toString() {
-		return "ID da selecao: "+ id + "\nCodigo da selecao: " + codSel + "\nNome da selecao: " + nome + "\nGrupo da selecao: " + grupo + "\nPosicao no Grupo da selecao: " + posicaoGrupo + "\nQuantidade de jogadores da selecao: " + jogadores.size() + "\n ID tecnico da selecao: " + tecnico;
+		return "ID da selecao: "+ id + "\nCodigo da selecao: " + codSel + "\nNome da selecao: " + nome + "\nGrupo da selecao: " + grupo + "\nPosicao no Grupo da selecao: " + posicaoGrupo + "\nQuantidade de jogadores da selecao: " + jogadores.size() + "\nID tecnico da selecao: " + tecnico;
 	}
 	
 	public int getPosicaoGrupo() {

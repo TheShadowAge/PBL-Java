@@ -18,16 +18,55 @@ public class Main {
   		}
 	}
   
+	public static void listarDAO(int dao) {
+	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
+	  JogadorDAO jogadorDAO = DAO.getJogadores();
+	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
+	  ArbitroDAO arbitroDAO = DAO.getArbitros();
+	  switch (dao){
+		  case 1:
+			  System.out.println("Esses são os jogadores inscritos:");
+			  for (Jogador jogadorIterator: jogadorDAO.readAll()) {
+				  System.out.println("+----------------------------------------+");
+				  System.out.println(jogadorIterator);
+			  }
+			  break;
+		  case 2:
+			  System.out.println("Esses são os arbitros inscritos:");
+			  for (Arbitro arbitroIterator: arbitroDAO.readAll()) {
+				  System.out.println("+----------------------------------------+");
+				  System.out.println(arbitroIterator);
+			  }
+			  break;
+		  case 3:
+			  System.out.println("Esses são os tecnicos inscritos:");
+			  for (Tecnico tecnicoIterator: tecnicoDAO.readAll()) {
+				  System.out.println("+----------------------------------------+");
+				  System.out.println(tecnicoIterator);
+			  }
+			  break;
+		  case 4:
+			  System.out.println("Essas são as seleções inscritas:");
+			  for (Selecao selecaoIterator: selecaoDAO.readAll()) {
+				  System.out.println("+----------------------------------------+");
+				  System.out.println(selecaoIterator);
+			  }
+			  break;
+	  }
+	  System.out.println("+----------------------------------------+");
+	}
+	
+	
   public static void mostrarSelecao(boolean fullOrNot) {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	  List<Selecao> listSelecoes = selecaoDAO.readAll();
 	  System.out.println("Essas sao as Selecoes inscritas:");
 	  for (Selecao selecaoIterator: listSelecoes) {
 		  if (fullOrNot && selecaoIterator.isFull()) {
-			  System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
+			  System.out.println(selecaoIterator.getId() + " - " + selecaoIterator.getNome());
 			}
 		  else if (!(fullOrNot) && !selecaoIterator.isFull()) {
-			  System.out.println(selecaoIterator.getId() + "-" + selecaoIterator.getNome());
+			  System.out.println(selecaoIterator.getId() + " - " + selecaoIterator.getNome());
 			}
 		}
 	  }
@@ -163,7 +202,7 @@ public class Main {
 				  		break;
 				  		
 				  	case 4:
-				  		mostrarSelecao(false);
+				  		listarDAO(4);
 				  	  	break;  		
 				  }
 			  }while (opcao1 != 5);
@@ -346,6 +385,8 @@ public class Main {
 							System.out.println("Nao ha jogadores cadastrados!");
 						}
 				  		break;
+				  	case 4:
+				  		listarDAO(1);
 				  		
 				  }
 			  } while (opcao2 != 5);
@@ -461,7 +502,8 @@ public class Main {
 						}
 				  		break;
 				  		
-				  	case 3:
+				  	case 4:
+				  		listarDAO(2);
 				  }
 			  } while (opcao3 != 5);
 			break;
@@ -581,7 +623,8 @@ public class Main {
 						}
 						break;
 						
-				  	case 3:
+				  	case 4:
+				  		listarDAO(3);
 				  		
 						
 				  }
