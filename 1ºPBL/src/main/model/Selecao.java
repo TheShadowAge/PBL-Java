@@ -1,9 +1,8 @@
 package main.model;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Selecao extends Entidade{
-	private List<Integer> jogadores;
+	private List<Integer> jogadores = new LinkedList<Integer>();
 	private int contagemJogs = 0;
 	private int tecnico = -1;
 	private String grupo;
