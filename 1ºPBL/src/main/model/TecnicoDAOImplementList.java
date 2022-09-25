@@ -50,6 +50,7 @@ public class TecnicoDAOImplementList implements TecnicoDAO {
 
 	@Override
 	public void delete(int id) {
+		tecnicos.put(id, null);
 		tecnicos.remove(id);
 	}
 

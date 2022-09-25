@@ -48,6 +48,7 @@ public class ArbitroDAOImplementList implements ArbitroDAO {
 
 	@Override
 	public void delete(int id) {
+		arbitros.put(id, null);
 		arbitros.remove(id);
 	}
 }

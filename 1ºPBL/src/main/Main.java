@@ -25,38 +25,58 @@ public class Main {
 	  ArbitroDAO arbitroDAO = DAO.getArbitros();
 	  switch (dao){
 		  case 1:
-			  System.out.println("Esses são os jogadores inscritos:");
-			  for (Jogador jogadorIterator: jogadorDAO.readAll()) {
+			  if (jogadorDAO.readAll().size() != 0) {
+				  System.out.println("Esses são os jogadores inscritos:");
+				  for (Jogador jogadorIterator: jogadorDAO.readAll()) {
+					  System.out.println("+----------------------------------------+");
+					  System.out.println(jogadorIterator);
+				  }
 				  System.out.println("+----------------------------------------+");
-				  System.out.println(jogadorIterator);
+			  } else {
+				  System.out.println("Nao ha jogadores inscritos.");
 			  }
 			  break;
 		  case 2:
-			  System.out.println("Esses são os arbitros inscritos:");
-			  for (Arbitro arbitroIterator: arbitroDAO.readAll()) {
+			  if (arbitroDAO.readAll().size() != 0) {
+				  System.out.println("Esses são os arbitros inscritos:");
+				  for (Arbitro arbitroIterator: arbitroDAO.readAll()) {
+					  System.out.println("+----------------------------------------+");
+					  System.out.println(arbitroIterator);
+				  }
 				  System.out.println("+----------------------------------------+");
-				  System.out.println(arbitroIterator);
-			  }
+	  			} else {
+	  				System.out.println("Nao ha arbitros inscritos.");
+	  			}
 			  break;
 		  case 3:
-			  System.out.println("Esses são os tecnicos inscritos:");
-			  for (Tecnico tecnicoIterator: tecnicoDAO.readAll()) {
+			  if (tecnicoDAO.readAll().size() != 0) {
+				  System.out.println("Esses são os tecnicos inscritos:");
+				  for (Tecnico tecnicoIterator: tecnicoDAO.readAll()) {
+					  System.out.println("+----------------------------------------+");
+					  System.out.println(tecnicoIterator);
+				  }
 				  System.out.println("+----------------------------------------+");
-				  System.out.println(tecnicoIterator);
-			  }
+	  			} else {
+	  				System.out.println("Nao ha tecnicos inscritos.");
+	  			}
 			  break;
 		  case 4:
-			  System.out.println("Essas são as seleções inscritas:");
-			  for (Selecao selecaoIterator: selecaoDAO.readAll()) {
+			  if (selecaoDAO.readAll().size() != 0) {
+				  System.out.println("Essas sao as selecoes inscritas:");
+				  for (Selecao selecaoIterator: selecaoDAO.readAll()) {
+					  System.out.println("+----------------------------------------+");
+					  System.out.println(selecaoIterator);
+				  }
 				  System.out.println("+----------------------------------------+");
-				  System.out.println(selecaoIterator);
+			  } else {
+				  System.out.println("Nao ha selecoes inscritas.");
 			  }
 			  break;
 	  }
-	  System.out.println("+----------------------------------------+");
 	}
 	
 	public static void listarDAOByID(int dao) {
+		  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 		  JogadorDAO jogadorDAO = DAO.getJogadores();
 		  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
 		  ArbitroDAO arbitroDAO = DAO.getArbitros();
@@ -79,9 +99,14 @@ public class Main {
 					  System.out.println(tecnicoIterator.getId() + " - " + tecnicoIterator.getNome());
 				  }
 				  break;
+			  case 4:
+				  System.out.println("Esses são as selecoes inscritas:");
+				  for (Selecao selecaoIterator: selecaoDAO.readAll()) {
+					  System.out.println(selecaoIterator.getId() + " - " + selecaoIterator.getNome());
+				  }
+				  break;
 		  }
 		}
-	
 	
   public static void mostrarSelecao(boolean fullOrNot) {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
@@ -225,6 +250,26 @@ public class Main {
 						else {
 							System.out.println("Não ha Selecaos cadastrados!");
 						}
+				  		break;
+				  	
+				  	case 3:
+				  		int selecaoID;
+				  		String escolha;
+				  		System.out.println("Qual selecao deseja excluir? ");
+				  		listarDAOByID(4);
+				  		System.out.println("Digite o ID da selecao a ser excluida: ");
+				  		selecaoID = entrada.nextInt();
+				  		System.out.println("Tem certeza que deseja excluir a selecao " + selecaoDAO.read(selecaoID).getNome() + "?\nIsso vai excluir a selecao e todos os jogadores e o ténico dela.\nDeseja continuar? S/N");
+				  		escolha = entrada.next();
+				  		if (escolha.toLowerCase().equals("s")) {
+				  			Selecao selecaoDelete = selecaoDAO.read(selecaoID);
+				  			for (Integer jogadorIterator: selecaoDelete.getJogadores()) {
+				  				jogadorDAO.delete(jogadorIterator);
+				  			}
+				  			tecnicoDAO.delete(selecaoDelete.getTecnico());
+				  			selecaoDAO.delete(selecaoID);
+				  			System.out.println("Selecao, jogadores e tecnico excluidos com sucesso!");
+				  		}
 				  		break;
 				  		
 				  	case 4:

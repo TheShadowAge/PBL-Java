@@ -53,6 +53,7 @@ public class SelecaoDAOImplementList implements SelecaoDAO {
 
 	@Override
 	public void delete(int id) {
+		selecoes.put(id, null);
 		selecoes.remove(id);
 	}
 

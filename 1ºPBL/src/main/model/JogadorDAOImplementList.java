@@ -70,6 +70,7 @@ public class JogadorDAOImplementList implements JogadorDAO {
 
 	@Override
 	public void delete(int id) {
+		jogadores.put(id, null);
 		jogadores.remove(id);
 
 	}
