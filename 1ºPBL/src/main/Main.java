@@ -56,6 +56,32 @@ public class Main {
 	  System.out.println("+----------------------------------------+");
 	}
 	
+	public static void listarDAOByID(int dao) {
+		  JogadorDAO jogadorDAO = DAO.getJogadores();
+		  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
+		  ArbitroDAO arbitroDAO = DAO.getArbitros();
+		  switch (dao){
+			  case 1:
+				  System.out.println("Esses são os jogadores inscritos:");
+				  for (Jogador jogadorIterator: jogadorDAO.readAll()) {
+					  System.out.println(jogadorIterator.getId() + " - " + jogadorIterator.getNome());
+				  }
+				  break;
+			  case 2:
+				  System.out.println("Esses são os arbitros inscritos:");
+				  for (Arbitro arbitroIterator: arbitroDAO.readAll()) {
+					  System.out.println(arbitroIterator.getId() + " - " + arbitroIterator.getNome());
+				  }
+				  break;
+			  case 3:
+				  System.out.println("Esses são os tecnicos inscritos:");
+				  for (Tecnico tecnicoIterator: tecnicoDAO.readAll()) {
+					  System.out.println(tecnicoIterator.getId() + " - " + tecnicoIterator.getNome());
+				  }
+				  break;
+		  }
+		}
+	
 	
   public static void mostrarSelecao(boolean fullOrNot) {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
