@@ -44,6 +44,8 @@ public class Main {
 	
   public static void main(String[] args){
 	  
+	  StartingEntitiesCreator.entitiesCreator();
+	  
 	  int opcao,opcao1,opcao2,opcao3,opcao4;
 	  JogadorDAO jogadorDAO = DAO.getJogadores();
 	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
