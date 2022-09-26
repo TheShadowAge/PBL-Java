@@ -2,8 +2,19 @@ package main;
 import java.util.*;
 import main.model.*;
 
+/**
+ * Classe main do projeto.
+ * @author Gabriel Sena
+ * @author Ian Gabriel
+ */
+
 public class Main {
 	
+	/**
+	 * Função que coloca a primeira letra de cada palavra em maiúscula.
+	 * @param nome Nome que vai ser usado.
+	 * @return Uma String com a primeira letra de cada palavra em maiúsculo.
+	 */
 	
 	public static String PrimeiraMaiuscula(String nome) {
 		nome = nome.toLowerCase();
@@ -12,6 +23,9 @@ public class Main {
 		return nome;
 	}
 	
+	/**
+	 * Função que mostra os grupos que as seleções podem estar.
+	 */
 	
 	public static void mostrarGrupos() {
 		System.out.println("Esses sao os grupos:");
@@ -21,11 +35,21 @@ public class Main {
   		}
 	}
 	
+	/**
+	 * Função que pega uma lista de Strings e printa elas com um número do lado.
+	 * @param lista A lista de Strings que será utilizada.
+	 */
+	
 	public static void mostrarLista(List<String> lista) {
 		for(int i=0;i<lista.size(); i++) {
   			System.out.println((i+1) + " - " + lista.get(i));
   		}
 	}
+	
+	/**
+	 * Função que mostra os jogadores de uma determinada seleção.
+	 * @param idSelecao O ID da seleção que será mostrado os jogadores.
+	 */
 	
 	public static void mostrarJogadoresSelecao(int idSelecao) {
 		SelecaoDAO selecaoDAO = DAO.getSelecoes();
@@ -34,6 +58,11 @@ public class Main {
 			  System.out.println(jogadorIterator.getId() + " - " + jogadorIterator.getNome());
 		  }
 	}
+	
+	/**
+	 * Função que printa os objetos de um DAO específico usando o método toString de cada classe.
+	 * @param dao Um inteiro que indica qual DAO será usado para printar. 1 para jogadores, 2 para arbitros, 3 para técnicos e 4 para seleções.
+	 */
 	
 	public static void listarDAO(int dao) {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
@@ -91,6 +120,12 @@ public class Main {
 			  break;
 	  }
 	}
+	
+	/**
+	 * Uma função parecida com a função listarDAO, mas que printa o nome dos objetos ao lado do ID do objeto.
+	 * @param dao Um inteiro que indica qual DAO será usado para printar. 1 para jogadores, 2 para arbitros, 3 para técnicos e 4 para seleções.
+	 */
+	
 	public static void listarDAOByID(int dao) {
 		  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 		  JogadorDAO jogadorDAO = DAO.getJogadores();
@@ -124,6 +159,11 @@ public class Main {
 		  }
 		}
 	
+	/**
+	 * Função que mostra as seleções cheias ou vazias.
+	 * @param fullOrNot Um valor booleano que, se for true, vai mostrar só as seleções cheias e se for false vai mostrar só as seleções vazias.
+	 */
+	
   public static void mostrarSelecao(boolean fullOrNot) {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	  List<Selecao> listSelecoes = selecaoDAO.readAll();
@@ -138,6 +178,11 @@ public class Main {
 		}
 	  }
   
+  /**
+   * Função que checa se ainda há espaço em alguma seleção para adicionar jogadores.
+   * @return Retorna falso caso ainda haja espaço ou verdadeiro caso não haja espaço.
+   */
+  
   public static boolean isSelecoesFull() {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	  List<Boolean> selecoesFull = new LinkedList<Boolean>();
@@ -145,9 +190,14 @@ public class Main {
 	  for (Selecao selecaoIterator: listSelecoes) {
 			selecoesFull.add(selecaoIterator.isFull());
 		}
-	  return selecoesFull.contains(false);
+	  return !(selecoesFull.contains(false));
   }
-	
+  
+  /**
+   * Função main onde está o menu principal do código e tudo é chamado para o funcionamento do programa.
+   * @param args Argumentos de console.
+   */
+  
   public static void main(String[] args){
 	  
 	  StartingEntitiesCreator.entitiesCreator();
@@ -313,7 +363,7 @@ public class Main {
 				  opcao2 = entrada.nextInt();
 				  switch(opcao2) {
 				  	case 1:
-				  		if (isSelecoesFull()) {
+				  		if (!(isSelecoesFull())) {
 					  		String nome, nacionalidade ,titular;
 					  		int numPosicaoJogador, selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
 					  		boolean rtitular = false;
