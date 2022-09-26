@@ -4,6 +4,15 @@ import main.model.*;
 
 public class Main {
 	
+	
+	public static String PrimeiraMaiuscula(String nome) {
+		nome = nome.toLowerCase();
+		String primeiraLetra = nome.substring(0,1).toUpperCase();
+		nome = primeiraLetra + nome.substring(1);
+		return nome;
+	}
+	
+	
 	public static void mostrarGrupos() {
 		System.out.println("Esses sao os grupos:");
 		List<String> grupos = Arrays.asList("A","B","C","D","E","F","G","H");
@@ -74,7 +83,6 @@ public class Main {
 			  break;
 	  }
 	}
-	
 	public static void listarDAOByID(int dao) {
 		  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 		  JogadorDAO jogadorDAO = DAO.getJogadores();
@@ -82,25 +90,25 @@ public class Main {
 		  ArbitroDAO arbitroDAO = DAO.getArbitros();
 		  switch (dao){
 			  case 1:
-				  System.out.println("Esses são os jogadores inscritos:");
+				  System.out.println("Esses sao os jogadores inscritos:");
 				  for (Jogador jogadorIterator: jogadorDAO.readAll()) {
 					  System.out.println(jogadorIterator.getId() + " - " + jogadorIterator.getNome());
 				  }
 				  break;
 			  case 2:
-				  System.out.println("Esses são os arbitros inscritos:");
+				  System.out.println("Esses sao os arbitros inscritos:");
 				  for (Arbitro arbitroIterator: arbitroDAO.readAll()) {
 					  System.out.println(arbitroIterator.getId() + " - " + arbitroIterator.getNome());
 				  }
 				  break;
 			  case 3:
-				  System.out.println("Esses são os tecnicos inscritos:");
+				  System.out.println("Esses sao os tecnicos inscritos:");
 				  for (Tecnico tecnicoIterator: tecnicoDAO.readAll()) {
 					  System.out.println(tecnicoIterator.getId() + " - " + tecnicoIterator.getNome());
 				  }
 				  break;
 			  case 4:
-				  System.out.println("Esses são as selecoes inscritas:");
+				  System.out.println("Esses sao as selecoes inscritas:");
 				  for (Selecao selecaoIterator: selecaoDAO.readAll()) {
 					  System.out.println(selecaoIterator.getId() + " - " + selecaoIterator.getNome());
 				  }
@@ -182,12 +190,13 @@ public class Main {
 						System.out.println("   +---------+ ");
 				  		System.out.print("Digite o nome da selecao: ");
 				  		nome = entrada.next();
+				  		PrimeiraMaiuscula(nome);
 				  		mostrarGrupos();
 				  		System.out.print("Digite o grupo da selecao: ");
 				  		grupo = entrada.next();
 				  		System.out.print("Digite a posicao no grupo da Selecao [1 a 4]: ");
 				  		posicaoGrupo = entrada.nextInt();
-				  		Selecao selecao = new Selecao(nome, grupo, posicaoGrupo);
+				  		Selecao selecao = new Selecao(PrimeiraMaiuscula(nome), PrimeiraMaiuscula(grupo), posicaoGrupo);
 				  		selecaoDAO.create(selecao);
 				  		break;
 				  		
@@ -196,7 +205,7 @@ public class Main {
 				  		int idSelecao, selecaoEditar;
 						  
 						if(!selecaoDAO.readAll().isEmpty()) {
-							mostrarSelecao(false);
+							listarDAOByID(4);
 							System.out.println("Digite o id da selecao que vc deseja editar:");
 							idSelecao = entrada.nextInt();
 							selecao = selecaoDAO.read(idSelecao);
@@ -218,7 +227,7 @@ public class Main {
 									case 1:
 										System.out.print("Digite o novo nome:");
 										atributo = entrada.next();
-										selecaoDAO.update(idSelecao, selecaoEditar, atributo);
+										selecaoDAO.update(idSelecao, selecaoEditar, PrimeiraMaiuscula(atributo));
 										System.out.println("Nome alterado com sucesso");
 										break;
 										
@@ -226,7 +235,7 @@ public class Main {
 										mostrarGrupos();
 										System.out.print("Digite o novo grupo:");
 										atributo = entrada.next();
-										selecaoDAO.update(idSelecao, selecaoEditar, atributo);
+										selecaoDAO.update(idSelecao, selecaoEditar, PrimeiraMaiuscula(atributo));
 										System.out.println("Selecao alterada com sucesso");
 										break;	
 										
@@ -334,7 +343,7 @@ public class Main {
 					  		}
 					  		System.out.print("Digite a quantidade de gols do jogador: ");
 					  		gols = entrada.nextInt();
-					  		Jogador jogador = new Jogador(nome, selecao, nacionalidade, idade, posicoesJogadores.get(numPosicaoJogador-1), cartaoAmarelo, cartaoVermelho, gols, rtitular);
+					  		Jogador jogador = new Jogador(PrimeiraMaiuscula(nome), selecao, PrimeiraMaiuscula(nacionalidade), idade, posicoesJogadores.get(numPosicaoJogador-1), cartaoAmarelo, cartaoVermelho, gols, rtitular);
 					  		jogadorDAO.create(jogador);
 				  		} else {
 				  			System.out.println("Não ha espaço nas seleções para um novo jogador.\nFavor criar uma nova selecao ou remover um jogador.");
@@ -346,11 +355,7 @@ public class Main {
 				  		int idJogador, jogadorEditar;
 						  
 						if(!jogadorDAO.readAll().isEmpty()) {
-							List<Jogador> listJogador = jogadorDAO.readAll();
-							System.out.println("Esses sao os jogadors cadastrados:");
-							for (Jogador jogadorIterator: listJogador) {
-								System.out.println(jogadorIterator.getId() + "-" + jogadorIterator.getNome());
-							}
+							listarDAOByID(1);
 							System.out.println("Digite o id do jogador que vc deseja editar:");
 							idJogador = entrada.nextInt();
 							Jogador jogador = jogadorDAO.read(idJogador);
@@ -366,7 +371,7 @@ public class Main {
 									System.out.println("   | Editar | "); 
 									System.out.println("   +--------+ ");
 									System.out.println("1) Nome:" + jogador.getNome());
-									System.out.println("2) Selecao:" + jogador.getSelecao());
+									System.out.println("2) Selecao:" + jogador.getSelecao().getNome());
 									System.out.println("3) Posicao:" + jogador.getPosicao());
 									System.out.println("4) Quantidade de cartoes amarelos:" + jogador.getCartaoAmarelo());
 									System.out.println("5) Quantidade de cartoes Vermelhos:" + jogador.getCartaoAmarelo());
@@ -507,11 +512,7 @@ public class Main {
 				  		
 				  		
 						if(!arbitroDAO.readAll().isEmpty()) {
-							List<Arbitro> listArbitro = arbitroDAO.readAll();
-							System.out.println("Esses sao os arbitros cadastrados:");
-							for (Arbitro arbitroIterator: listArbitro) {
-								System.out.println(arbitroIterator.getId() + "-" + arbitroIterator.getNome());
-							}
+							listarDAOByID(2);
 							System.out.println("Digite o id do arbitro que vc deseja editar:");
 							idArbitro = entrada.nextInt();
 							arbitro = arbitroDAO.read(idArbitro);
@@ -534,7 +535,7 @@ public class Main {
 									case 1:
 										System.out.print("Digite o novo nome:");
 										atributo = entrada.next();
-										arbitroDAO.update(idArbitro, arbitroEditar, atributo);
+										arbitroDAO.update(idArbitro, arbitroEditar, PrimeiraMaiuscula(atributo));
 										System.out.println("Nome alterado com sucesso");
 										break;
 										
@@ -548,7 +549,7 @@ public class Main {
 									case 3:
 										System.out.print("Digite a nova nacionalidade:");
 										atributo = entrada.next();
-										arbitroDAO.update(idArbitro, arbitroEditar, atributo);
+										arbitroDAO.update(idArbitro, arbitroEditar, PrimeiraMaiuscula(atributo));
 										System.out.println("Nacionalidade alterada com sucesso");
 										break;
 										
@@ -611,7 +612,7 @@ public class Main {
 				  		nacionalidade = entrada.next();
 				  		System.out.print("Digite o time anterior do tecnico: ");
 				  		timeAnterior = entrada.next();
-				  		Tecnico tecnico = new Tecnico(nacionalidade, selecao, timeAnterior, nome, idade);
+				  		Tecnico tecnico = new Tecnico(PrimeiraMaiuscula(nacionalidade), selecao, PrimeiraMaiuscula(timeAnterior), PrimeiraMaiuscula(nome), idade);
 				  		tecnicoDAO.create(tecnico);
 				  		break;
 				  		
@@ -619,11 +620,7 @@ public class Main {
 				  		int idTecnico, tecnicoEditar;
 				  
 						if(!tecnicoDAO.readAll().isEmpty()) {
-							List<Tecnico> listSelecoes = tecnicoDAO.readAll();
-							System.out.println("Esses sao os tecnicos cadastrados:");
-							for (Tecnico tecnicoIterator: listSelecoes) {
-								System.out.println(tecnicoIterator.getId() + "-" + tecnicoIterator.getNome());
-							}
+							listarDAOByID(3);
 							System.out.println("Digite o id do tecnico que vc deseja editar:");
 							idTecnico = entrada.nextInt();
 							tecnico = tecnicoDAO.read(idTecnico);
@@ -637,7 +634,7 @@ public class Main {
 									System.out.println("   | Editar | "); 
 									System.out.println("   +--------+ ");
 									System.out.println("1) Nome:" + tecnico.getNome());
-									System.out.println("2) Selecao:" + tecnico.getSelecao());
+									System.out.println("2) Selecao:" + tecnico.getSelecao().getNome());
 									System.out.println("3) Idade:" + tecnico.getIdade());
 									System.out.println("4) Nacionalidade:" + tecnico.getNacionalidade());
 									System.out.println("5) Time anterior:" + tecnico.getTimeAnterior());
@@ -648,7 +645,7 @@ public class Main {
 									case 1:
 										System.out.print("Digite o novo nome:");
 										atributo = entrada.next();
-										tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
+										tecnicoDAO.update(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
 										System.out.println("Nome alterado com sucesso");
 										break;
 										
@@ -670,14 +667,14 @@ public class Main {
 									case 4:
 										System.out.print("Digite a nova nacionalidade:");
 										atributo = entrada.next();
-										tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
+										tecnicoDAO.update(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
 										System.out.println("Nacionalidade alterada com sucesso");
 										break;
 										
 									case 5:
 										System.out.print("Digite o novo time anterior:");
 										atributo = entrada.next();
-										tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
+										tecnicoDAO.update(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
 										System.out.println("time anterior alterado com sucesso");
 										
 									case 6:
