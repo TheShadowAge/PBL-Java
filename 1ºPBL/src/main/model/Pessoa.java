@@ -4,7 +4,6 @@ package main.model;
  * Classe comum a todas as classes que reprensentam pessoa do sistema.
  * @author Gabriel Sena
  * @author Ian Gabriel
- * @
  */
 
 public class Pessoa extends Entidade{
