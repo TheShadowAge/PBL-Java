@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * Classe que implementa a interface JogadorDAO.
- * @see main.model.SelecaoDAO
+ * @see main.model.JogadorDAO
  * @author Gabriel Sena
  * @author Ian Gabriel
  *
