@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Classe que implementa a interface TecnicoDAO.
- * @see main.model.SelecaoDAO
+ * @see main.model.TecnicoDAO
  * @author Gabriel Sena
  * @author Ian Gabriel
  *
