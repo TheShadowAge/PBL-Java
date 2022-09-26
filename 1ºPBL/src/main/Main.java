@@ -26,7 +26,15 @@ public class Main {
   			System.out.println((i+1) + " - " + lista.get(i));
   		}
 	}
-  
+	
+	public static void mostrarJogadoresSelecao(int idSelecao) {
+		SelecaoDAO selecaoDAO = DAO.getSelecoes();
+		System.out.println("Esses sao os jogadores inscritos:");
+		  for (Jogador jogadorIterator: selecaoDAO.read(idSelecao).getJogadoresList()) {
+			  System.out.println(jogadorIterator.getId() + " - " + jogadorIterator.getNome());
+		  }
+	}
+	
 	public static void listarDAO(int dao) {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	  JogadorDAO jogadorDAO = DAO.getJogadores();
@@ -463,8 +471,26 @@ public class Main {
 							System.out.println("Nao ha jogadores cadastrados!");
 						}
 				  		break;
+				  	case 3:
+				  		int selecaoID, jogadorID;
+				  		String escolha;
+				  		listarDAOByID(4);
+				  		System.out.println("Digite o ID da selecao para excluir jogadores: ");
+				  		selecaoID = entrada.nextInt();
+				  		mostrarJogadoresSelecao(selecaoID);
+				  		System.out.println("Digite o ID do jogador que deseja excluir: ");
+				  		jogadorID = entrada.nextInt();
+				  		System.out.println("Voce tem certeza que deseja excluir o jogador " + jogadorDAO.read(jogadorID).getNome() + "? S/N ");
+				  		escolha = entrada.next().toLowerCase();
+				  		if (escolha.equals("s")) {
+				  			jogadorDAO.delete(jogadorID);
+				  			selecaoDAO.update(selecaoID, 6, Integer.toString(jogadorID));
+				  			System.out.println("Jogador deletado com sucesso!");
+				  		}
+				  		break;
 				  	case 4:
 				  		listarDAO(1);
+				  		break;
 				  		
 				  }
 			  } while (opcao2 != 5);
@@ -575,9 +601,22 @@ public class Main {
 							System.out.println("Nao ha Arbitros cadastrados!");
 						}
 				  		break;
-				  		
+				  	case 3:
+				  		int arbitroID;
+				  		String escolha;
+				  		listarDAOByID(2);
+				  		System.out.println("Digite o ID do arbitro que deseja excluir: ");
+				  		arbitroID = entrada.nextInt();
+				  		System.out.println("Voce tem certeza que deseja excluir o arbitro " + arbitroDAO.read(arbitroID).getNome() + "? S/N ");
+				  		escolha = entrada.next().toLowerCase();
+				  		if (escolha.equals("s")) {
+				  			arbitroDAO.delete(arbitroID);
+				  			System.out.println("Arbitro deletado com sucesso!");
+				  		}
+				  		break;
 				  	case 4:
 				  		listarDAO(2);
+				  		break;
 				  }
 			  } while (opcao3 != 5);
 			break;
@@ -694,9 +733,23 @@ public class Main {
 							System.out.println("Nao ha Tecnicos cadastrados!");
 						}
 						break;
-						
+				  	case 3:
+				  		int tecnicoID;
+				  		String escolha;
+				  		listarDAOByID(3);
+				  		System.out.println("Digite o ID do tecnico que deseja excluir: ");
+				  		tecnicoID = entrada.nextInt();
+				  		System.out.println("Voce tem certeza que deseja excluir o tecnico " + tecnicoDAO.read(tecnicoID).getNome() + "? S/N ");
+				  		escolha = entrada.next().toLowerCase();
+				  		if (escolha.equals("s")) {
+				  			tecnicoDAO.read(tecnicoID).getSelecao().setTecnico(-1);
+				  			tecnicoDAO.delete(tecnicoID);
+				  			System.out.println("Tecnico deletado com sucesso!");
+				  		}
+				  		break;
 				  	case 4:
 				  		listarDAO(3);
+				  		break;
 				  							
 				  }
 			  } while (opcao4 != 5);
