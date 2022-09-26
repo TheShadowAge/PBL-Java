@@ -20,7 +20,7 @@ public class JogadorDAOImplementList implements JogadorDAO {
 	
 	/**
 	 * Método que cria um jogador no sistema.
-	 * @param selecao O objeto do tipo Selecao que será criado.
+	 * @param jogador O objeto do tipo Selecao que será criado.
 	 */	
 	
 	@Override

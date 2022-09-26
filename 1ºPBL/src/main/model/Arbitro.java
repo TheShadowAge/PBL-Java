@@ -12,7 +12,7 @@ public class Arbitro extends Pessoa{
 	/**
 	 * Construtor da classe Arbitro
 	 * @param nome Nome do Arbitro
-	 * @param nacionalidae Nacionalidade do arbitro
+	 * @param nacionalidade Nacionalidade do arbitro
 	 * @param tipo Tipo do arbitro
 	 * @param idade Idade do arbitro
 	 */
@@ -35,7 +35,7 @@ public class Arbitro extends Pessoa{
 
 	/**
 	 * Atualiza o tipo de arbitro
-	 * @return tipo String com o tipo de arbitro
+	 * @param tipo String que muda o tipo do árbitro para o enviado
 	 */
 	
 	public void setTipo(String tipo) {
