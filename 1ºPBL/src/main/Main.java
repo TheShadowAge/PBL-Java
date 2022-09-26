@@ -119,7 +119,7 @@ public class Main {
   public static void mostrarSelecao(boolean fullOrNot) {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	  List<Selecao> listSelecoes = selecaoDAO.readAll();
-	  System.out.println("Essas sao as Selecoes inscritas:");
+	  System.out.println("Essas sao as Selecoes disponiveis:");
 	  for (Selecao selecaoIterator: listSelecoes) {
 		  if (fullOrNot && selecaoIterator.isFull()) {
 			  System.out.println(selecaoIterator.getId() + " - " + selecaoIterator.getNome());
@@ -394,7 +394,9 @@ public class Main {
 										mostrarSelecao(false);
 										System.out.print("Digite a nova selecao:");
 										atributo = entrada.next();
+										selecaoDAO.update(jogador.getSelecao().getId(), 6, String.valueOf(jogador.getId()));
 										jogadorDAO.update(idJogador, jogadorEditar, atributo);
+										selecaoDAO.update(jogador.getSelecao().getId(), 5, String.valueOf(jogador.getId()));
 										System.out.println("Selecao alterada com sucesso");
 										break;	
 										
@@ -653,7 +655,9 @@ public class Main {
 										mostrarSelecao(false);
 										System.out.print("Digite a nova selecao:");
 										atributo = entrada.next();
+										selecaoDAO.update(tecnico.getSelecao().getId(), 4, String.valueOf(-1));
 										tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
+										selecaoDAO.update(tecnico.getSelecao().getId(), 4, String.valueOf(tecnico.getId()));
 										System.out.println("Selecao alterada com sucesso");
 										break;	
 										
@@ -693,8 +697,7 @@ public class Main {
 						
 				  	case 4:
 				  		listarDAO(3);
-				  		
-						
+				  							
 				  }
 			  } while (opcao4 != 5);
 			break;
@@ -708,7 +711,6 @@ public class Main {
 		  default:
 			System.out.println("O numero invalido! Digite um numero entre 1 a 5.");
 		  }
-		  // aqui vai utilizar um comando pra limpar o console (ainda não sei como vou fazer isso mas depois faço)
 	  }while (opcao != 5);
 	 entrada.close();
   }
