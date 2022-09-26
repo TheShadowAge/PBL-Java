@@ -132,7 +132,7 @@ public class Main {
   
   public static boolean isSelecoesFull() {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
-	  Set<Boolean> selecoesFull = new HashSet<Boolean>();
+	  List<Boolean> selecoesFull = new LinkedList<Boolean>();
 	  List<Selecao> listSelecoes = selecaoDAO.readAll();
 	  for (Selecao selecaoIterator: listSelecoes) {
 			selecoesFull.add(selecaoIterator.isFull());
@@ -305,7 +305,7 @@ public class Main {
 				  opcao2 = entrada.nextInt();
 				  switch(opcao2) {
 				  	case 1:
-				  		if (!(isSelecoesFull())) {
+				  		if (isSelecoesFull()) {
 					  		String nome, nacionalidade ,titular;
 					  		int numPosicaoJogador, selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
 					  		boolean rtitular = false;

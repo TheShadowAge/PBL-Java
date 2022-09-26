@@ -61,7 +61,7 @@ public class Selecao extends Entidade{
 	}
 	
 	public boolean isFull() {
-		if (jogadores.size() > 26)
+		if (jogadores.size() > 25)
 			return true;
 		return false;
 	}
