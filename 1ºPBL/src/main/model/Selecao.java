@@ -16,7 +16,11 @@ public class Selecao extends Entidade{
 	}
 	
 	public String toString() {
-		return "ID da selecao: "+ id + "\nCodigo da selecao: " + codSel + "\nNome da selecao: " + nome + "\nGrupo da selecao: " + grupo + "\nPosicao no Grupo da selecao: " + posicaoGrupo + "\nQuantidade de jogadores da selecao: " + jogadores.size() + "\nID tecnico da selecao: " + tecnico;
+		String tecnicoPresente = Integer.toString(tecnico);
+		if (tecnico == -1) {
+			tecnicoPresente = "Essa selecao nao tem tecnico";
+		}
+		return "ID da selecao: "+ id + "\nCodigo da selecao: " + codSel + "\nNome da selecao: " + nome + "\nGrupo da selecao: " + grupo + "\nPosicao no Grupo da selecao: " + posicaoGrupo + "\nQuantidade de jogadores da selecao: " + jogadores.size() + "\nID tecnico da selecao: " + tecnicoPresente;
 	}
 	
 	public int getPosicaoGrupo() {
