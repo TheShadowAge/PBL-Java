@@ -1,7 +1,18 @@
 package main.model;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Classe que cria uma seleção completa e árbitros para o projeto.
+ * @author Gabriel Sena
+ * @author Ian Gabriel
+ */
+
 public class StartingEntitiesCreator {
+	
+	/**
+	 * Cria os objetos das entidades presentes no projeto.
+	 */
+	
 	public static void entitiesCreator() {
 	  JogadorDAO jogadorDAO = DAO.getJogadores();
 	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
