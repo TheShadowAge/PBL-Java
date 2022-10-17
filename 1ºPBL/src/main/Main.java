@@ -1,6 +1,15 @@
 package main;
 import java.util.*;
 import main.model.*;
+import main.model.DAO.ArbitroDAO;
+import main.model.DAO.DAO;
+import main.model.DAO.JogadorDAO;
+import main.model.DAO.SelecaoDAO;
+import main.model.DAO.TecnicoDAO;
+import main.model.entities.Arbitro;
+import main.model.entities.Jogador;
+import main.model.entities.Selecao;
+import main.model.entities.Tecnico;
 
 
 ///*******************************************************************************

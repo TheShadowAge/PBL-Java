@@ -1,6 +1,16 @@
 package main.model;
 import java.util.concurrent.ThreadLocalRandom;
 
+import main.model.DAO.ArbitroDAO;
+import main.model.DAO.DAO;
+import main.model.DAO.JogadorDAO;
+import main.model.DAO.SelecaoDAO;
+import main.model.DAO.TecnicoDAO;
+import main.model.entities.Arbitro;
+import main.model.entities.Jogador;
+import main.model.entities.Selecao;
+import main.model.entities.Tecnico;
+
 /**
  * Classe que cria uma seleção completa e árbitros para o projeto.
  * @author Gabriel Sena
