@@ -3,18 +3,19 @@ package main.view;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
 import main.controller.MenuController;
-import main.model.entities.Arbitro;
-import main.model.entities.Jogador;
-import main.model.entities.Selecao;
-import main.model.entities.Tecnico;
 
 public class Menu {
 	
+	public static void listarObjeto(List<Object> lista) {
+		for (Object objectIterator: lista) {
+			System.out.println(objectIterator);
+		}
+	}
+	
 	public static void listar(List<String> lista) {
-		for (String stringIterator: lista) {
-			System.out.println(stringIterator);
+		for (Object objectIterator: lista) {
+			System.out.println(objectIterator);
 		}
 	}
 	
@@ -39,7 +40,7 @@ public class Menu {
   		}
 	}
 	
-	public static void menu() {
+	public static void main(String[] args) {
 		int opcao,opcao1,opcao2,opcao3,opcao4;
 		Scanner entrada = new Scanner(System.in);
 		
@@ -86,6 +87,7 @@ public class Menu {
 					  		mostrarGrupos();
 					  		System.out.print("Digite o grupo da selecao: ");
 					  		grupo = entrada.next();
+					  		PrimeiraMaiuscula(grupo);
 					  		System.out.print("Digite a posicao no grupo da Selecao [1 a 4]: ");
 					  		posicaoGrupo = entrada.nextInt();
 					  		MenuController.createSelecao(nome, grupo, posicaoGrupo);
@@ -95,11 +97,11 @@ public class Menu {
 					  		String atributo;
 					  		int idSelecao, selecaoEditar;
 							  
-							if(!selecaoDAO.readAll().isEmpty()) {
-								listarDAOByID(4);
+							if(!MenuController.verificarExistencia(1)) {
+								listarObjeto(MenuController.listarDAO(4));
 								System.out.println("Digite o id da selecao que vc deseja editar:");
 								idSelecao = entrada.nextInt();
-								selecao = selecaoDAO.read(idSelecao);
+								Object selecao = MenuController.selecionarDAO(1, idSelecao);
 								if(selecao == null) {
 									System.out.println("Selecao não encontrado!");
 								}
@@ -108,9 +110,9 @@ public class Menu {
 										System.out.println("   +--------+ ");
 										System.out.println("   | Editar | "); 
 										System.out.println("   +--------+ ");
-										System.out.println("1) Nome:" + selecao.getNome());
-										System.out.println("2) Grupo:" + selecao.getGrupo());
-										System.out.println("3) Posicao da selecao:" + selecao.getPosicaoGrupo());
+										System.out.println("1) Nome");
+										System.out.println("2) Grupo");
+										System.out.println("3) Posicao da selecao");
 										System.out.println("4) Voltar");
 										System.out.print("Qual atributo deseja editar: ");
 										selecaoEditar = entrada.nextInt();
@@ -118,7 +120,8 @@ public class Menu {
 										case 1:
 											System.out.print("Digite o novo nome:");
 											atributo = entrada.next();
-											selecaoDAO.update(idSelecao, selecaoEditar, PrimeiraMaiuscula(atributo));
+											atributo = PrimeiraMaiuscula(atributo);
+											MenuController.updateSelecao(idSelecao, selecaoEditar, atributo);
 											System.out.println("Nome alterado com sucesso");
 											break;
 											
@@ -126,14 +129,14 @@ public class Menu {
 											mostrarGrupos();
 											System.out.print("Digite o novo grupo:");
 											atributo = entrada.next();
-											selecaoDAO.update(idSelecao, selecaoEditar, PrimeiraMaiuscula(atributo));
+											MenuController.updateSelecao(idSelecao, selecaoEditar, atributo);
 											System.out.println("Selecao alterada com sucesso");
 											break;	
 											
 										case 3:
 											System.out.print("Digite a nova posicao da selecao no grupo:");
 											atributo = entrada.next();
-											selecaoDAO.update(idSelecao, selecaoEditar, atributo);
+											MenuController.updateSelecao(idSelecao, selecaoEditar, atributo);
 											System.out.println("Posicao da selecao alterada com sucesso");
 											break;
 											
@@ -156,24 +159,19 @@ public class Menu {
 					  		int selecaoID;
 					  		String escolha;
 					  		System.out.println("Qual selecao deseja excluir? ");
-					  		listarDAOByID(4);
+					  		listarObjeto(MenuController.listarDAO(4));
 					  		System.out.println("Digite o ID da selecao a ser excluida: ");
 					  		selecaoID = entrada.nextInt();
-					  		System.out.println("Tem certeza que deseja excluir a selecao " + selecaoDAO.read(selecaoID).getNome() + "?\nIsso vai excluir a selecao e todos os jogadores e o ténico dela.\nDeseja continuar? S/N");
+					  		System.out.println("Tem certeza que deseja excluir a selecao ?\nIsso vai excluir a selecao e todos os jogadores e o ténico dela.\nDeseja continuar? S/N");
 					  		escolha = entrada.next();
 					  		if (escolha.toLowerCase().equals("s")) {
-					  			Selecao selecaoDelete = selecaoDAO.read(selecaoID);
-					  			for (Integer jogadorIterator: selecaoDelete.getJogadores()) {
-					  				jogadorDAO.delete(jogadorIterator);
-					  			}
-					  			tecnicoDAO.delete(selecaoDelete.getTecnico());
-					  			selecaoDAO.delete(selecaoID);
+					  			MenuController.deleteSelecao(selecaoID);
 					  			System.out.println("Selecao, jogadores e tecnico excluidos com sucesso!");
 					  		}
 					  		break;
 					  		
 					  	case 4:
-					  		listarDAO(4);
+					  		MenuController.listarDAO(4);
 					  	  	break;  		
 					  }
 				  }while (opcao1 != 5);
@@ -196,8 +194,8 @@ public class Menu {
 					  opcao2 = entrada.nextInt();
 					  switch(opcao2) {
 					  	case 1:
-					  		if (!(isSelecoesFull())) {
-						  		String nome, nacionalidade ,titular;
+					  		if (!(MenuController.isSelecoesFull())) {
+						  		String nome, nacionalidade ,titular, posicaoJogador;
 						  		int numPosicaoJogador, selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
 						  		boolean rtitular = false;
 						  
@@ -206,13 +204,15 @@ public class Menu {
 								System.out.println("   +---------+ ");
 						  		System.out.print("Digite o nome do jogador: ");
 						  		nome = entrada.next();
-						  		mostrarSelecao(false);
+						  		nome = PrimeiraMaiuscula(nome);
+						  		MenuController.mostrarSelecao(false);
 						  		System.out.print("Digite o numero da selecao do Jogador: ");
 						  		selecao = entrada.nextInt();
 						  		System.out.println("Essas sao as posicoes dos jogadores:");
-						  		mostrarLista(posicoesJogadores);
+						  		mostrarListaNumerada(posicoesJogadores);
 						  		System.out.println("Digite o numero da posicao  do jogador: ");
 						  		numPosicaoJogador = entrada.nextInt();
+						  		posicaoJogador =  posicoesJogadores.get(numPosicaoJogador-1);
 						  		System.out.print("Digite a quantidade de cartoes Amarelos do jogador: ");
 						  		cartaoAmarelo = entrada.nextInt();
 						  		System.out.print("Digite a quantidade de cartoes Vermelhos do jogador: ");
@@ -221,6 +221,7 @@ public class Menu {
 						  		idade = entrada.nextInt();
 						  		System.out.println("Digite a nacionalidade do jogador: ");
 						  		nacionalidade = entrada.next();
+						  		nacionalidade = PrimeiraMaiuscula(nacionalidade);
 						  		System.out.println("O jogador e titular? [Sim/Nao]:");
 						  		titular = entrada.next();
 						  		if (titular.equals("Sim")) {
@@ -229,13 +230,9 @@ public class Menu {
 						  		else if (titular.equals("Nao")) {
 						  			rtitular = false;
 						  		}
-						  		else {
-						  			System.out.print("entrada invalida");
-						  		}
 						  		System.out.print("Digite a quantidade de gols do jogador: ");
 						  		gols = entrada.nextInt();
-						  		Jogador jogador = new Jogador(PrimeiraMaiuscula(nome), selecao, PrimeiraMaiuscula(nacionalidade), idade, posicoesJogadores.get(numPosicaoJogador-1), cartaoAmarelo, cartaoVermelho, gols, rtitular);
-						  		jogadorDAO.create(jogador);
+						  		MenuController.createJogador(nome, selecao, nacionalidade, idade, posicaoJogador, cartaoAmarelo, cartaoVermelho, gols, rtitular);
 					  		} else {
 					  			System.out.println("Não ha espaço nas seleções para um novo jogador.\nFavor criar uma nova selecao ou remover um jogador.");
 					  		}
@@ -245,31 +242,29 @@ public class Menu {
 					  		String atributo;
 					  		int idJogador, jogadorEditar;
 							  
-							if(!jogadorDAO.readAll().isEmpty()) {
-								listarDAOByID(1);
+							if(!MenuController.verificarExistencia(2)) {
+								MenuController.listarDAOByID(1);
 								System.out.println("Digite o id do jogador que vc deseja editar:");
 								idJogador = entrada.nextInt();
-								Jogador jogador = jogadorDAO.read(idJogador);
+								Object jogador = MenuController.selecionarDAO(2, idJogador);
 								if(jogador == null) {
 									System.out.println("Jogador não encontrado!");
 								}
 								else {
 									do {
 										int numAtributo;
-										String titular = ((jogador.isTitular() == true) ? "Sim" : "Nao");
-										
 										System.out.println("   +--------+ ");
 										System.out.println("   | Editar | "); 
 										System.out.println("   +--------+ ");
-										System.out.println("1) Nome:" + jogador.getNome());
-										System.out.println("2) Selecao:" + jogador.getSelecao().getNome());
-										System.out.println("3) Posicao:" + jogador.getPosicao());
-										System.out.println("4) Quantidade de cartoes amarelos:" + jogador.getCartaoAmarelo());
-										System.out.println("5) Quantidade de cartoes Vermelhos:" + jogador.getCartaoAmarelo());
-										System.out.println("6) Idade:" + jogador.getIdade());
-										System.out.println("7) Nacionalide:" + jogador.getNacionalidade());
-										System.out.println("8) Titular:" + titular);
-										System.out.println("9) gols:" + jogador.getGolsQuantidade());
+										System.out.println("1) Nome");
+										System.out.println("2) Selecao");
+										System.out.println("3) Posicao");
+										System.out.println("4) Quantidade de cartoes amarelos");
+										System.out.println("5) Quantidade de cartoes Vermelhos");
+										System.out.println("6) Idade");
+										System.out.println("7) Nacionalide");
+										System.out.println("8) Titular");
+										System.out.println("9) gols");
 										System.out.println("10) Voltar");
 										System.out.print("Qual atributo deseja editar: ");
 										jogadorEditar = entrada.nextInt();
@@ -277,66 +272,67 @@ public class Menu {
 										case 1:
 											System.out.print("Digite o novo nome:");
 											atributo = entrada.next();
-											jogadorDAO.update(idJogador, jogadorEditar, atributo);
+											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Nome alterado com sucesso");
 											break;
 											
 										case 2:
-											mostrarSelecao(false);
+											MenuController.mostrarSelecao(false);
 											System.out.print("Digite a nova selecao:");
 											atributo = entrada.next();
-											selecaoDAO.update(jogador.getSelecao().getId(), 6, String.valueOf(jogador.getId()));
-											jogadorDAO.update(idJogador, jogadorEditar, atributo);
-											selecaoDAO.update(jogador.getSelecao().getId(), 5, String.valueOf(jogador.getId()));
+											MenuController.updateSelecao(MenuController.SelecaoJogador(idJogador), 6, String.valueOf(idJogador));
+											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
+											MenuController.updateSelecao(MenuController.SelecaoJogador(idJogador), 5, String.valueOf(idJogador));
 											System.out.println("Selecao alterada com sucesso");
 											break;	
 											
 										case 3:
-											mostrarLista(posicoesJogadores);
+											mostrarListaNumerada(posicoesJogadores);
 											System.out.print("Digite o numero da nova Posicao:");
 											numAtributo = entrada.nextInt();
-											jogadorDAO.update(idJogador, jogadorEditar, posicoesJogadores.get(numAtributo-1));
+											atributo = posicoesJogadores.get(numAtributo-1);
+											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Posicao alterada com sucesso");
 											break;
 											
 										case 4:
 											System.out.print("Digite a nova quantidade de cartões amarelos:");
 											atributo = entrada.next();
-											jogadorDAO.update(idJogador, jogadorEditar, atributo);
+											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Quantidade de cartoes amarelos alterada com sucesso");
 											break;
 											
 										case 5:
 											System.out.print("Digite a nova quantidade de cartões vermelhos:");
 											atributo = entrada.next();
-											jogadorDAO.update(idJogador, jogadorEditar, atributo);
+											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Quantidade de cartoes vermelhos alterada com sucesso");
 											break;
 											
 										case 6:
 											System.out.print("Digite a nova idade:");
 											atributo = entrada.next();
-											jogadorDAO.update(idJogador, jogadorEditar, atributo);
+											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Idade alterada com sucesso");
 											break;
 											
 										case 7:
 											System.out.print("Digite a nova nacionalidade:");
 											atributo = entrada.next();
-											jogadorDAO.update(idJogador, jogadorEditar, atributo);
+											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Nacionalidade alterada com sucesso");
 											break;
 										case 8:
 											System.out.print("Digite se o jogador e titular:");
 											atributo = entrada.next();
-											jogadorDAO.update(idJogador, jogadorEditar, atributo);
+											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Titular alterado com sucesso");
 											break;
 											
 										case 9:
 											System.out.print("Digite a nova Quantidade de gols:");
 											atributo = entrada.next();
-											jogadorDAO.update(idJogador, jogadorEditar, atributo);
+											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Quantidade de gols alterada com sucesso");
 											break;
 											
@@ -357,22 +353,22 @@ public class Menu {
 					  	case 3:
 					  		int selecaoID, jogadorID;
 					  		String escolha;
-					  		listarDAOByID(4);
+					  		MenuController.listarDAOByID(4);
 					  		System.out.println("Digite o ID da selecao para excluir jogadores: ");
 					  		selecaoID = entrada.nextInt();
-					  		mostrarJogadoresSelecao(selecaoID);
+					  		MenuController.mostrarJogadoresSelecao(selecaoID);
 					  		System.out.println("Digite o ID do jogador que deseja excluir: ");
 					  		jogadorID = entrada.nextInt();
-					  		System.out.println("Voce tem certeza que deseja excluir o jogador " + jogadorDAO.read(jogadorID).getNome() + "? S/N ");
+					  		System.out.println("Voce tem certeza que deseja excluir o jogador? S/N ");
 					  		escolha = entrada.next().toLowerCase();
 					  		if (escolha.equals("s")) {
-					  			jogadorDAO.delete(jogadorID);
-					  			selecaoDAO.update(selecaoID, 6, Integer.toString(jogadorID));
+					  			MenuController.deleteJogador(jogadorID);
+					  			MenuController.updateSelecao(MenuController.SelecaoJogador(jogadorID), 6, String.valueOf(jogadorID));
 					  			System.out.println("Jogador deletado com sucesso!");
 					  		}
 					  		break;
 					  	case 4:
-					  		listarDAO(1);
+					  		MenuController.listarDAO(1);
 					  		break;
 					  		
 					  }
@@ -397,7 +393,7 @@ public class Menu {
 					  opcao3 = entrada.nextInt();
 					  switch(opcao3) {
 					  	case 1:
-					  		String nome, nacionalidade;
+					  		String nome, nacionalidade, tipo;
 					  		int idade, numTipo;
 					  		
 					  		System.out.println("   +---------+ ");
@@ -410,11 +406,11 @@ public class Menu {
 					  		System.out.print("Digite a nacionalidade do arbitro: ");
 					  		nacionalidade = entrada.next();
 					  		System.out.println("Essas sao os tipos de arbitros:");
-					  		mostrarLista(tipoArbitro);
+					  		mostrarListaNumerada(tipoArbitro);
 					  		System.out.print("Digite o numero do tipo de arbitro: ");
 					  		numTipo = entrada.nextInt();
-					  		Arbitro arbitro = new Arbitro(nome, nacionalidade, tipoArbitro.get(numTipo-1), idade);
-					  		arbitroDAO.create(arbitro);
+					  		tipo = tipoArbitro.get(numTipo-1);
+					  		MenuController.createArbitro(nome, nacionalidade, tipo, idade);
 					  		break;
 					  	
 					  	case 2:
@@ -422,11 +418,11 @@ public class Menu {
 					  		int idArbitro, arbitroEditar, numAtributo;
 					  		
 					  		
-							if(!arbitroDAO.readAll().isEmpty()) {
-								listarDAOByID(2);
+							if(!MenuController.verificarExistencia(4)) {
+								MenuController.listarDAO(2);
 								System.out.println("Digite o id do arbitro que vc deseja editar:");
 								idArbitro = entrada.nextInt();
-								arbitro = arbitroDAO.read(idArbitro);
+								Object arbitro = MenuController.selecionarDAO(4, idArbitro);
 								if(arbitro == null) {
 									System.out.println("Arbitro nao encontrado!");
 								}
@@ -435,10 +431,10 @@ public class Menu {
 										System.out.println("   +--------+ ");
 										System.out.println("   | Editar | "); 
 										System.out.println("   +--------+ ");
-										System.out.println("1) Nome:" + arbitro.getNome());
-										System.out.println("2) Idade:" + arbitro.getIdade());
-										System.out.println("3) Nacionalidade:" + arbitro.getNacionalidade());
-										System.out.println("4) Tipo:" + arbitro.getTipo());
+										System.out.println("1) Nome");
+										System.out.println("2) Idade");
+										System.out.println("3) Nacionalidade");
+										System.out.println("4) Tipo");
 										System.out.println("5) Voltar");
 										System.out.print("Qual atributo deseja editar: ");
 										arbitroEditar = entrada.nextInt();
@@ -446,30 +442,31 @@ public class Menu {
 										case 1:
 											System.out.print("Digite o novo nome:");
 											atributo = entrada.next();
-											arbitroDAO.update(idArbitro, arbitroEditar, PrimeiraMaiuscula(atributo));
+											MenuController.updateArbitro(idArbitro, arbitroEditar, PrimeiraMaiuscula(atributo));
 											System.out.println("Nome alterado com sucesso");
 											break;
 											
 										case 2:
 											System.out.print("Digite a nova idade:");
 											atributo = entrada.next();
-											arbitroDAO.update(idArbitro, arbitroEditar, atributo);
+											MenuController.updateArbitro(idArbitro, arbitroEditar, atributo);
 											System.out.println("Idade alterada com sucesso");
 											break;
 											
 										case 3:
 											System.out.print("Digite a nova nacionalidade:");
 											atributo = entrada.next();
-											arbitroDAO.update(idArbitro, arbitroEditar, PrimeiraMaiuscula(atributo));
+											MenuController.updateArbitro(idArbitro, arbitroEditar, PrimeiraMaiuscula(atributo));
 											System.out.println("Nacionalidade alterada com sucesso");
 											break;
 											
 										case 4:
-											mostrarLista(tipoArbitro);
+											mostrarListaNumerada(tipoArbitro);
 											System.out.print("Digite o novo tipo:");
 											numAtributo = entrada.nextInt();
-											arbitroDAO.update(idArbitro, arbitroEditar, tipoArbitro.get(numAtributo-1));
-											System.out.println("Idade alterada com sucesso");
+											atributo = tipoArbitro.get(numAtributo-1);
+											MenuController.updateArbitro(idArbitro, arbitroEditar, atributo);
+											System.out.println("Tipo de arbitro alterado com sucesso");
 											
 										case 5:
 											break;
@@ -487,18 +484,18 @@ public class Menu {
 					  	case 3:
 					  		int arbitroID;
 					  		String escolha;
-					  		listarDAOByID(2);
+					  		MenuController.listarDAOByID(2);
 					  		System.out.println("Digite o ID do arbitro que deseja excluir: ");
 					  		arbitroID = entrada.nextInt();
-					  		System.out.println("Voce tem certeza que deseja excluir o arbitro " + arbitroDAO.read(arbitroID).getNome() + "? S/N ");
+					  		System.out.println("Voce tem certeza que deseja excluir o arbitro ? S/N ");
 					  		escolha = entrada.next().toLowerCase();
 					  		if (escolha.equals("s")) {
-					  			arbitroDAO.delete(arbitroID);
+					  			MenuController.deleteArbitro(arbitroID);
 					  			System.out.println("Arbitro deletado com sucesso!");
 					  		}
 					  		break;
 					  	case 4:
-					  		listarDAO(2);
+					  		MenuController.listarDAO(2);
 					  		break;
 					  }
 				  } while (opcao3 != 5);
@@ -527,7 +524,7 @@ public class Menu {
 							System.out.println("   +---------+ ");
 					  		System.out.print("Digite o nome do tecnico: ");
 					  		nome = entrada.next();
-					  		mostrarSelecao(false);
+					  		MenuController.mostrarSelecao(false);
 					  		System.out.print("Digite o numero da selecao do tecnico: ");
 					  		selecao = entrada.nextInt();
 					  		System.out.print("Digite a idade do Tecnico: ");
@@ -536,18 +533,17 @@ public class Menu {
 					  		nacionalidade = entrada.next();
 					  		System.out.print("Digite o time anterior do tecnico: ");
 					  		timeAnterior = entrada.next();
-					  		Tecnico tecnico = new Tecnico(PrimeiraMaiuscula(nacionalidade), selecao, PrimeiraMaiuscula(timeAnterior), PrimeiraMaiuscula(nome), idade);
-					  		tecnicoDAO.create(tecnico);
+					  		MenuController.createTecnico(PrimeiraMaiuscula(nacionalidade), selecao, PrimeiraMaiuscula(timeAnterior), PrimeiraMaiuscula(nome), idade);
 					  		break;
 					  		
 					  	case 2:
 					  		int idTecnico, tecnicoEditar;
 					  
-							if(!tecnicoDAO.readAll().isEmpty()) {
-								listarDAOByID(3);
+							if(!MenuController.verificarExistencia(3)) {
+								MenuController.listarDAOByID(3);
 								System.out.println("Digite o id do tecnico que vc deseja editar:");
 								idTecnico = entrada.nextInt();
-								tecnico = tecnicoDAO.read(idTecnico);
+								Object tecnico = MenuController.selecionarDAO(3, idTecnico);
 								if(tecnico == null) {
 									System.out.println("Tecnico nao encontrado!");
 								}
@@ -557,11 +553,11 @@ public class Menu {
 										System.out.println("   +--------+ ");
 										System.out.println("   | Editar | "); 
 										System.out.println("   +--------+ ");
-										System.out.println("1) Nome:" + tecnico.getNome());
-										System.out.println("2) Selecao:" + tecnico.getSelecao().getNome());
-										System.out.println("3) Idade:" + tecnico.getIdade());
-										System.out.println("4) Nacionalidade:" + tecnico.getNacionalidade());
-										System.out.println("5) Time anterior:" + tecnico.getTimeAnterior());
+										System.out.println("1) Nome");
+										System.out.println("2) Selecao");
+										System.out.println("3) Idade");
+										System.out.println("4) Nacionalidade");
+										System.out.println("5) Time anterior");
 										System.out.println("6) Voltar");
 										System.out.print("Qual atributo deseja editar: ");
 										tecnicoEditar = entrada.nextInt();
@@ -569,38 +565,38 @@ public class Menu {
 										case 1:
 											System.out.print("Digite o novo nome:");
 											atributo = entrada.next();
-											tecnicoDAO.update(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
+											MenuController.updateTecnico(idTecnico, tecnicoEditar, atributo);
 											System.out.println("Nome alterado com sucesso");
 											break;
 											
 										case 2:
-											mostrarSelecao(false);
+											MenuController.mostrarSelecao(false);
 											System.out.print("Digite a nova selecao:");
 											atributo = entrada.next();
-											selecaoDAO.update(tecnico.getSelecao().getId(), 4, String.valueOf(-1));
-											tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
-											selecaoDAO.update(tecnico.getSelecao().getId(), 4, String.valueOf(tecnico.getId()));
+											MenuController.updateSelecao(MenuController.SelecaoTecnico(idTecnico), 4, String.valueOf(-1));
+											MenuController.updateTecnico(idTecnico, tecnicoEditar, atributo);
+											MenuController.updateSelecao(MenuController.SelecaoTecnico(idTecnico), 4, String.valueOf(idTecnico));
 											System.out.println("Selecao alterada com sucesso");
 											break;	
 											
 										case 3:
 											System.out.print("Digite a nova idade:");
 											atributo = entrada.next();
-											tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);
+											MenuController.updateTecnico(idTecnico, tecnicoEditar, atributo);
 											System.out.println("Idade alterada com sucesso");
 											break;
 											
 										case 4:
 											System.out.print("Digite a nova nacionalidade:");
 											atributo = entrada.next();
-											tecnicoDAO.update(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
+											MenuController.updateTecnico(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
 											System.out.println("Nacionalidade alterada com sucesso");
 											break;
 											
 										case 5:
 											System.out.print("Digite o novo time anterior:");
 											atributo = entrada.next();
-											tecnicoDAO.update(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
+											MenuController.updateTecnico(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
 											System.out.println("time anterior alterado com sucesso");
 											
 										case 6:
@@ -616,22 +612,22 @@ public class Menu {
 								System.out.println("Nao ha Tecnicos cadastrados!");
 							}
 							break;
+							
 					  	case 3:
 					  		int tecnicoID;
 					  		String escolha;
-					  		listarDAOByID(3);
+					  		MenuController.listarDAOByID(3);
 					  		System.out.println("Digite o ID do tecnico que deseja excluir: ");
 					  		tecnicoID = entrada.nextInt();
-					  		System.out.println("Voce tem certeza que deseja excluir o tecnico " + tecnicoDAO.read(tecnicoID).getNome() + "? S/N ");
+					  		System.out.println("Voce tem certeza que deseja excluir o tecnico? S/N ");
 					  		escolha = entrada.next().toLowerCase();
 					  		if (escolha.equals("s")) {
-					  			tecnicoDAO.read(tecnicoID).getSelecao().setTecnico(-1);
-					  			tecnicoDAO.delete(tecnicoID);
+					  			MenuController.deleteTecnico(tecnicoID);
 					  			System.out.println("Tecnico deletado com sucesso!");
 					  		}
 					  		break;
 					  	case 4:
-					  		listarDAO(3);
+					  		MenuController.listarDAO(3);
 					  		break;
 					  							
 					  }
@@ -651,7 +647,3 @@ public class Menu {
 		 entrada.close();
 	  }
 	}
-	
-	
-	
-
