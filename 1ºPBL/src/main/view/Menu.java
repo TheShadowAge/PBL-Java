@@ -41,10 +41,13 @@ public class Menu {
 	}
 	
 	public static void main(String[] args) {
+		
+		MenuController.criarEntidades();
 		int opcao,opcao1,opcao2,opcao3,opcao4;
 		Scanner entrada = new Scanner(System.in);
 		
 		do {
+				
 			  System.out.println("   +---------+ ");
 			  System.out.println("   | SysCopa | "); 
 			  System.out.println("   +---------+ ");
@@ -98,8 +101,8 @@ public class Menu {
 					  		int idSelecao, selecaoEditar;
 							  
 							if(!MenuController.verificarExistencia(1)) {
-								listarObjeto(MenuController.listarDAO(4));
-								System.out.println("Digite o id da selecao que vc deseja editar:");
+								listar(MenuController.listarDAOByID(4));
+								System.out.print("Digite o id da selecao que vc deseja editar:");
 								idSelecao = entrada.nextInt();
 								Object selecao = MenuController.selecionarDAO(1, idSelecao);
 								if(selecao == null) {
@@ -159,7 +162,7 @@ public class Menu {
 					  		int selecaoID;
 					  		String escolha;
 					  		System.out.println("Qual selecao deseja excluir? ");
-					  		listarObjeto(MenuController.listarDAO(4));
+					  		listar(MenuController.listarDAOByID(4));
 					  		System.out.println("Digite o ID da selecao a ser excluida: ");
 					  		selecaoID = entrada.nextInt();
 					  		System.out.println("Tem certeza que deseja excluir a selecao ?\nIsso vai excluir a selecao e todos os jogadores e o ténico dela.\nDeseja continuar? S/N");
@@ -171,7 +174,7 @@ public class Menu {
 					  		break;
 					  		
 					  	case 4:
-					  		MenuController.listarDAO(4);
+					  		listarObjeto(MenuController.listarDAO(4));
 					  	  	break;  		
 					  }
 				  }while (opcao1 != 5);
@@ -243,7 +246,7 @@ public class Menu {
 					  		int idJogador, jogadorEditar;
 							  
 							if(!MenuController.verificarExistencia(2)) {
-								MenuController.listarDAOByID(1);
+								listar(MenuController.listarDAOByID(1));
 								System.out.println("Digite o id do jogador que vc deseja editar:");
 								idJogador = entrada.nextInt();
 								Object jogador = MenuController.selecionarDAO(2, idJogador);
@@ -353,7 +356,7 @@ public class Menu {
 					  	case 3:
 					  		int selecaoID, jogadorID;
 					  		String escolha;
-					  		MenuController.listarDAOByID(4);
+					  		listar(MenuController.listarDAOByID(4));
 					  		System.out.println("Digite o ID da selecao para excluir jogadores: ");
 					  		selecaoID = entrada.nextInt();
 					  		MenuController.mostrarJogadoresSelecao(selecaoID);
@@ -368,7 +371,7 @@ public class Menu {
 					  		}
 					  		break;
 					  	case 4:
-					  		MenuController.listarDAO(1);
+					  		listarObjeto(MenuController.listarDAO(1));
 					  		break;
 					  		
 					  }
@@ -419,7 +422,7 @@ public class Menu {
 					  		
 					  		
 							if(!MenuController.verificarExistencia(4)) {
-								MenuController.listarDAO(2);
+								listar(MenuController.listarDAOByID(2));
 								System.out.println("Digite o id do arbitro que vc deseja editar:");
 								idArbitro = entrada.nextInt();
 								Object arbitro = MenuController.selecionarDAO(4, idArbitro);
@@ -484,7 +487,7 @@ public class Menu {
 					  	case 3:
 					  		int arbitroID;
 					  		String escolha;
-					  		MenuController.listarDAOByID(2);
+					  		listar(MenuController.listarDAOByID(2));
 					  		System.out.println("Digite o ID do arbitro que deseja excluir: ");
 					  		arbitroID = entrada.nextInt();
 					  		System.out.println("Voce tem certeza que deseja excluir o arbitro ? S/N ");
@@ -495,7 +498,7 @@ public class Menu {
 					  		}
 					  		break;
 					  	case 4:
-					  		MenuController.listarDAO(2);
+					  		listarObjeto(MenuController.listarDAO(2));
 					  		break;
 					  }
 				  } while (opcao3 != 5);
@@ -540,7 +543,7 @@ public class Menu {
 					  		int idTecnico, tecnicoEditar;
 					  
 							if(!MenuController.verificarExistencia(3)) {
-								MenuController.listarDAOByID(3);
+								listar(MenuController.listarDAOByID(3));
 								System.out.println("Digite o id do tecnico que vc deseja editar:");
 								idTecnico = entrada.nextInt();
 								Object tecnico = MenuController.selecionarDAO(3, idTecnico);
@@ -616,7 +619,7 @@ public class Menu {
 					  	case 3:
 					  		int tecnicoID;
 					  		String escolha;
-					  		MenuController.listarDAOByID(3);
+					  		listar(MenuController.listarDAOByID(3));
 					  		System.out.println("Digite o ID do tecnico que deseja excluir: ");
 					  		tecnicoID = entrada.nextInt();
 					  		System.out.println("Voce tem certeza que deseja excluir o tecnico? S/N ");
@@ -627,7 +630,7 @@ public class Menu {
 					  		}
 					  		break;
 					  	case 4:
-					  		MenuController.listarDAO(3);
+					  		listarObjeto(MenuController.listarDAO(3));
 					  		break;
 					  							
 					  }
