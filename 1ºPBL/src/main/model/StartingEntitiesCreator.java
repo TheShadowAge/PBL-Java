@@ -62,6 +62,6 @@ public class StartingEntitiesCreator {
 	  tecnicoDAO.create(new Tecnico("Brasileiro", 1, "Corinthians", "Tite", 61));
 	  arbitroDAO.create(new Arbitro("Raphael Claus", "Brasileiro", "Arbitro", 46));
 	  arbitroDAO.create(new Arbitro("Wilton Pereira Sampaio", "Brasileiro", "Arbitro", 40));
-	  jogadorDAO.create(new Jogador("Alisson Argentino", 2, "Brasileiro", 29, "Goleiro", true));
+	  jogadorDAO.create(new Jogador("Alisson Argentino", 2, "Argentino", 29, "Goleiro", true));
 	}
 }

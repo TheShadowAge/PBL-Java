@@ -9,9 +9,9 @@ package main.model.entities;
 public class Jogador extends PessoaSelecao{
 	private String posicao;
 	private String codJog;
-	private int cartaoAmarelo;
-	private int cartaoVermelho;
-	private int golsQuantidade;
+	private int cartaoAmarelo = 0;
+	private int cartaoVermelho = 0;
+	private int golsQuantidade = 0;
 	private boolean titular;
 	
 	/**
@@ -27,16 +27,13 @@ public class Jogador extends PessoaSelecao{
 	 * @param golsQuantidade Quantidade de gols do jogador.
 	 */
 	
-	public Jogador(String nome, int selecao, String nacionalidade, int idade, String posicao, int cartaoAmarelo, int cartaoVermelho, int golsQuantidade, boolean titular){
+	public Jogador(String nome, int selecao, String nacionalidade, int idade, String posicao, boolean titular){
 		this.nome = nome;
 		this.selecao = selecao;
 		this.nacionalidade = nacionalidade;
 		this.idade = idade;
 		this.posicao = posicao;
-		this.cartaoAmarelo = cartaoAmarelo;
-		this.cartaoVermelho = cartaoVermelho;
 		this.titular = titular;
-		this.golsQuantidade = golsQuantidade;
 	}
 	
 	/**

@@ -388,7 +388,7 @@ public class Main {
 				  	case 1:
 				  		if (!(isSelecoesFull())) {
 					  		String nome, nacionalidade ,titular;
-					  		int numPosicaoJogador, selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
+					  		int numPosicaoJogador, selecao, idade;
 					  		boolean rtitular = false;
 					  
 					  		System.out.println("   +---------+ ");
@@ -424,7 +424,7 @@ public class Main {
 					  		}
 					  		System.out.print("Digite a quantidade de gols do jogador: ");
 					  		gols = entrada.nextInt();
-					  		Jogador jogador = new Jogador(PrimeiraMaiuscula(nome), selecao, PrimeiraMaiuscula(nacionalidade), idade, posicoesJogadores.get(numPosicaoJogador-1), cartaoAmarelo, cartaoVermelho, gols, rtitular);
+					  		Jogador jogador = new Jogador(PrimeiraMaiuscula(nome), selecao, PrimeiraMaiuscula(nacionalidade), idade, posicoesJogadores.get(numPosicaoJogador-1), rtitular);
 					  		jogadorDAO.create(jogador);
 				  		} else {
 				  			System.out.println("Não ha espaço nas seleções para um novo jogador.\nFavor criar uma nova selecao ou remover um jogador.");
