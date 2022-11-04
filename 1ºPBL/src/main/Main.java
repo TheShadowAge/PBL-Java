@@ -403,10 +403,6 @@ public class Main {
 					  		mostrarLista(posicoesJogadores);
 					  		System.out.println("Digite o numero da posicao  do jogador: ");
 					  		numPosicaoJogador = entrada.nextInt();
-					  		System.out.print("Digite a quantidade de cartoes Amarelos do jogador: ");
-					  		cartaoAmarelo = entrada.nextInt();
-					  		System.out.print("Digite a quantidade de cartoes Vermelhos do jogador: ");
-					  		cartaoVermelho = entrada.nextInt();
 					  		System.out.println("Digite a idade do jogador: ");
 					  		idade = entrada.nextInt();
 					  		System.out.println("Digite a nacionalidade do jogador: ");
@@ -422,8 +418,6 @@ public class Main {
 					  		else {
 					  			System.out.print("entrada invalida");
 					  		}
-					  		System.out.print("Digite a quantidade de gols do jogador: ");
-					  		gols = entrada.nextInt();
 					  		Jogador jogador = new Jogador(PrimeiraMaiuscula(nome), selecao, PrimeiraMaiuscula(nacionalidade), idade, posicoesJogadores.get(numPosicaoJogador-1), rtitular);
 					  		jogadorDAO.create(jogador);
 				  		} else {
