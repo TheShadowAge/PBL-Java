@@ -42,6 +42,15 @@ public interface PartidaDAO {
 	public void update(int id, int opcao, String atributo);
 	
 	/**
+	 * Método que atualiza as informações das listas nas partidas do sistema. 
+	 * @param id Inteiro que representa o ID do partidas a ser atualizado. 
+	 * @param opcao Inteiro que define a lista que será atualizada.
+	 * @param atributo Uma lista com os dados que serão atualizados.
+	 */
+	
+	public void updateList(int id, int opcao, List<Integer> lista);
+	
+	/**
 	 * Método que deleta um partidas do Sistema pelo ID.
 	 * @param id Inteiro que representa o ID do partidas que será removido.
 	 */

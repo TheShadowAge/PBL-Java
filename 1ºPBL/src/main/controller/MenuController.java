@@ -2,6 +2,8 @@ package main.controller;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import main.model.StartingEntitiesCreator;
 import main.model.DAO.*;
 import main.model.entities.*;
 
@@ -54,6 +56,8 @@ public class MenuController {
 	  JogadorDAO jogadorDAO = DAO.getJogadores();
 	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
 	  ArbitroDAO arbitroDAO = DAO.getArbitros();
+	  PartidaDAO partidaDAO = DAO.getPartidas();
+	  
 	  switch (dao){
 		  case 1:
 			  if (jogadorDAO.readAll().size() != 0) {
@@ -103,6 +107,18 @@ public class MenuController {
 				  lista.add("Nao ha selecoes inscritas.");
 			  }
 			  break;
+		  case 5:
+			  if (partidaDAO.readAll().size() != 0) {
+				  lista.add("Essas sao as partidas inscritas:");
+				  for (Partida partidaIterator: partidaDAO.readAll()) {
+					  lista.add("+----------------------------------------+");
+					  lista.add(partidaIterator);
+				  }
+				  lista.add("+----------------------------------------+");
+			  } else {
+				  lista.add("Nao ha partidas inscritas.");
+			  }
+			  break;
 	  }
 	return lista;
 	}
@@ -118,6 +134,8 @@ public class MenuController {
 		  JogadorDAO jogadorDAO = DAO.getJogadores();
 		  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
 		  ArbitroDAO arbitroDAO = DAO.getArbitros();
+		  PartidaDAO partidaDAO = DAO.getPartidas();
+		  
 		  switch (dao){
 			  case 1:
 				  lista.add("Esses sao os jogadores inscritos:");
@@ -143,6 +161,11 @@ public class MenuController {
 					  lista.add(selecaoIterator.getId() + " - " + selecaoIterator.getNome());
 				  }
 				  break;
+			  case 5:
+				  lista.add("Essas são as partidas inscritas:");
+				  for (Partida partidaIterator: partidaDAO.readAll()) {
+					  lista.add(partidaIterator.getId() + " - " + partidaIterator.getNome());
+				  }
 		  }
 		  return lista;
 		}
@@ -180,37 +203,30 @@ public class MenuController {
 	  JogadorDAO jogadorDAO = DAO.getJogadores();
 	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
 	  ArbitroDAO arbitroDAO = DAO.getArbitros();
+	  PartidaDAO partidaDAO = DAO.getPartidas();
 	  
 	  switch(dao) {
 	  	case 1:
-	  		if (selecaoDAO.readAll().isEmpty())
-	  			return true;
-	  		else
-	  			return false;
+	  			return selecaoDAO.readAll().isEmpty();
 	  	case 2:
-	  		if (jogadorDAO.readAll().isEmpty())
-	  			return true;
-	  		else
-	  			return false;
+	  			return jogadorDAO.readAll().isEmpty();
 	  	case 3:
-	  		if (tecnicoDAO.readAll().isEmpty())
-	  			return true;
-	  		else 
-	  			return false;
+	  			return tecnicoDAO.readAll().isEmpty();
 	  	case 4:
-	  		if (arbitroDAO.readAll().isEmpty())
-	  			return true;
-	  		else 
-	  			return false;
+	  			return arbitroDAO.readAll().isEmpty();
+	  	case 5:
+	  			return partidaDAO.readAll().isEmpty();
+	  			
+	  		}
+	  return false;
 	  }
-	return true;
-  }
   
   public static Object selecionarDAO(int dao, int id) {
 	SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	JogadorDAO jogadorDAO = DAO.getJogadores();
 	TecnicoDAO tecnicoDAO = DAO.getTecnicos();
-	ArbitroDAO arbitroDAO = DAO.getArbitros(); 
+	ArbitroDAO arbitroDAO = DAO.getArbitros();
+	PartidaDAO partidaDAO = DAO.getPartidas();
 	
 	switch(dao) {
 	  case 1:
@@ -221,6 +237,8 @@ public class MenuController {
 		  return tecnicoDAO.read(id);
 	  case 4:
 		  return arbitroDAO.read(id);
+	  case 5:
+		  return partidaDAO.read(id);
 	}
 	return null;
   }
@@ -234,89 +252,11 @@ public class MenuController {
 		}
 	  return !(selecoesFull.contains(false));
   }
-	
-  public static void createSelecao(String nome, String grupo, int posicaoGrupo) {
-	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
-	  Selecao selecao = new Selecao(nome, grupo, posicaoGrupo);
-	  selecaoDAO.create(selecao);
-  }
-	
-  public static void updateSelecao(int idSelecao, int selecaoEditar,String atributo) {
-	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
-	  selecaoDAO.update(idSelecao, selecaoEditar, atributo);	  
+  
+  public static void criarEntidades() {
+	  StartingEntitiesCreator.entitiesCreator();
   }
   
-  public static void deleteSelecao(int selecaoID) {
-	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
-	  JogadorDAO jogadorDAO = DAO.getJogadores();
-	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
-	  
-	  Selecao selecaoDelete = selecaoDAO.read(selecaoID);
-	  for (Integer jogadorIterator: selecaoDelete.getJogadores()) {
-			jogadorDAO.delete(jogadorIterator);
-		}
-		tecnicoDAO.delete(selecaoDelete.getTecnico());
-		selecaoDAO.delete(selecaoID);
-	}
-  
-  public static void createJogador(String nome, int selecao, String nacionalidade, int idade, String posicao, int cartaoAmarelo, int cartaoVermelho, int golsQuantidade, boolean titular) {
-		JogadorDAO jogadorDAO = DAO.getJogadores();
-		Jogador jogador = new Jogador(nome, selecao, nacionalidade, idade, posicao, cartaoAmarelo, cartaoVermelho, golsQuantidade, titular);
-		jogadorDAO.create(jogador);
-	  }
-  
-  public static void updateJogador(int idJogador, int jogadorEditar,String atributo) {
-	  JogadorDAO jogadorDAO = DAO.getJogadores();
-	  jogadorDAO.update(idJogador, jogadorEditar, atributo);	  
-  }
-			  
-  public static void deleteJogador (int jogadorID) {
-	  JogadorDAO jogadorDAO = DAO.getJogadores();
-	  jogadorDAO.delete(jogadorID);
-	}
-  
-  public static int SelecaoJogador(int idJogador) {
-	  JogadorDAO jogadorDAO = DAO.getJogadores();
-	  Jogador jogador = jogadorDAO.read(idJogador);
-	  return jogador.getSelecao().getId();
-  }
-  
-  public static void createArbitro(String nome, String nacionalidade, String tipo, int idade) {
-		ArbitroDAO arbitroDAO = DAO.getArbitros();
-		Arbitro arbitro = new Arbitro(nome, nacionalidade, tipo, idade);
-  		arbitroDAO.create(arbitro);
-	  }
-  
-  public static void updateArbitro(int idArbitro, int arbitroEditar,String atributo) {
-	  ArbitroDAO arbitroDAO = DAO.getArbitros();
-	  arbitroDAO.update(idArbitro, arbitroEditar, atributo);	  
-  }
-  
-  public static void deleteArbitro (int arbitroID) {
-	  ArbitroDAO arbitroDAO = DAO.getArbitros();
-	  arbitroDAO.delete(arbitroID);
-	}
-  
-  public static void createTecnico(String nacionalidade, int selecao, String timeAnterior,String nome, int idade) {
-	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
-	  Tecnico tecnico = new Tecnico(nacionalidade, selecao, timeAnterior, nome, idade);
-	  tecnicoDAO.create(tecnico);
-  }
-  
-  public static void updateTecnico(int idTecnico, int tecnicoEditar,String atributo) {
-	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
-	  tecnicoDAO.update(idTecnico, tecnicoEditar, atributo);	  
-  }
-  
-  public static void deleteTecnico (int tecnicoID) {
-	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
-	  tecnicoDAO.read(tecnicoID).getSelecao().setTecnico(-1);
-	  tecnicoDAO.delete(tecnicoID);
-	}
-  
-  public static int SelecaoTecnico(int idJogador) {
-	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
-	  Tecnico tecnico = tecnicoDAO.read(idJogador);
-	  return tecnico.getSelecao().getId();
-  }
 }
+  
+  

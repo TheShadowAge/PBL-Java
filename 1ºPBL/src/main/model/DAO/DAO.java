@@ -12,6 +12,7 @@ public class DAO {
 	private static JogadorDAO jogadorDAO;
 	private static TecnicoDAO tecnicoDAO;
 	private static ArbitroDAO arbitroDAO;
+	private static PartidaDAO partidaDAO;
 	
 	/**
 	 * Método que pode ser acessado de todo o sistema para acessar o DAO de seleções.
@@ -59,6 +60,18 @@ public class DAO {
 			arbitroDAO = new ArbitroDAOImplementList();
 		}
 		return arbitroDAO;
+	}
+	
+	/**
+	 * Método que pode ser acessado de todo o sistema para acessar o DAO de partidas.
+	 * @return O Objeto DAO de partidas.
+	 */
+	
+	public static PartidaDAO getPartidas() {
+		if (partidaDAO == null) {
+			partidaDAO = new PartidaDAOImplementList();
+		}
+		return partidaDAO;
 	}
 
 }

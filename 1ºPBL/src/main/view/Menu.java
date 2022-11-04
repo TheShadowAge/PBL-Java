@@ -1,9 +1,12 @@
 package main.view;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import main.controller.MenuController;
+import main.controller.*;
 
 public class Menu {
 	
@@ -43,11 +46,9 @@ public class Menu {
 	public static void main(String[] args) {
 		
 		MenuController.criarEntidades();
-		int opcao,opcao1,opcao2,opcao3,opcao4;
+		int opcao, opcao1,opcao2,opcao3,opcao4,opcao5;
 		Scanner entrada = new Scanner(System.in);
-		
 		do {
-				
 			  System.out.println("   +---------+ ");
 			  System.out.println("   | SysCopa | "); 
 			  System.out.println("   +---------+ ");
@@ -56,7 +57,8 @@ public class Menu {
 			  System.out.println("2) Jogadores");
 			  System.out.println("3) Arbitros");
 			  System.out.println("4) Tecnico");
-			  System.out.println("5) Sair");
+			  System.out.println("5) Partida");
+			  System.out.println("6) Sair");
 			  System.out.print("Opcao: ");
 			  opcao = entrada.nextInt();
 			  
@@ -93,7 +95,7 @@ public class Menu {
 					  		PrimeiraMaiuscula(grupo);
 					  		System.out.print("Digite a posicao no grupo da Selecao [1 a 4]: ");
 					  		posicaoGrupo = entrada.nextInt();
-					  		MenuController.createSelecao(nome, grupo, posicaoGrupo);
+					  		ControllerSelecao.createSelecao(nome, grupo, posicaoGrupo);
 					  		break;
 					  		
 					  	case 2:
@@ -124,7 +126,7 @@ public class Menu {
 											System.out.print("Digite o novo nome:");
 											atributo = entrada.next();
 											atributo = PrimeiraMaiuscula(atributo);
-											MenuController.updateSelecao(idSelecao, selecaoEditar, atributo);
+											ControllerSelecao.updateSelecao(idSelecao, selecaoEditar, atributo);
 											System.out.println("Nome alterado com sucesso");
 											break;
 											
@@ -132,14 +134,14 @@ public class Menu {
 											mostrarGrupos();
 											System.out.print("Digite o novo grupo:");
 											atributo = entrada.next();
-											MenuController.updateSelecao(idSelecao, selecaoEditar, atributo);
+											ControllerSelecao.updateSelecao(idSelecao, selecaoEditar, atributo);
 											System.out.println("Selecao alterada com sucesso");
 											break;	
 											
 										case 3:
 											System.out.print("Digite a nova posicao da selecao no grupo:");
 											atributo = entrada.next();
-											MenuController.updateSelecao(idSelecao, selecaoEditar, atributo);
+											ControllerSelecao.updateSelecao(idSelecao, selecaoEditar, atributo);
 											System.out.println("Posicao da selecao alterada com sucesso");
 											break;
 											
@@ -168,7 +170,7 @@ public class Menu {
 					  		System.out.println("Tem certeza que deseja excluir a selecao ?\nIsso vai excluir a selecao e todos os jogadores e o ténico dela.\nDeseja continuar? S/N");
 					  		escolha = entrada.next();
 					  		if (escolha.toLowerCase().equals("s")) {
-					  			MenuController.deleteSelecao(selecaoID);
+					  			ControllerSelecao.deleteSelecao(selecaoID);
 					  			System.out.println("Selecao, jogadores e tecnico excluidos com sucesso!");
 					  		}
 					  		break;
@@ -199,7 +201,7 @@ public class Menu {
 					  	case 1:
 					  		if (!(MenuController.isSelecoesFull())) {
 						  		String nome, nacionalidade ,titular, posicaoJogador;
-						  		int numPosicaoJogador, selecao,cartaoAmarelo, cartaoVermelho, idade, gols;
+						  		int numPosicaoJogador, selecao, idade;
 						  		boolean rtitular = false;
 						  
 						  		System.out.println("   +---------+ ");
@@ -216,10 +218,6 @@ public class Menu {
 						  		System.out.println("Digite o numero da posicao  do jogador: ");
 						  		numPosicaoJogador = entrada.nextInt();
 						  		posicaoJogador =  posicoesJogadores.get(numPosicaoJogador-1);
-						  		System.out.print("Digite a quantidade de cartoes Amarelos do jogador: ");
-						  		cartaoAmarelo = entrada.nextInt();
-						  		System.out.print("Digite a quantidade de cartoes Vermelhos do jogador: ");
-						  		cartaoVermelho = entrada.nextInt();
 						  		System.out.println("Digite a idade do jogador: ");
 						  		idade = entrada.nextInt();
 						  		System.out.println("Digite a nacionalidade do jogador: ");
@@ -233,9 +231,7 @@ public class Menu {
 						  		else if (titular.equals("Nao")) {
 						  			rtitular = false;
 						  		}
-						  		System.out.print("Digite a quantidade de gols do jogador: ");
-						  		gols = entrada.nextInt();
-						  		MenuController.createJogador(nome, selecao, nacionalidade, idade, posicaoJogador, cartaoAmarelo, cartaoVermelho, gols, rtitular);
+						  		ControllerJogador.createJogador(nome, selecao, nacionalidade, idade, posicaoJogador, rtitular);
 					  		} else {
 					  			System.out.println("Não ha espaço nas seleções para um novo jogador.\nFavor criar uma nova selecao ou remover um jogador.");
 					  		}
@@ -275,7 +271,7 @@ public class Menu {
 										case 1:
 											System.out.print("Digite o novo nome:");
 											atributo = entrada.next();
-											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
+											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Nome alterado com sucesso");
 											break;
 											
@@ -283,9 +279,9 @@ public class Menu {
 											MenuController.mostrarSelecao(false);
 											System.out.print("Digite a nova selecao:");
 											atributo = entrada.next();
-											MenuController.updateSelecao(MenuController.SelecaoJogador(idJogador), 6, String.valueOf(idJogador));
-											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
-											MenuController.updateSelecao(MenuController.SelecaoJogador(idJogador), 5, String.valueOf(idJogador));
+											ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(idJogador), 6, String.valueOf(idJogador));
+											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
+											ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(idJogador), 5, String.valueOf(idJogador));
 											System.out.println("Selecao alterada com sucesso");
 											break;	
 											
@@ -294,48 +290,48 @@ public class Menu {
 											System.out.print("Digite o numero da nova Posicao:");
 											numAtributo = entrada.nextInt();
 											atributo = posicoesJogadores.get(numAtributo-1);
-											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
+											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Posicao alterada com sucesso");
 											break;
 											
 										case 4:
 											System.out.print("Digite a nova quantidade de cartões amarelos:");
 											atributo = entrada.next();
-											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
+											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Quantidade de cartoes amarelos alterada com sucesso");
 											break;
 											
 										case 5:
 											System.out.print("Digite a nova quantidade de cartões vermelhos:");
 											atributo = entrada.next();
-											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
+											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Quantidade de cartoes vermelhos alterada com sucesso");
 											break;
 											
 										case 6:
 											System.out.print("Digite a nova idade:");
 											atributo = entrada.next();
-											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
+											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Idade alterada com sucesso");
 											break;
 											
 										case 7:
 											System.out.print("Digite a nova nacionalidade:");
 											atributo = entrada.next();
-											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
+											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Nacionalidade alterada com sucesso");
 											break;
 										case 8:
 											System.out.print("Digite se o jogador e titular:");
 											atributo = entrada.next();
-											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
+											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Titular alterado com sucesso");
 											break;
 											
 										case 9:
 											System.out.print("Digite a nova Quantidade de gols:");
 											atributo = entrada.next();
-											MenuController.updateJogador(idJogador, jogadorEditar, atributo);
+											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Quantidade de gols alterada com sucesso");
 											break;
 											
@@ -365,8 +361,8 @@ public class Menu {
 					  		System.out.println("Voce tem certeza que deseja excluir o jogador? S/N ");
 					  		escolha = entrada.next().toLowerCase();
 					  		if (escolha.equals("s")) {
-					  			MenuController.deleteJogador(jogadorID);
-					  			MenuController.updateSelecao(MenuController.SelecaoJogador(jogadorID), 6, String.valueOf(jogadorID));
+					  			ControllerJogador.deleteJogador(jogadorID);
+					  			ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogadorID), 6, String.valueOf(jogadorID));
 					  			System.out.println("Jogador deletado com sucesso!");
 					  		}
 					  		break;
@@ -413,7 +409,7 @@ public class Menu {
 					  		System.out.print("Digite o numero do tipo de arbitro: ");
 					  		numTipo = entrada.nextInt();
 					  		tipo = tipoArbitro.get(numTipo-1);
-					  		MenuController.createArbitro(nome, nacionalidade, tipo, idade);
+					  		ControllerArbitro.createArbitro(nome, nacionalidade, tipo, idade);
 					  		break;
 					  	
 					  	case 2:
@@ -445,21 +441,21 @@ public class Menu {
 										case 1:
 											System.out.print("Digite o novo nome:");
 											atributo = entrada.next();
-											MenuController.updateArbitro(idArbitro, arbitroEditar, PrimeiraMaiuscula(atributo));
+											ControllerArbitro.updateArbitro(idArbitro, arbitroEditar, PrimeiraMaiuscula(atributo));
 											System.out.println("Nome alterado com sucesso");
 											break;
 											
 										case 2:
 											System.out.print("Digite a nova idade:");
 											atributo = entrada.next();
-											MenuController.updateArbitro(idArbitro, arbitroEditar, atributo);
+											ControllerArbitro.updateArbitro(idArbitro, arbitroEditar, atributo);
 											System.out.println("Idade alterada com sucesso");
 											break;
 											
 										case 3:
 											System.out.print("Digite a nova nacionalidade:");
 											atributo = entrada.next();
-											MenuController.updateArbitro(idArbitro, arbitroEditar, PrimeiraMaiuscula(atributo));
+											ControllerArbitro.updateArbitro(idArbitro, arbitroEditar, PrimeiraMaiuscula(atributo));
 											System.out.println("Nacionalidade alterada com sucesso");
 											break;
 											
@@ -468,7 +464,7 @@ public class Menu {
 											System.out.print("Digite o novo tipo:");
 											numAtributo = entrada.nextInt();
 											atributo = tipoArbitro.get(numAtributo-1);
-											MenuController.updateArbitro(idArbitro, arbitroEditar, atributo);
+											ControllerArbitro.updateArbitro(idArbitro, arbitroEditar, atributo);
 											System.out.println("Tipo de arbitro alterado com sucesso");
 											
 										case 5:
@@ -493,7 +489,7 @@ public class Menu {
 					  		System.out.println("Voce tem certeza que deseja excluir o arbitro ? S/N ");
 					  		escolha = entrada.next().toLowerCase();
 					  		if (escolha.equals("s")) {
-					  			MenuController.deleteArbitro(arbitroID);
+					  			ControllerArbitro.deleteArbitro(arbitroID);
 					  			System.out.println("Arbitro deletado com sucesso!");
 					  		}
 					  		break;
@@ -536,7 +532,7 @@ public class Menu {
 					  		nacionalidade = entrada.next();
 					  		System.out.print("Digite o time anterior do tecnico: ");
 					  		timeAnterior = entrada.next();
-					  		MenuController.createTecnico(PrimeiraMaiuscula(nacionalidade), selecao, PrimeiraMaiuscula(timeAnterior), PrimeiraMaiuscula(nome), idade);
+					  		ControllerTecnico.createTecnico(PrimeiraMaiuscula(nacionalidade), selecao, PrimeiraMaiuscula(timeAnterior), PrimeiraMaiuscula(nome), idade);
 					  		break;
 					  		
 					  	case 2:
@@ -568,7 +564,7 @@ public class Menu {
 										case 1:
 											System.out.print("Digite o novo nome:");
 											atributo = entrada.next();
-											MenuController.updateTecnico(idTecnico, tecnicoEditar, atributo);
+											ControllerTecnico.updateTecnico(idTecnico, tecnicoEditar, atributo);
 											System.out.println("Nome alterado com sucesso");
 											break;
 											
@@ -576,30 +572,30 @@ public class Menu {
 											MenuController.mostrarSelecao(false);
 											System.out.print("Digite a nova selecao:");
 											atributo = entrada.next();
-											MenuController.updateSelecao(MenuController.SelecaoTecnico(idTecnico), 4, String.valueOf(-1));
-											MenuController.updateTecnico(idTecnico, tecnicoEditar, atributo);
-											MenuController.updateSelecao(MenuController.SelecaoTecnico(idTecnico), 4, String.valueOf(idTecnico));
+											ControllerSelecao.updateSelecao(ControllerTecnico.SelecaoTecnico(idTecnico), 4, String.valueOf(-1));
+											ControllerTecnico.updateTecnico(idTecnico, tecnicoEditar, atributo);
+											ControllerSelecao.updateSelecao(ControllerTecnico.SelecaoTecnico(idTecnico), 4, String.valueOf(idTecnico));
 											System.out.println("Selecao alterada com sucesso");
 											break;	
 											
 										case 3:
 											System.out.print("Digite a nova idade:");
 											atributo = entrada.next();
-											MenuController.updateTecnico(idTecnico, tecnicoEditar, atributo);
+											ControllerTecnico.updateTecnico(idTecnico, tecnicoEditar, atributo);
 											System.out.println("Idade alterada com sucesso");
 											break;
 											
 										case 4:
 											System.out.print("Digite a nova nacionalidade:");
 											atributo = entrada.next();
-											MenuController.updateTecnico(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
+											ControllerTecnico.updateTecnico(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
 											System.out.println("Nacionalidade alterada com sucesso");
 											break;
 											
 										case 5:
 											System.out.print("Digite o novo time anterior:");
 											atributo = entrada.next();
-											MenuController.updateTecnico(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
+											ControllerTecnico.updateTecnico(idTecnico, tecnicoEditar, PrimeiraMaiuscula(atributo));
 											System.out.println("time anterior alterado com sucesso");
 											
 										case 6:
@@ -625,10 +621,11 @@ public class Menu {
 					  		System.out.println("Voce tem certeza que deseja excluir o tecnico? S/N ");
 					  		escolha = entrada.next().toLowerCase();
 					  		if (escolha.equals("s")) {
-					  			MenuController.deleteTecnico(tecnicoID);
+					  			ControllerTecnico.deleteTecnico(tecnicoID);
 					  			System.out.println("Tecnico deletado com sucesso!");
 					  		}
 					  		break;
+					  		
 					  	case 4:
 					  		listarObjeto(MenuController.listarDAO(3));
 					  		break;
@@ -636,17 +633,428 @@ public class Menu {
 					  }
 				  } while (opcao4 != 5);
 				break;
-				
 			  case 5:
+				  
+				  do {
+				  System.out.println("   +---------+ ");
+				  System.out.println("   | Partida | "); 
+				  System.out.println("   +---------+ ");
+				  System.out.println("Escolha uma opcao:");
+				  System.out.println("1) Inserir");
+				  System.out.println("2) Editar");
+				  System.out.println("3) Excluir");
+				  System.out.println("4) Listar Partidas");
+				  System.out.println("5) Voltar");
+				  System.out.print("Opcao:");
+				  opcao5 = entrada.nextInt();
+				  switch(opcao5) {
+				  	case 1:
+				  		
+				  		int golsTime1 = 0;
+				  		int golsTime2 = 0;
+				  		int cartVerTime1 = 0;
+				  		int cartVerTime2 = 0;
+				  		int cartAmaTime1 = 0;
+				  		int cartAmaTime2 = 0;
+				  		int time1, jogTime1, jogTime2, gols1, gols2, cartAma1, cartAma2, cartVer1, cartVer2;
+				  		String respgols1, respgols2, respcart1, respcart2;
+				  		List<Integer> listajogG1 = new LinkedList<Integer>();
+					  	List<Integer> listajogG2 = new LinkedList<Integer>();
+					  	List<Integer> listajogC1 = new LinkedList<Integer>();
+					  	List<Integer> listajogC2 = new LinkedList<Integer>();
+				  		System.out.println("   +---------+ ");
+						System.out.println("   | Inserir | "); 
+						System.out.println("   +---------+ ");
+						System.out.println("Digite o local da partida:");
+						String local = entrada.next();
+						System.out.println("Digite a data da partida [dd/MM/aaaa]:");
+				  		String data = entrada.next();
+				  		System.out.println("Digite o horario da partida [HH:mm:ss]:");
+				  		String horario = entrada.next();
+				  		listar(MenuController.listarDAOByID(4));
+				  		System.out.println("Digite o id da selecao para o primeiro time da partida:");
+				  		time1 = entrada.nextInt();
+				  		do {
+				  			listar(ControllerPartida.jogadoresSeleção(time1));
+				  			System.out.println("Algum jogador fez gol? ");
+				  			System.out.println("Digite o id do jogador que fez gol:");
+				  			jogTime1 = entrada.nextInt();
+				  			System.out.println("Digite a quantidades de gols do jogador:");
+				  			gols1 = entrada.nextInt();
+				  			listajogG1.add(jogTime1);
+				  			listajogG1.add(gols1);
+				  			golsTime1 += gols1;
+				  			ControllerPartida.adicionarDadosJogador(jogTime1, 1, gols1);
+				  			System.out.print("Mais algum jogador fez gol? [S/N]:");
+				  			respgols1 = entrada.next();
+			  			} while (respgols1.toUpperCase().equals("S"));
+				  		do {
+				  			listar(ControllerPartida.jogadoresSeleção(time1));
+				  			System.out.println("Algum jogador recebeu cartão? ");
+				  			System.out.println("Digite o id do jogador que recebeu cartão:");
+				  			jogTime1 = entrada.nextInt();
+				  			System.out.println("Digite a quantidades de cartões amarelos do jogador:");
+				  			cartAma1 = entrada.nextInt();
+				  			System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
+				  			cartVer1 = entrada.nextInt();
+				  			listajogC1.add(jogTime1);
+				  			listajogC1.add(cartAma1);
+				  			listajogC1.add(cartVer1);
+				  			cartAmaTime1 += cartAma1;
+				  			cartVerTime1 += cartVer1;
+				  			ControllerPartida.adicionarDadosJogador(jogTime1, 2, cartAma1);
+				  			ControllerPartida.adicionarDadosJogador(jogTime1, 3, cartVer1);
+				  			System.out.print("Mais algum jogador fez gol? [S/N]:");
+				  			respcart1 = entrada.next();
+			  			} while (respcart1.toUpperCase().equals("S"));
+				  		listar(ControllerPartida.listarSelecaoPartida(time1));
+				  		System.out.print("Digite o id da selecao para o segundo time da partida: ");
+				  		int time2 = entrada.nextInt();
+				  		do {
+				  			listar(ControllerPartida.jogadoresSeleção(time2));
+				  			System.out.println("Algum jogador fez gol? ");
+				  			System.out.print("Digite o id do jogador que fez gol:");
+				  			jogTime2 = entrada.nextInt();
+				  			System.out.print("Digite a quantidades de gols do jogador:");
+				  			gols2 = entrada.nextInt();
+				  			listajogG2.add(jogTime2);
+				  			listajogG2.add(gols2);
+				  			golsTime2 += gols2;
+				  			System.out.print("Mais algum jogador fez gol? [S/N]:");
+				  			ControllerPartida.adicionarDadosJogador(jogTime2, 1, gols2);
+				  			respgols2 = entrada.next();
+			  			} while (respgols2.equals("N"));
+				  		do {
+				  			listar(ControllerPartida.jogadoresSeleção(time2));
+				  			System.out.println("Algum jogador recebeu cartão? ");
+				  			System.out.println("Digite o id do jogador que recebeu cartão:");
+				  			jogTime2 = entrada.nextInt();
+				  			System.out.println("Digite a quantidades de cartões amarelos do jogador:");
+				  			cartAma2 = entrada.nextInt();
+				  			System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
+				  			cartVer2 = entrada.nextInt();
+				  			listajogC2.add(jogTime2);
+				  			listajogC2.add(cartAma2);
+				  			listajogC2.add(cartVer2);
+				  			cartAmaTime2 += cartAma2;
+				  			cartVerTime2 += cartVer2;
+				  			ControllerPartida.adicionarDadosJogador(jogTime2, 2, cartAma2);
+				  			ControllerPartida.adicionarDadosJogador(jogTime2, 3, cartVer2);
+				  			System.out.print("Mais algum jogador fez gol? [S/N]:");
+				  			respcart2 = entrada.next();
+			  			} while (respcart2.toUpperCase().equals("S"));
+				  		String nome = ControllerPartida.nomePartida(time1, time2);
+				  		LocalDate dataformatada = ControllerPartida.formatarData(data);
+				  		LocalTime horarioformatado = ControllerPartida.formatarHorario(horario);
+				  		ControllerPartida.createPartida(nome, dataformatada, horarioformatado, local, time1, golsTime1, cartAmaTime1, cartVerTime1, time2, golsTime2, cartAmaTime2, cartVerTime2, listajogG1, listajogG2, listajogC1, listajogC2);
+				  		break;
+				  		
+				  	case 2:
+				  		int idPartida, partidaEditar;
+				  		
+				  		if(!MenuController.verificarExistencia(5)) {
+							listar(MenuController.listarDAOByID(5));
+							System.out.println("Digite o id do partida que vc deseja editar:");
+							idPartida = entrada.nextInt();
+							Object partida = MenuController.selecionarDAO(5, idPartida);
+							if(partida == null) {
+								System.out.println("Partida nao encontrado!");
+							}
+							else {
+								do {
+									String atributo;
+									
+									System.out.println("   +--------+ ");
+									System.out.println("   | Editar | "); 
+									System.out.println("   +--------+ ");
+									System.out.println("1) Data da partida [20/10/2022]");
+									System.out.println("2) Horario da partida [11:57:00]");
+									System.out.println("3) Local da partida");
+									System.out.println("4) Primeiro time da partida");
+									System.out.println("5) Quantidade de gols do primeiro time na partida");
+									System.out.println("6) Quantidade de cartões do primeiro time na partida");
+									System.out.println("7) Segundo time da partida");
+									System.out.println("8) Quantidade de gols do segundo time na partida");
+									System.out.println("9) Quantidade de cartões  do segundo time na partida");
+									System.out.println("10) Voltar");
+									System.out.print("Qual atributo deseja editar: ");
+									partidaEditar = entrada.nextInt();
+									switch(partidaEditar) {
+									case 1:
+										System.out.print("Digite a nova data da partida [20/10/2022]:");
+										atributo = entrada.next();
+										ControllerPartida.updatePartida(idPartida, partidaEditar, atributo);
+										System.out.println("Data alterada com sucesso");
+										break;
+										
+									case 2:
+										System.out.print("Digite o novo horario da partida [18:00:00]:");
+										atributo = entrada.next();
+										ControllerPartida.updatePartida(idPartida, partidaEditar, atributo);
+										System.out.println("Horario alterado com sucesso");
+										break;	
+										
+									case 3:
+										System.out.print("Digite o novo Local da partida:");
+										atributo = entrada.next();
+										ControllerPartida.updatePartida(idPartida, partidaEditar, atributo);
+										System.out.println("Local alterado com sucesso");
+										break;
+										
+									case 4:
+										List<Integer> editListaJogG1 = new LinkedList<Integer>();
+										List<Integer> editListaJogC1 = new LinkedList<Integer>();
+										ControllerPartida.limparDadosJogador(idPartida, 1);
+										ControllerPartida.limparDadosJogador(idPartida, 2);
+										listar(MenuController.listarDAOByID(4));
+										System.out.println("Digite o id da selecao para o novo primeiro time da partida:");
+										time1 = entrada.nextInt();
+										golsTime1 = 0;
+										cartAmaTime1 = 0;
+										cartVerTime1 = 0;
+										do {
+											listar(ControllerPartida.jogadoresSeleção(time1));
+											System.out.println("Algum jogador fez gol? ");
+											System.out.println("Digite o id do jogador que fez gol:");
+											jogTime1 = entrada.nextInt();
+											System.out.println("Digite a quantidades de gols do jogador:");
+											gols1 = entrada.nextInt();
+											editListaJogG1.add(jogTime1);
+											editListaJogG1.add(gols1);
+											golsTime1 += gols1;
+											ControllerPartida.adicionarDadosJogador(jogTime1, 1, gols1);
+											System.out.print("Mais algum jogador fez gol? [S/N]:");
+											respgols1 = entrada.next();
+										} while (respgols1.toUpperCase().equals("S"));
+										do {
+											listar(ControllerPartida.jogadoresSeleção(time1));
+											System.out.println("Algum jogador recebeu cartão? ");
+											System.out.println("Digite o id do jogador que recebeu cartão:");
+											jogTime1 = entrada.nextInt();
+											System.out.println("Digite a quantidades de cartões amarelos do jogador:");
+											cartAma1 = entrada.nextInt();
+											System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
+											cartVer1 = entrada.nextInt();
+											editListaJogC1.add(jogTime1);
+											editListaJogC1.add(cartAma1);
+											editListaJogC1.add(cartVer1);
+											cartAmaTime1 += cartAma1;
+											cartVerTime1 += cartVer1;
+											ControllerPartida.adicionarDadosJogador(jogTime1, 2, cartAma1);
+											ControllerPartida.adicionarDadosJogador(jogTime1, 3, cartVer1);
+											System.out.print("Mais algum jogador fez gol? [S/N]:");
+											respcart1 = entrada.next();
+										} while (respcart1.toUpperCase().equals("S"));
+										ControllerPartida.updateListPartida(idPartida, 1, editListaJogG1);
+										ControllerPartida.updateListPartida(idPartida, 2, editListaJogC1);
+										ControllerPartida.updatePartida(idPartida, partidaEditar, Integer.toString(time1));
+										ControllerPartida.updatePartida(idPartida, 5, Integer.toString(golsTime1));
+										ControllerPartida.updatePartida(idPartida, 6, Integer.toString(cartAmaTime1));
+										ControllerPartida.updatePartida(idPartida, 10, Integer.toString(cartVerTime1));
+										System.out.println("Primeiro time alterado com sucesso");
+										break;
+	
+									case 5:
+										ControllerPartida.limparDadosJogador(idPartida, 1);
+										List<Integer> editListaJog2G1 = new LinkedList<Integer>();
+										time1 = ControllerPartida.receberTime(idPartida,1);
+										golsTime1 = 0;
+										do {
+											listar(ControllerPartida.jogadoresSeleção(time1));
+											System.out.println("Algum jogador fez gol? ");
+											System.out.println("Digite o id do jogador que fez gol:");
+											jogTime1 = entrada.nextInt();
+											System.out.println("Digite a quantidades de gols do jogador:");
+											gols1 = entrada.nextInt();
+											editListaJog2G1.add(jogTime1);
+											editListaJog2G1.add(gols1);
+											golsTime1 += gols1;
+											ControllerPartida.adicionarDadosJogador(jogTime1, 1, gols1);
+											System.out.print("Mais algum jogador fez gol? [S/N]:");
+											respgols1 = entrada.next();
+										} while (respgols1.toUpperCase().equals("S"));
+										ControllerPartida.updatePartida(idPartida, partidaEditar, Integer.toString(golsTime1));
+										System.out.println("Quantidade de gols do primeiro time alterado com sucesso");
+										break;
+										
+									case 6:
+										ControllerPartida.limparDadosJogador(idPartida, 2);
+										List<Integer> editListaJog2C1 = new LinkedList<Integer>();
+										time1 = ControllerPartida.receberTime(idPartida,1);
+										cartAmaTime1 = 0;
+										cartVerTime1 = 0;
+										do {
+											listar(ControllerPartida.jogadoresSeleção(time1));
+											System.out.println("Algum jogador recebeu cartão? ");
+											System.out.println("Digite o id do jogador que recebeu cartão:");
+											jogTime1 = entrada.nextInt();
+											System.out.println("Digite a quantidades de cartões amarelos do jogador:");
+											cartAma1 = entrada.nextInt();
+											System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
+											cartVer1 = entrada.nextInt();
+											editListaJog2C1.add(jogTime1);
+											editListaJog2C1.add(cartAma1);
+											editListaJog2C1.add(cartVer1);
+											cartAmaTime1 += cartAma1;
+											cartVerTime1 += cartVer1;
+											ControllerPartida.adicionarDadosJogador(jogTime1, 2, cartAma1);
+											ControllerPartida.adicionarDadosJogador(jogTime1, 3, cartVer1);
+											System.out.print("Mais algum jogador fez gol? [S/N]:");
+											respcart1 = entrada.next();
+										} while (respcart1.toUpperCase().equals("S"));
+										ControllerPartida.updatePartida(idPartida, partidaEditar, Integer.toString(cartAma1));
+										ControllerPartida.updatePartida(idPartida, 10, Integer.toString(cartVer1));
+										System.out.println("Quantidade de cartões do primeiro time alterado com sucesso");
+										break;
+									
+									case 7:
+										List<Integer> editListaJogG2 = new LinkedList<Integer>();
+										List<Integer> editListaJogC2 = new LinkedList<Integer>();
+										ControllerPartida.limparDadosJogador(idPartida, 3);
+										ControllerPartida.limparDadosJogador(idPartida, 4);
+										time1 = ControllerPartida.receberTime(idPartida, 1);
+										listar(ControllerPartida.listarSelecaoPartida(time1));
+										System.out.println("Digite o id da selecao para o novo segundo time da partida:");
+										time2 = entrada.nextInt();
+										golsTime2 = 0;
+										cartAmaTime2 = 0;
+										cartVerTime2 = 0;
+										do {
+											listar(ControllerPartida.jogadoresSeleção(time2));
+											System.out.println("Algum jogador fez gol? ");
+											System.out.println("Digite o id do jogador que fez gol:");
+											jogTime2 = entrada.nextInt();
+											System.out.println("Digite a quantidades de gols do jogador:");
+											gols2 = entrada.nextInt();
+											editListaJogG2.add(jogTime2);
+											editListaJogG2.add(gols2);
+											golsTime2 += gols2;
+											ControllerPartida.adicionarDadosJogador(jogTime2, 1, gols2);
+											System.out.print("Mais algum jogador fez gol? [S/N]:");
+											respgols2 = entrada.next();
+										} while (respgols2.toUpperCase().equals("S"));
+										do {
+											listar(ControllerPartida.jogadoresSeleção(time2));
+											System.out.println("Algum jogador recebeu cartão? ");
+											System.out.println("Digite o id do jogador que recebeu cartão:");
+											jogTime2 = entrada.nextInt();
+											System.out.println("Digite a quantidades de cartões amarelos do jogador:");
+											cartAma2 = entrada.nextInt();
+											System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
+											cartVer2 = entrada.nextInt();
+											editListaJogC2.add(jogTime2);
+											editListaJogC2.add(cartAma2);
+											editListaJogC2.add(cartVer2);
+											cartAmaTime2 += cartAma2;
+											cartVerTime2 += cartVer2;
+											ControllerPartida.adicionarDadosJogador(jogTime2, 2, cartAma2);
+											ControllerPartida.adicionarDadosJogador(jogTime2, 3, cartVer2);
+											System.out.print("Mais algum jogador fez gol? [S/N]:");
+											respcart2 = entrada.next();
+										} while (respcart2.toUpperCase().equals("S"));
+										ControllerPartida.updateListPartida(idPartida, 3, editListaJogG2);
+										ControllerPartida.updateListPartida(idPartida, 4, editListaJogC2);
+										ControllerPartida.updatePartida(idPartida, partidaEditar, Integer.toString(time2));
+										ControllerPartida.updatePartida(idPartida, 8, Integer.toString(golsTime2));
+										ControllerPartida.updatePartida(idPartida, 9, Integer.toString(cartAmaTime2));
+										ControllerPartida.updatePartida(idPartida, 11, Integer.toString(cartVerTime2));
+										System.out.println("Segundo time alterado com sucesso");
+										break;
+										
+									case 8:
+										ControllerPartida.limparDadosJogador(idPartida, 3);
+										List<Integer> editListaJog2G2 = new LinkedList<Integer>();
+										time2 = ControllerPartida.receberTime(idPartida,2);
+										golsTime2 = 0;
+										do {
+											listar(ControllerPartida.jogadoresSeleção(time2));
+											System.out.println("Algum jogador fez gol? ");
+											System.out.println("Digite o id do jogador que fez gol:");
+											jogTime2 = entrada.nextInt();
+											System.out.println("Digite a quantidades de gols do jogador:");
+											gols2 = entrada.nextInt();
+											editListaJog2G2.add(jogTime2);
+											editListaJog2G2.add(gols2);
+											golsTime2 += gols2;
+											ControllerPartida.adicionarDadosJogador(jogTime2, 1, gols2);
+											System.out.print("Mais algum jogador fez gol? [S/N]:");
+											respgols2 = entrada.next();
+										} while (respgols2.toUpperCase().equals("S"));
+										ControllerPartida.updatePartida(idPartida, partidaEditar, Integer.toString(golsTime2));
+										System.out.println("Quantidade de gols do segundo time alterado com sucesso");
+										break;
+										
+									case 9:
+										ControllerPartida.limparDadosJogador(idPartida, 4);
+										List<Integer> editListaJog2C2 = new LinkedList<Integer>();
+										time2 = ControllerPartida.receberTime(idPartida,1);
+										cartAmaTime2 = 0;
+										cartVerTime2 = 0;
+										do {
+											listar(ControllerPartida.jogadoresSeleção(time2));
+											System.out.println("Algum jogador recebeu cartão? ");
+											System.out.println("Digite o id do jogador que recebeu cartão:");
+											jogTime2 = entrada.nextInt();
+											System.out.println("Digite a quantidades de cartões amarelos do jogador:");
+											cartAma2 = entrada.nextInt();
+											System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
+											cartVer2 = entrada.nextInt();
+											editListaJog2C2.add(jogTime2);
+											editListaJog2C2.add(cartAma2);
+											editListaJog2C2.add(cartVer2);
+											cartAmaTime2 += cartAma2;
+											cartVerTime2 += cartVer2;
+											ControllerPartida.adicionarDadosJogador(jogTime2, 2, cartAma2);
+											ControllerPartida.adicionarDadosJogador(jogTime2, 3, cartVer2);
+											System.out.print("Mais algum jogador fez gol? [S/N]:");
+											respcart2 = entrada.next();
+										} while (respcart2.toUpperCase().equals("S"));
+										ControllerPartida.updatePartida(idPartida, partidaEditar, Integer.toString(cartAma2));
+										ControllerPartida.updatePartida(idPartida, 11, Integer.toString(cartVer2));
+										System.out.println("Quantidade de cartões do segundo time alterado com sucesso");
+										break;
+										
+									default:
+										System.out.println("Atributo nao encontrado");
+									}	
+								} while (partidaEditar != 10);
+								break;
+							}
+						} 
+						else {
+							System.out.println("Nao ha Partidas cadastrados!");
+						}
+				  	case 3:
+				  		int partidaID;
+				  		String escolha;
+				  		listar(MenuController.listarDAOByID(5));
+				  		System.out.println("Digite o ID da partida que deseja excluir: ");
+				  		partidaID = entrada.nextInt();
+				  		System.out.println("Voce tem certeza que deseja excluir a partida? S/N ");
+				  		escolha = entrada.next().toLowerCase();
+				  		if (escolha.toUpperCase().equals("S")) {
+				  			ControllerPartida.deletePartida(partidaID);
+				  			System.out.println("Partida deletado com sucesso!");
+				  		}
+				  		break;
+	
+				  	case 4:
+				  		listarObjeto(MenuController.listarDAO(5));
+				  		break;
+				  		}
+				  } while (opcao5 != 5);
+				  break;
+				
+			  case 6:
 				System.out.println(" ");
 				System.out.println("Fim do programa!!!");
 				System.exit(0);
 				break;
 				
 			  default:
-				System.out.println("O numero invalido! Digite um numero entre 1 a 5.");
+				System.out.println("O numero invalido! Digite um numero entre 0 a 5.");
 			  }
-		  }while (opcao != 5);
+		  }while (opcao != 0);
 		 entrada.close();
 	  }
 	}
