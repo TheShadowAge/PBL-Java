@@ -259,13 +259,10 @@ public class Menu {
 										System.out.println("1) Nome");
 										System.out.println("2) Selecao");
 										System.out.println("3) Posicao");
-										System.out.println("4) Quantidade de cartoes amarelos");
-										System.out.println("5) Quantidade de cartoes Vermelhos");
-										System.out.println("6) Idade");
-										System.out.println("7) Nacionalide");
-										System.out.println("8) Titular");
-										System.out.println("9) gols");
-										System.out.println("10) Voltar");
+										System.out.println("4) Idade");
+										System.out.println("5) Nacionalide");
+										System.out.println("6) Titular");
+										System.out.println("7) Voltar");
 										System.out.print("Qual atributo deseja editar: ");
 										jogadorEditar = entrada.nextInt();
 										switch(jogadorEditar) {
@@ -296,54 +293,33 @@ public class Menu {
 											break;
 											
 										case 4:
-											System.out.print("Digite a nova quantidade de cartões amarelos:");
-											atributo = entrada.next();
-											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
-											System.out.println("Quantidade de cartoes amarelos alterada com sucesso");
-											break;
-											
-										case 5:
-											System.out.print("Digite a nova quantidade de cartões vermelhos:");
-											atributo = entrada.next();
-											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
-											System.out.println("Quantidade de cartoes vermelhos alterada com sucesso");
-											break;
-											
-										case 6:
 											System.out.print("Digite a nova idade:");
 											atributo = entrada.next();
 											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Idade alterada com sucesso");
 											break;
 											
-										case 7:
+										case 5:
 											System.out.print("Digite a nova nacionalidade:");
 											atributo = entrada.next();
 											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Nacionalidade alterada com sucesso");
 											break;
-										case 8:
+										case 6:
 											System.out.print("Digite se o jogador e titular:");
 											atributo = entrada.next();
 											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
 											System.out.println("Titular alterado com sucesso");
 											break;
-											
-										case 9:
-											System.out.print("Digite a nova Quantidade de gols:");
-											atributo = entrada.next();
-											ControllerJogador.updateJogador(idJogador, jogadorEditar, atributo);
-											System.out.println("Quantidade de gols alterada com sucesso");
-											break;
-											
-										case 10:
+
+										case 7:
 											break;
 											
 										default:
 											System.out.print("Atributo nao encontrado");
 											
 										}
-									} while (jogadorEditar != 10);
+									} while (jogadorEditar != 7);
 								}
 							} 
 							else {
