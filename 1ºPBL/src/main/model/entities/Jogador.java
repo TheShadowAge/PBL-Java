@@ -21,10 +21,7 @@ public class Jogador extends PessoaSelecao{
 	 * @param nacionalidade Nacionalidade do jogador.
 	 * @param idade Idade do jogador.
 	 * @param posicao Posição do jogador.
-	 * @param cartaoAmarelo Quantidade de cartões amarelos do jogador.
-	 * @param cartaoVermelho Quantidade de cartões vermelhos do jogador.
 	 * @param titular Mostrar se o jogador é titular ou não
-	 * @param golsQuantidade Quantidade de gols do jogador.
 	 */
 	
 	public Jogador(String nome, int selecao, String nacionalidade, int idade, String posicao, boolean titular){

@@ -10,24 +10,6 @@ import main.model.entities.*;
 
 
 public class MenuController {
-	/**
-	 * Função que coloca a primeira letra de cada palavra em maiúscula.
-	 * @param nome Nome que vai ser usado.
-	 * @return Uma String com a primeira letra de cada palavra em maiúsculo.
-	 */
-	
-
-	/**
-	 * Função que mostra os grupos que as seleções podem estar.
-	 */
-	
-
-	
-	/**
-	 * Função que pega uma lista de Strings e printa elas com um número do lado.
-	 * @param lista A lista de Strings que será utilizada.
-	 */
-	
 
 	
 	/**

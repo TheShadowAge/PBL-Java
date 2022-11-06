@@ -46,7 +46,7 @@ public class Menu {
 	public static void main(String[] args) {
 		
 		MenuController.criarEntidades();
-		int opcao, opcao1,opcao2,opcao3,opcao4,opcao5;
+		int opcao, opcao1,opcao2,opcao3,opcao4,opcao5, opcao6;
 		Scanner entrada = new Scanner(System.in);
 		do {
 			  System.out.println("   +---------+ ");
@@ -58,7 +58,8 @@ public class Menu {
 			  System.out.println("3) Arbitros");
 			  System.out.println("4) Tecnico");
 			  System.out.println("5) Partida");
-			  System.out.println("6) Sair");
+			  System.out.println("6) Pesquisa");
+			  System.out.println("7) Sair");
 			  System.out.print("Opcao: ");
 			  opcao = entrada.nextInt();
 			  
@@ -1046,13 +1047,91 @@ public class Menu {
 				  break;
 				
 			  case 6:
+				do {
+				String nome, data;
+				System.out.println("   +----------+ ");
+				System.out.println("   | Pesquisa | "); 
+				System.out.println("   +----------+ ");
+				System.out.println("Escolha uma opcao:");
+				System.out.println("1) Pesquisar por Categoria");
+				System.out.println("2) Pesquisar por Selecao");
+				System.out.println("3) Pesquisar Partida por data");
+				System.out.println("4) Voltar");
+				System.out.print("Opcao: ");
+				opcao6 = entrada.nextInt();
+				switch (opcao6) {
+					case 1:
+						int categoriaOpcao;
+						do {
+						System.out.println("   +-----------+ ");
+						System.out.println("   | Categoria | "); 
+						System.out.println("   +-----------+ ");
+						System.out.println("Escolha uma opcao:");
+						System.out.println("1) Partida");
+						System.out.println("2) Jogadores");
+						System.out.println("3) Tecnico");
+						System.out.println("4) Arbitros");
+						System.out.println("5) Selecao");
+						System.out.println("6) voltar");
+						categoriaOpcao = entrada.nextInt();
+						switch (categoriaOpcao) {
+							case 1:
+								System.out.println("Digite o nome da partida que deseja pesquisar");
+								nome = entrada.next();
+								listarObjeto(Pesquisa.pesquisarCategoria(nome, categoriaOpcao));	
+								break;
+								
+							case 2:
+								System.out.println("Digite o nome do jogador que deseja pesquisar");
+								nome = entrada.next();
+								listarObjeto(Pesquisa.pesquisarCategoria(nome, categoriaOpcao));
+								break;
+								
+							case 3:
+								System.out.println("Digite o nome do Tecnico que deseja pesquisar");
+								nome = entrada.next();
+								listarObjeto(Pesquisa.pesquisarCategoria(nome, categoriaOpcao));	
+								break;
+								
+							case 4:
+								System.out.println("Digite o nome do Arbitro que deseja pesquisar");
+								nome = entrada.next();
+								listarObjeto(Pesquisa.pesquisarCategoria(nome, categoriaOpcao));
+								break;
+								
+							case 5:
+								System.out.println("Digite o nome da Selecao que deseja pesquisar");
+								nome = entrada.next();
+								listarObjeto(Pesquisa.pesquisarCategoria(nome, categoriaOpcao));
+								break;
+							}
+						} while (categoriaOpcao != 6);
+						break;
+						
+					case 2:
+					  System.out.println("Digite o nome da Selecao que deseja pesquisar");
+					  nome = entrada.next();
+					  listarObjeto(Pesquisa.pesquisarSelecao(nome));
+					  break;
+					  
+					case 3:
+						System.out.println("Digite a data da partida que deseja pesquisar [10/10/2022]");
+						data = entrada.next();
+						LocalDate dataformatada = ControllerPartida.formatarData(data);
+						listarObjeto(Pesquisa.pesquisarPartidas(dataformatada));
+						break;
+					}
+				} while (opcao6 != 4);
+				break;
+				
+			  case 7:
 				System.out.println(" ");
 				System.out.println("Fim do programa!!!");
 				System.exit(0);
 				break;
 				
 			  default:
-				System.out.println("O numero invalido! Digite um numero entre 0 a 5.");
+				System.out.println("O numero invalido! Digite um numero entre 1 a 7.");
 			  }
 		  }while (opcao != 0);
 		 entrada.close();
