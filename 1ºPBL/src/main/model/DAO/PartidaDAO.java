@@ -48,7 +48,7 @@ public interface PartidaDAO {
 	 * @param atributo Uma lista com os dados que serão atualizados.
 	 */
 	
-	public void updateList(int id, int opcao, List<Integer> lista);
+	public void updateList(int id, int opcao, List<Object> lista);
 	
 	/**
 	 * Método que deleta um partidas do Sistema pelo ID.

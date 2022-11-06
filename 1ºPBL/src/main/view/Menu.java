@@ -636,10 +636,10 @@ public class Menu {
 				  		int cartAmaTime2 = 0;
 				  		int time1, jogTime1, jogTime2, gols1, gols2, cartAma1, cartAma2, cartVer1, cartVer2;
 				  		String respgols1, respgols2, respcart1, respcart2;
-				  		List<Integer> listajogG1 = new LinkedList<Integer>();
-					  	List<Integer> listajogG2 = new LinkedList<Integer>();
-					  	List<Integer> listajogC1 = new LinkedList<Integer>();
-					  	List<Integer> listajogC2 = new LinkedList<Integer>();
+				  		List<Object> listajogG1 = new LinkedList<Object>();
+					  	List<Object> listajogG2 = new LinkedList<Object>();
+					  	List<Object> listajogC1 = new LinkedList<Object>();
+					  	List<Object> listajogC2 = new LinkedList<Object>();
 				  		System.out.println("   +---------+ ");
 						System.out.println("   | Inserir | "); 
 						System.out.println("   +---------+ ");
@@ -659,8 +659,7 @@ public class Menu {
 				  			jogTime1 = entrada.nextInt();
 				  			System.out.println("Digite a quantidades de gols do jogador:");
 				  			gols1 = entrada.nextInt();
-				  			listajogG1.add(jogTime1);
-				  			listajogG1.add(gols1);
+				  			listajogG1.add(ControllerPartida.createJogadorGols(jogTime1, gols1));
 				  			golsTime1 += gols1;
 				  			ControllerPartida.adicionarDadosJogador(jogTime1, 1, gols1);
 				  			System.out.print("Mais algum jogador fez gol? [S/N]:");
@@ -675,9 +674,7 @@ public class Menu {
 				  			cartAma1 = entrada.nextInt();
 				  			System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
 				  			cartVer1 = entrada.nextInt();
-				  			listajogC1.add(jogTime1);
-				  			listajogC1.add(cartAma1);
-				  			listajogC1.add(cartVer1);
+				  			listajogC1.add(ControllerPartida.createJogadorCartoes(jogTime1, cartAma1, cartVer1));
 				  			cartAmaTime1 += cartAma1;
 				  			cartVerTime1 += cartVer1;
 				  			ControllerPartida.adicionarDadosJogador(jogTime1, 2, cartAma1);
@@ -695,8 +692,7 @@ public class Menu {
 				  			jogTime2 = entrada.nextInt();
 				  			System.out.print("Digite a quantidades de gols do jogador:");
 				  			gols2 = entrada.nextInt();
-				  			listajogG2.add(jogTime2);
-				  			listajogG2.add(gols2);
+				  			listajogG2.add(ControllerPartida.createJogadorGols(jogTime2, gols2));
 				  			golsTime2 += gols2;
 				  			System.out.print("Mais algum jogador fez gol? [S/N]:");
 				  			ControllerPartida.adicionarDadosJogador(jogTime2, 1, gols2);
@@ -711,9 +707,7 @@ public class Menu {
 				  			cartAma2 = entrada.nextInt();
 				  			System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
 				  			cartVer2 = entrada.nextInt();
-				  			listajogC2.add(jogTime2);
-				  			listajogC2.add(cartAma2);
-				  			listajogC2.add(cartVer2);
+				  			listajogC2.add(ControllerPartida.createJogadorCartoes(jogTime2, cartAma2, cartVer2));
 				  			cartAmaTime2 += cartAma2;
 				  			cartVerTime2 += cartVer2;
 				  			ControllerPartida.adicionarDadosJogador(jogTime2, 2, cartAma2);
@@ -783,8 +777,8 @@ public class Menu {
 										
 									case 4:
 										int time1Anterior = ControllerPartida.receberTime(idPartida, 1);
-										List<Integer> editListaJogG1 = new LinkedList<Integer>();
-										List<Integer> editListaJogC1 = new LinkedList<Integer>();
+										List<Object> editListaJogG1 = new LinkedList<Object>();
+										List<Object> editListaJogC1 = new LinkedList<Object>();
 										ControllerPartida.limparDadosJogador(idPartida, 1);
 										ControllerPartida.limparDadosJogador(idPartida, 2);
 										listar(MenuController.listarDAOByID(4));
@@ -800,8 +794,7 @@ public class Menu {
 											jogTime1 = entrada.nextInt();
 											System.out.println("Digite a quantidades de gols do jogador:");
 											gols1 = entrada.nextInt();
-											editListaJogG1.add(jogTime1);
-											editListaJogG1.add(gols1);
+											editListaJogG1.add(ControllerPartida.createJogadorGols(jogTime1, gols1));
 											golsTime1 += gols1;
 											ControllerPartida.adicionarDadosJogador(jogTime1, 1, gols1);
 											System.out.print("Mais algum jogador fez gol? [S/N]:");
@@ -816,9 +809,7 @@ public class Menu {
 											cartAma1 = entrada.nextInt();
 											System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
 											cartVer1 = entrada.nextInt();
-											editListaJogC1.add(jogTime1);
-											editListaJogC1.add(cartAma1);
-											editListaJogC1.add(cartVer1);
+											editListaJogC1.add(ControllerPartida.createJogadorCartoes(jogTime1, cartAma1, cartVer1));
 											cartAmaTime1 += cartAma1;
 											cartVerTime1 += cartVer1;
 											ControllerPartida.adicionarDadosJogador(jogTime1, 2, cartAma1);
@@ -838,7 +829,7 @@ public class Menu {
 	
 									case 5:
 										ControllerPartida.limparDadosJogador(idPartida, 1);
-										List<Integer> editListaJog2G1 = new LinkedList<Integer>();
+										List<Object> editListaJog2G1 = new LinkedList<Object>();
 										time1 = ControllerPartida.receberTime(idPartida,1);
 										golsTime1 = 0;
 										do {
@@ -848,8 +839,7 @@ public class Menu {
 											jogTime1 = entrada.nextInt();
 											System.out.println("Digite a quantidades de gols do jogador:");
 											gols1 = entrada.nextInt();
-											editListaJog2G1.add(jogTime1);
-											editListaJog2G1.add(gols1);
+											editListaJog2G1.add(ControllerPartida.createJogadorGols(jogTime1, gols1));
 											golsTime1 += gols1;
 											ControllerPartida.adicionarDadosJogador(jogTime1, 1, gols1);
 											System.out.print("Mais algum jogador fez gol? [S/N]:");
@@ -861,7 +851,7 @@ public class Menu {
 										
 									case 6:
 										ControllerPartida.limparDadosJogador(idPartida, 2);
-										List<Integer> editListaJog2C1 = new LinkedList<Integer>();
+										List<Object> editListaJog2C1 = new LinkedList<Object>();
 										time1 = ControllerPartida.receberTime(idPartida,1);
 										cartAmaTime1 = 0;
 										cartVerTime1 = 0;
@@ -874,9 +864,7 @@ public class Menu {
 											cartAma1 = entrada.nextInt();
 											System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
 											cartVer1 = entrada.nextInt();
-											editListaJog2C1.add(jogTime1);
-											editListaJog2C1.add(cartAma1);
-											editListaJog2C1.add(cartVer1);
+											editListaJog2C1.add(ControllerPartida.createJogadorCartoes(jogTime1, cartAma1, cartVer1));
 											cartAmaTime1 += cartAma1;
 											cartVerTime1 += cartVer1;
 											ControllerPartida.adicionarDadosJogador(jogTime1, 2, cartAma1);
@@ -890,9 +878,9 @@ public class Menu {
 										break;
 									
 									case 7:
-										int time2Anterior = ControllerPartida.receberTime(idPartida, 1);
-										List<Integer> editListaJogG2 = new LinkedList<Integer>();
-										List<Integer> editListaJogC2 = new LinkedList<Integer>();
+										int time2Anterior = ControllerPartida.receberTime(idPartida, 2);
+										List<Object> editListaJogG2 = new LinkedList<Object>();
+										List<Object> editListaJogC2 = new LinkedList<Object>();
 										ControllerPartida.limparDadosJogador(idPartida, 3);
 										ControllerPartida.limparDadosJogador(idPartida, 4);
 										time1 = ControllerPartida.receberTime(idPartida, 1);
@@ -909,8 +897,7 @@ public class Menu {
 											jogTime2 = entrada.nextInt();
 											System.out.println("Digite a quantidades de gols do jogador:");
 											gols2 = entrada.nextInt();
-											editListaJogG2.add(jogTime2);
-											editListaJogG2.add(gols2);
+											editListaJogG2.add(ControllerPartida.createJogadorGols(jogTime2, gols2));
 											golsTime2 += gols2;
 											ControllerPartida.adicionarDadosJogador(jogTime2, 1, gols2);
 											System.out.print("Mais algum jogador fez gol? [S/N]:");
@@ -925,9 +912,7 @@ public class Menu {
 											cartAma2 = entrada.nextInt();
 											System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
 											cartVer2 = entrada.nextInt();
-											editListaJogC2.add(jogTime2);
-											editListaJogC2.add(cartAma2);
-											editListaJogC2.add(cartVer2);
+											editListaJogC2.add(ControllerPartida.createJogadorCartoes(jogTime2, cartAma2, cartVer2));
 											cartAmaTime2 += cartAma2;
 											cartVerTime2 += cartVer2;
 											ControllerPartida.adicionarDadosJogador(jogTime2, 2, cartAma2);
@@ -947,7 +932,7 @@ public class Menu {
 										
 									case 8:
 										ControllerPartida.limparDadosJogador(idPartida, 3);
-										List<Integer> editListaJog2G2 = new LinkedList<Integer>();
+										List<Object> editListaJog2G2 = new LinkedList<Object>();
 										time2 = ControllerPartida.receberTime(idPartida,2);
 										golsTime2 = 0;
 										do {
@@ -957,8 +942,7 @@ public class Menu {
 											jogTime2 = entrada.nextInt();
 											System.out.println("Digite a quantidades de gols do jogador:");
 											gols2 = entrada.nextInt();
-											editListaJog2G2.add(jogTime2);
-											editListaJog2G2.add(gols2);
+											editListaJog2G2.add(ControllerPartida.createJogadorGols(jogTime2, gols2));
 											golsTime2 += gols2;
 											ControllerPartida.adicionarDadosJogador(jogTime2, 1, gols2);
 											System.out.print("Mais algum jogador fez gol? [S/N]:");
@@ -970,7 +954,7 @@ public class Menu {
 										
 									case 9:
 										ControllerPartida.limparDadosJogador(idPartida, 4);
-										List<Integer> editListaJog2C2 = new LinkedList<Integer>();
+										List<Object> editListaJog2C2 = new LinkedList<Object>();
 										time2 = ControllerPartida.receberTime(idPartida,1);
 										cartAmaTime2 = 0;
 										cartVerTime2 = 0;
@@ -983,9 +967,7 @@ public class Menu {
 											cartAma2 = entrada.nextInt();
 											System.out.println("Digite a quantidades de cartões vermelhos do jogador:");
 											cartVer2 = entrada.nextInt();
-											editListaJog2C2.add(jogTime2);
-											editListaJog2C2.add(cartAma2);
-											editListaJog2C2.add(cartVer2);
+											editListaJog2C2.add(ControllerPartida.createJogadorCartoes(jogTime2, cartAma2, cartVer2));
 											cartAmaTime2 += cartAma2;
 											cartVerTime2 += cartVer2;
 											ControllerPartida.adicionarDadosJogador(jogTime2, 2, cartAma2);

@@ -106,7 +106,7 @@ public class PartidaDAOImplementList implements PartidaDAO {
 	 */
 	
 	@Override
-	public void updateList(int id, int opcao, List<Integer> lista) {
+	public void updateList(int id, int opcao, List<Object> lista) {
 		PartidaDAO partidaDAO = DAO.getPartidas();
 		switch (opcao) {
 		case 1:

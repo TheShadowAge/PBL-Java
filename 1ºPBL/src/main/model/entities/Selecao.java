@@ -159,7 +159,7 @@ public class Selecao extends Entidade{
 	public int getContagemJogs() {
 		return contagemJogs++;
 	}
-
+	
 	public List<Integer> getPartidas() {
 		return partidas;
 	}

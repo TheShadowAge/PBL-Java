@@ -8,7 +8,7 @@ import java.util.Map;
 import main.model.entities.Grupo;
 
 public class GrupoDAOImplementsList implements GrupoDAO {
-	
+
 	private Map<Integer, Grupo> grupos = new HashMap<Integer, Grupo>();
 
 	@Override

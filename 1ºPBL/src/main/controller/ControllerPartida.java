@@ -11,32 +11,44 @@ import main.model.DAO.JogadorDAO;
 import main.model.DAO.PartidaDAO;
 import main.model.DAO.SelecaoDAO;
 import main.model.entities.Jogador;
+import main.model.entities.JogadorCartoes;
+import main.model.entities.JogadorGols;
 import main.model.entities.Partida;
 import main.model.entities.Selecao;
 
 public class ControllerPartida {
 	
-	public static void createPartida(String nome, LocalDate data, LocalTime horario,String local, int time1, int golsTime1, int cartAmaTime1, int cartVerTime1, int time2, int golsTime2, int cartAmaTime2, int cartVerTime2, List<Integer> jogsGols1, List<Integer> jogsGols2, List<Integer> jogsCarts1, List<Integer> jogsCarts2) {
+	public static void createPartida(String nome, LocalDate data, LocalTime horario,String local, int time1, int golsTime1, int cartAmaTime1, int cartVerTime1, int time2, int golsTime2, int cartAmaTime2, int cartVerTime2, List<Object> jogsGols1, List<Object> jogsGols2, List<Object> jogsCarts1, List<Object> jogsCarts2) {
 		  PartidaDAO partidaDAO = DAO.getPartidas();
 		  Partida partida = new Partida(nome,data,horario,local,time1, golsTime1, cartAmaTime1, cartVerTime1, time2, golsTime2, cartAmaTime2, cartVerTime2, jogsGols1, jogsGols2, jogsCarts1, jogsCarts2);
 		  partidaDAO.create(partida);
 	  }
-	  
+	
+	public static Object createJogadorGols(int idJogador, int gols) {
+		JogadorGols jogGols = new JogadorGols(idJogador, gols);
+		return jogGols;
+	}
+	
+	public static Object createJogadorCartoes(int idJogador, int cartAma,int cartVer) {
+		JogadorCartoes jogCarts = new JogadorCartoes(idJogador, cartAma, cartVer);
+		return jogCarts;
+	}
+	
 	public static void updatePartida(int idPartida, int partidaEditar,String atributo) {
 		  PartidaDAO partidaDAO = DAO.getPartidas();
 		  partidaDAO.update(idPartida, partidaEditar, atributo);	  
 	  }
-	public static void updateListPartida(int idPartida, int partidaEditar,List<Integer> lista) {
+	public static void updateListPartida(int idPartida, int partidaEditar,List<Object> lista) {
 		  PartidaDAO partidaDAO = DAO.getPartidas();
 		  partidaDAO.updateList(idPartida, partidaEditar, lista);	  
 	  }
 	public static void deletePartida(int id) {
 		PartidaDAO partidaDAO = DAO.getPartidas();
-		partidaDAO.delete(id);  
 		limparDadosJogador(id,1);
 		limparDadosJogador(id,2);
 		limparDadosJogador(id,3);
 		limparDadosJogador(id,4);
+		partidaDAO.delete(id);
 	}
 	
 	  public static List<String> listarSelecaoPartida(int id) {
@@ -108,51 +120,57 @@ public class ControllerPartida {
 		  int aux;
 		  switch (opcao) {
 		  	case 1:
-		  		for (int i = 0; i < partidaDAO.read(idPartida).getJogsGols1().size(); i += 2) {
-		  			aux = jogadorDAO.read(partidaDAO.read(idPartida).getJogsGols1().get(i)).getGolsQuantidade();
-				  	jogadorDAO.read(partidaDAO.read(idPartida).getJogsGols1().get(i)).setGolsQuantidade(aux - partidaDAO.read(idPartida).getJogsGols1().get(i+1));
-		  		}
-		  		for (int k = 0; k < partidaDAO.read(idPartida).getJogsGols1().size(); k++) {
-		  			partidaDAO.read(idPartida).getJogsGols1().remove(k);
+		  		if (partidaDAO.read(idPartida).getJogsGols1().size() > 0) {
+		  			for (int i = 0; i < partidaDAO.read(idPartida).getJogsGols1().size(); i ++) {
+		  				JogadorGols jogGols1 = (JogadorGols) (partidaDAO).read(idPartida).getJogsGols1().get(i);
+		  				aux = jogadorDAO.read(jogGols1.getId()).getGolsQuantidade();
+		  				jogadorDAO.read(jogGols1.getId()).setGolsQuantidade(aux - jogGols1.getGols());
+		  			}
+		  			for (int k = 0; k < partidaDAO.read(idPartida).getJogsGols1().size(); k++) {
+		  				partidaDAO.read(idPartida).getJogsGols1().remove(k);
+		  			}
 		  		}
 		  		break;
 		  		
 		  	case 2:
-		  		
-		  		for (int i = 0; i < partidaDAO.read(idPartida).getJogsCarts1().size(); i += 3) {
-		  			aux = jogadorDAO.read(partidaDAO.read(idPartida).getJogsCarts1().get(i)).getCartaoAmarelo();
-		  			jogadorDAO.read(partidaDAO.read(idPartida).getJogsCarts1().get(i)).setCartaoAmarelo(aux - partidaDAO.read(idPartida).getJogsCarts1().get(i+1));
-		  			aux = jogadorDAO.read(partidaDAO.read(idPartida).getJogsCarts1().get(i)).getCartaoVermelho();
-			  		jogadorDAO.read(partidaDAO.read(idPartida).getJogsCarts1().get(i)).setCartaoVermelho(aux - partidaDAO.read(idPartida).getJogsCarts1().get(i+2));
-		  		}
-		  		for (int j = 0; j < partidaDAO.read(idPartida).getJogsCarts1().size(); j ++) {
-		  			partidaDAO.read(idPartida).getJogsCarts1().remove(j);
+		  		if (partidaDAO.read(idPartida).getJogsCarts1().size() > 0) {
+		  			for (int i = 0; i < partidaDAO.read(idPartida).getJogsCarts1().size(); i ++) {
+			  			JogadorCartoes jogCartoes1 = (JogadorCartoes) (partidaDAO).read(idPartida).getJogsCarts1().get(i);
+			  			aux = jogadorDAO.read(jogCartoes1.getId()).getCartaoAmarelo();
+			  			jogadorDAO.read(jogCartoes1.getId()).setCartaoAmarelo(aux - jogCartoes1.getCartAma());
+			  			aux = jogadorDAO.read(jogCartoes1.getId()).getCartaoVermelho();
+				  		jogadorDAO.read(jogCartoes1.getId()).setCartaoVermelho(aux - jogCartoes1.getCartVer());
+			  		}
+			  		partidaDAO.read(idPartida).getJogsCarts1().clear();
 		  		}
 		  		break;
 		  		
 		  	case 3:
-			  	for (int i = 0; i < partidaDAO.read(idPartida).getJogsGols2().size(); i += 2) {
-			  		aux = jogadorDAO.read(partidaDAO.read(idPartida).getJogsGols2().get(i)).getGolsQuantidade();
-					jogadorDAO.read(partidaDAO.read(idPartida).getJogsGols2().get(i)).setGolsQuantidade(aux - partidaDAO.read(idPartida).getJogsGols2().get(i+1));
-			  	}
-			  	for (int k = 0; k < partidaDAO.read(idPartida).getJogsGols2().size(); k++) {
-		  			partidaDAO.read(idPartida).getJogsGols2().remove(k);
+		  		if (partidaDAO.read(idPartida).getJogsGols2().size() > 0) {
+		  			for (int i = 0; i < partidaDAO.read(idPartida).getJogsGols2().size(); i ++) {
+			  			JogadorGols jogGols2 = (JogadorGols) (partidaDAO).read(idPartida).getJogsGols2().get(i);
+			  			aux = jogadorDAO.read(jogGols2.getId()).getGolsQuantidade();
+			  			jogadorDAO.read(jogGols2.getId()).setGolsQuantidade(aux - jogGols2.getGols());
+			  		}
+		  			partidaDAO.read(idPartida).getJogsGols2().clear();
 		  		}
 			  	break;
 			  	
 		  	case 4:
-			  	for (int i = 0; i < partidaDAO.read(idPartida).getJogsCarts2().size(); i += 3) {
-			  		aux = jogadorDAO.read(partidaDAO.read(idPartida).getJogsCarts2().get(i)).getCartaoAmarelo();
-					jogadorDAO.read(partidaDAO.read(idPartida).getJogsCarts2().get(i)).setCartaoAmarelo(aux - partidaDAO.read(idPartida).getJogsCarts2().get(i+1));
-					aux = jogadorDAO.read(partidaDAO.read(idPartida).getJogsCarts2().get(i)).getCartaoVermelho();
-					jogadorDAO.read(partidaDAO.read(idPartida).getJogsCarts2().get(i)).setCartaoVermelho(aux - partidaDAO.read(idPartida).getJogsCarts2().get(i+2));
-			  	}
-			  	for (int k = 0; k < partidaDAO.read(idPartida).getJogsCarts2().size(); k ++) {
-		  			partidaDAO.read(idPartida).getJogsCarts2().remove(k);
-			  	}
+		  		if (partidaDAO.read(idPartida).getJogsCarts2().size() > 0) {
+		  			for (int i = 0; i < partidaDAO.read(idPartida).getJogsCarts2().size(); i ++) {
+		  				JogadorCartoes jogCartoes2 = (JogadorCartoes) (partidaDAO).read(idPartida).getJogsCarts2().get(i);
+		  				aux = jogadorDAO.read(jogCartoes2.getId()).getCartaoAmarelo();
+		  				jogadorDAO.read(jogCartoes2.getId()).setCartaoAmarelo(aux - jogCartoes2.getCartAma());
+		  				aux = jogadorDAO.read(jogCartoes2.getId()).getCartaoVermelho();
+		  				jogadorDAO.read(jogCartoes2.getId()).setCartaoVermelho(aux - jogCartoes2.getCartVer());
+		  			}
+		  			partidaDAO.read(idPartida).getJogsCarts2().clear();
+		  		}
 			  	break;
-		  }
-	}
+		  	}
+	  }
+	  
 	  public static int receberTime(int id,int opcao) {
 		  PartidaDAO partidaDAO = DAO.getPartidas();
 		  switch (opcao) {
