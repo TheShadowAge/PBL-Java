@@ -26,8 +26,8 @@ public interface JogadorDAO {
 	public Jogador read(int id);
 	
 	/**
-	 * Metódo que retorna uma lista com todos os árbitros do sistema.
-	 * @return Retorna uma lista com todos os árbitros do sistema.
+	 * Metódo que retorna uma lista com todos os jogadores do sistema.
+	 * @return Retorna uma lista com todos os jogadores do sistema.
 	 */
 	
 	public List<Jogador> readAll();

@@ -44,7 +44,7 @@ public interface SelecaoDAO {
 	/**
 	 * Método que atualiza as informações das seleções do sistema. 
 	 * @param id Inteiro que representa o ID da seleção a ser atualizada.
-	 * @param opcao Inteiro que define a informação que será atualizada. 1 para nome, 2 para grupo, 3 para posição no grupo, 4 para o técnico, 5 para adicionar um jogador pelo ID e 6 para remover um jogador pelo ID.
+	 * @param opcao Inteiro que define a informação que será atualizada. 1 para nome, 2 para grupo, 3 para posição no grupo, 4 para o técnico, 5 para adicionar um jogador pelo ID, 6 para remover um jogador pelo ID, 7 para adicionar uma partida por ID e 8 para remover uma partida por ID.
 	 * @param atributo Uma String com o atributo que será atualizado.
 	 */
 	
