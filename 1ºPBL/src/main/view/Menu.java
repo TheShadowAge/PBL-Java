@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import main.controller.*;
+import main.model.entities.Entidade;
 
 public class Menu {
 	
@@ -724,6 +725,8 @@ public class Menu {
 				  		LocalDate dataformatada = ControllerPartida.formatarData(data);
 				  		LocalTime horarioformatado = ControllerPartida.formatarHorario(horario);
 				  		ControllerPartida.createPartida(nome, dataformatada, horarioformatado, local, time1, golsTime1, cartAmaTime1, cartVerTime1, time2, golsTime2, cartAmaTime2, cartVerTime2, listajogG1, listajogG2, listajogC1, listajogC2);
+				  		ControllerSelecao.updateSelecao(time1, 7, Integer.toString(Entidade.getContagem() - 1));
+				  		ControllerSelecao.updateSelecao(time2, 7, Integer.toString(Entidade.getContagem() - 1));
 				  		break;
 				  		
 				  	case 2:
@@ -779,6 +782,7 @@ public class Menu {
 										break;
 										
 									case 4:
+										int time1Anterior = ControllerPartida.receberTime(idPartida, 1);
 										List<Integer> editListaJogG1 = new LinkedList<Integer>();
 										List<Integer> editListaJogC1 = new LinkedList<Integer>();
 										ControllerPartida.limparDadosJogador(idPartida, 1);
@@ -828,6 +832,7 @@ public class Menu {
 										ControllerPartida.updatePartida(idPartida, 5, Integer.toString(golsTime1));
 										ControllerPartida.updatePartida(idPartida, 6, Integer.toString(cartAmaTime1));
 										ControllerPartida.updatePartida(idPartida, 10, Integer.toString(cartVerTime1));
+										ControllerSelecao.updateSelecao(time1Anterior, 8, Integer.toString(idPartida));
 										System.out.println("Primeiro time alterado com sucesso");
 										break;
 	
@@ -885,6 +890,7 @@ public class Menu {
 										break;
 									
 									case 7:
+										int time2Anterior = ControllerPartida.receberTime(idPartida, 1);
 										List<Integer> editListaJogG2 = new LinkedList<Integer>();
 										List<Integer> editListaJogC2 = new LinkedList<Integer>();
 										ControllerPartida.limparDadosJogador(idPartida, 3);
@@ -935,6 +941,7 @@ public class Menu {
 										ControllerPartida.updatePartida(idPartida, 8, Integer.toString(golsTime2));
 										ControllerPartida.updatePartida(idPartida, 9, Integer.toString(cartAmaTime2));
 										ControllerPartida.updatePartida(idPartida, 11, Integer.toString(cartVerTime2));
+										ControllerSelecao.updateSelecao(time2Anterior, 8, Integer.toString(idPartida));
 										System.out.println("Segundo time alterado com sucesso");
 										break;
 										
@@ -1007,10 +1014,14 @@ public class Menu {
 				  		listar(MenuController.listarDAOByID(5));
 				  		System.out.println("Digite o ID da partida que deseja excluir: ");
 				  		partidaID = entrada.nextInt();
+				  		int timeAnterior1 = ControllerPartida.receberTime(partidaID, 1);
+				  		int timeAnterior2 = ControllerPartida.receberTime(partidaID, 2);
 				  		System.out.println("Voce tem certeza que deseja excluir a partida? S/N ");
 				  		escolha = entrada.next().toLowerCase();
 				  		if (escolha.toUpperCase().equals("S")) {
 				  			ControllerPartida.deletePartida(partidaID);
+				  			ControllerSelecao.updateSelecao(timeAnterior1, 8, Integer.toString(partidaID));
+				  			ControllerSelecao.updateSelecao(timeAnterior2, 8, Integer.toString(partidaID));
 				  			System.out.println("Partida deletado com sucesso!");
 				  		}
 				  		break;

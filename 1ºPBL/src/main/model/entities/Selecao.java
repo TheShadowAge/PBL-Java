@@ -17,6 +17,7 @@ public class Selecao extends Entidade{
 	private String grupo;
 	private int posicaoGrupo;
 	private int codSel;
+	private List<Integer> partidas = new LinkedList<Integer>();
 	
 	/**
 	 * Construtor da classe Selecao.
@@ -157,5 +158,9 @@ public class Selecao extends Entidade{
 	
 	public int getContagemJogs() {
 		return contagemJogs++;
+	}
+
+	public List<Integer> getPartidas() {
+		return partidas;
 	}
 }

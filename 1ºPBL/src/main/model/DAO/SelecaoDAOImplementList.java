@@ -80,6 +80,13 @@ public class SelecaoDAOImplementList implements SelecaoDAO {
 			break;
 		case 6:
 			selecoes.get(id).getJogadores().remove((Integer) Integer.parseInt(atributo));
+			break;
+		case 7:
+			selecoes.get(id).getPartidas().add(Integer.parseInt(atributo));
+			break;
+		case 8:
+			selecoes.get(id).getPartidas().remove((Integer) Integer.parseInt(atributo));
+			break;
 		}
 		
 	}

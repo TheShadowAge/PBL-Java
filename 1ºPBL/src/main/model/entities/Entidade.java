@@ -53,4 +53,8 @@ public class Entidade {
 	public int getId() {
 		return id;
 	}
+	
+	public static int getContagem() {
+		return idContagem;
+	}
 }
