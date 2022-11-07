@@ -3,11 +3,13 @@ package main.model;
 
 import main.model.DAO.ArbitroDAO;
 import main.model.DAO.DAO;
+import main.model.DAO.GrupoDAO;
 import main.model.DAO.JogadorDAO;
 import main.model.DAO.PartidaDAO;
 import main.model.DAO.SelecaoDAO;
 import main.model.DAO.TecnicoDAO;
 import main.model.entities.Arbitro;
+import main.model.entities.Grupo;
 import main.model.entities.Jogador;
 import main.model.entities.Selecao;
 import main.model.entities.Tecnico;
@@ -30,9 +32,18 @@ public class StartingEntitiesCreator {
 	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	  ArbitroDAO arbitroDAO = DAO.getArbitros();
+	  GrupoDAO grupoDAO = DAO.getGrupos();
 	  
 	  selecaoDAO.create(new Selecao("Brasil", "G", 1));
 	  selecaoDAO.create(new Selecao("Argentina", "G", 2));
+	  grupoDAO.create(new Grupo("A"));
+	  grupoDAO.create(new Grupo("B"));
+	  grupoDAO.create(new Grupo("C"));
+	  grupoDAO.create(new Grupo("D"));
+	  grupoDAO.create(new Grupo("E"));
+	  grupoDAO.create(new Grupo("F"));
+	  grupoDAO.create(new Grupo("G"));
+	  grupoDAO.create(new Grupo("H"));
 	  jogadorDAO.create(new Jogador("Alisson", 1, "Brasileiro", 29, "Goleiro", true));
 	  jogadorDAO.create(new Jogador("Ederson", 1, "Brasileiro", 29, "Goleiro", false));
 	  jogadorDAO.create(new Jogador("Weverton", 1, "Brasileiro", 34, "Goleiro", false));

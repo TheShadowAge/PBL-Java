@@ -6,7 +6,11 @@ import java.util.List;
 public class Grupo extends Entidade {
 	int quantidadeSelecoes = 0;
 	List<Integer> selecoes = new LinkedList<Integer>();
-
+	
+	public Grupo(String nome){
+		this.nome = nome;
+	}
+	
 	public int getQuantidadeSelecoes() {
 		return quantidadeSelecoes;
 	}

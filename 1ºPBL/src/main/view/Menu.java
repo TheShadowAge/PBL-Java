@@ -644,7 +644,8 @@ public class Menu {
 						System.out.println("   | Inserir | "); 
 						System.out.println("   +---------+ ");
 						System.out.println("Digite o local da partida:");
-						String local = entrada.next();
+						entrada.nextLine();
+						String local = entrada.nextLine();
 						System.out.println("Digite a data da partida [dd/MM/aaaa]:");
 				  		String data = entrada.next();
 				  		System.out.println("Digite o horario da partida [HH:mm:ss]:");
@@ -652,9 +653,10 @@ public class Menu {
 				  		listar(MenuController.listarDAOByID(4));
 				  		System.out.println("Digite o id da selecao para o primeiro time da partida:");
 				  		time1 = entrada.nextInt();
-				  		do {
+				  		System.out.println("Algum jogador fez gol? [S/N]");
+				  		respgols1 = entrada.next();
+				  		while (respgols1.toUpperCase().equals("S")) {
 				  			listar(ControllerPartida.jogadoresSeleção(time1));
-				  			System.out.println("Algum jogador fez gol? ");
 				  			System.out.println("Digite o id do jogador que fez gol:");
 				  			jogTime1 = entrada.nextInt();
 				  			System.out.println("Digite a quantidades de gols do jogador:");
@@ -664,10 +666,11 @@ public class Menu {
 				  			ControllerPartida.adicionarDadosJogador(jogTime1, 1, gols1);
 				  			System.out.print("Mais algum jogador fez gol? [S/N]:");
 				  			respgols1 = entrada.next();
-			  			} while (respgols1.toUpperCase().equals("S"));
-				  		do {
+				  		}
+				  		System.out.println("Algum jogador recebeu cartão? [S/N]");
+				  		respcart1 = entrada.next();
+				  		while (respcart1.toUpperCase().equals("S")) {
 				  			listar(ControllerPartida.jogadoresSeleção(time1));
-				  			System.out.println("Algum jogador recebeu cartão? ");
 				  			System.out.println("Digite o id do jogador que recebeu cartão:");
 				  			jogTime1 = entrada.nextInt();
 				  			System.out.println("Digite a quantidades de cartões amarelos do jogador:");
@@ -679,15 +682,16 @@ public class Menu {
 				  			cartVerTime1 += cartVer1;
 				  			ControllerPartida.adicionarDadosJogador(jogTime1, 2, cartAma1);
 				  			ControllerPartida.adicionarDadosJogador(jogTime1, 3, cartVer1);
-				  			System.out.print("Mais algum jogador fez gol? [S/N]:");
+				  			System.out.print("Mais algum jogador recebeu cartão? [S/N]:");
 				  			respcart1 = entrada.next();
-			  			} while (respcart1.toUpperCase().equals("S"));
+				  		}
 				  		listar(ControllerPartida.listarSelecaoPartida(time1));
 				  		System.out.print("Digite o id da selecao para o segundo time da partida: ");
 				  		int time2 = entrada.nextInt();
-				  		do {
+				  		System.out.println("Algum jogador fez gol? [S/N]");
+				  		respgols2 = entrada.next();
+				  		while (respgols2.toUpperCase().equals("S")) {
 				  			listar(ControllerPartida.jogadoresSeleção(time2));
-				  			System.out.println("Algum jogador fez gol? ");
 				  			System.out.print("Digite o id do jogador que fez gol:");
 				  			jogTime2 = entrada.nextInt();
 				  			System.out.print("Digite a quantidades de gols do jogador:");
@@ -697,10 +701,11 @@ public class Menu {
 				  			System.out.print("Mais algum jogador fez gol? [S/N]:");
 				  			ControllerPartida.adicionarDadosJogador(jogTime2, 1, gols2);
 				  			respgols2 = entrada.next();
-			  			} while (respgols2.equals("N"));
-				  		do {
+				  		}
+				  		System.out.println("Algum jogador recebeu cartão? [S/N]");
+				  		respcart2 = entrada.next();
+				  		while (respcart2.toUpperCase().equals("S")) {
 				  			listar(ControllerPartida.jogadoresSeleção(time2));
-				  			System.out.println("Algum jogador recebeu cartão? ");
 				  			System.out.println("Digite o id do jogador que recebeu cartão:");
 				  			jogTime2 = entrada.nextInt();
 				  			System.out.println("Digite a quantidades de cartões amarelos do jogador:");
@@ -712,9 +717,9 @@ public class Menu {
 				  			cartVerTime2 += cartVer2;
 				  			ControllerPartida.adicionarDadosJogador(jogTime2, 2, cartAma2);
 				  			ControllerPartida.adicionarDadosJogador(jogTime2, 3, cartVer2);
-				  			System.out.print("Mais algum jogador fez gol? [S/N]:");
+				  			System.out.print("Mais algum jogador recebeu cartão? [S/N]:");
 				  			respcart2 = entrada.next();
-			  			} while (respcart2.toUpperCase().equals("S"));
+				  		}
 				  		String nome = ControllerPartida.nomePartida(time1, time2);
 				  		LocalDate dataformatada = ControllerPartida.formatarData(data);
 				  		LocalTime horarioformatado = ControllerPartida.formatarHorario(horario);

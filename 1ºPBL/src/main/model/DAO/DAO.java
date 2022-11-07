@@ -13,6 +13,7 @@ public class DAO {
 	private static TecnicoDAO tecnicoDAO;
 	private static ArbitroDAO arbitroDAO;
 	private static PartidaDAO partidaDAO;
+	private static GrupoDAO grupoDAO;
 	
 	/**
 	 * Método que pode ser acessado de todo o sistema para acessar o DAO de seleções.
@@ -73,5 +74,17 @@ public class DAO {
 		}
 		return partidaDAO;
 	}
-
+	
+	/**
+	 * Método que pode ser acessado de todo o sistema para acessa o DAO de grupos.
+	 * @return O Objeto DAO de grupos.
+	 */
+	
+	public static GrupoDAO getGrupos() {
+		if (grupoDAO == null) {
+			grupoDAO = new GrupoDAOImplementList();
+		}
+		return grupoDAO;
+	}
+	
 }
