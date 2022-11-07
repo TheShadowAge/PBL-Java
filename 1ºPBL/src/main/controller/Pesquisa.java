@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import main.model.DAO.*;
-import main.model.entities.*;,
+import main.model.entities.*;
 
 /**
  * classe de metodos de pesquisa.
