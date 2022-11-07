@@ -14,6 +14,7 @@ class ArbitroTeste {
 
 	@Test
 	void testCriar() {
+		Entidade.resetContagem();
 		ArbitroDAO arbitroDAO = new ArbitroDAOImplementList();
 		Arbitro arbitro = new Arbitro("Jeferson", "Brasileiro", "Juiz", 52);
 		arbitroDAO.create(arbitro);
