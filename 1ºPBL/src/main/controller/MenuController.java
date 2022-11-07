@@ -175,10 +175,10 @@ public class MenuController {
 	  return lista;
 	  }
   
-  /**
-   * Função que checa se ainda há espaço em alguma seleção para adicionar jogadores.
-   * @return Retorna falso caso ainda haja espaço ou verdadeiro caso não haja espaço.
-   */
+ /**
+  * Uma função que verifica se existe alguma entidade cadastrada
+  * @param dao Um inteiro que indica qual DAO será verificado. 1 para jogadores, 2 para arbitros, 3 para técnicos, 4 para seleções e 5 para partidas.
+  */
   
   public static boolean verificarExistencia(int dao) {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
@@ -203,6 +203,13 @@ public class MenuController {
 	  return false;
 	  }
   
+  /**
+   * Uma função que seleciona uma entidade pelo id.
+   * @param dao Um inteiro que indica qual DAO será selecionado. 1 para jogadores, 2 para arbitros, 3 para técnicos, 4 para seleções e 5 para partidas.
+   * @param Id Um inteiro com id da entidade.
+   * @return retorna a entidade selecionada
+   */
+  
   public static Object selecionarDAO(int dao, int id) {
 	SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	JogadorDAO jogadorDAO = DAO.getJogadores();
@@ -224,6 +231,11 @@ public class MenuController {
 	}
 	return null;
   }
+  
+  /**
+   * Função que checa se ainda há espaço em alguma seleção para adicionar jogadores.
+   * @return Retorna falso caso ainda haja espaço ou verdadeiro caso não haja espaço.
+   */
   
   public static boolean isSelecoesFull() {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();

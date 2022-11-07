@@ -5,9 +5,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 import main.model.DAO.*;
-import main.model.entities.*;
+import main.model.entities.*;,
+
+/**
+ * classe de metodos de pesquisa.
+ * @author Gabriel Sena
+ * @author Ian Gabriel
+ */
 
 public class Pesquisa {
+	
+	/**
+	 * Metodo de pesquisar uma selecao completa, mostando seus jogadoras, tecnicos e partidas pelo nome da seleção
+	 * @param nome uma string com o nome da seleção que sera pesquisada.
+	 * @return uma lista com todas as informações.
+	 */
 	
 	public static List<Object> pesquisarSelecao(String nome){
 		List<Object> lista = new LinkedList<Object>();
@@ -84,6 +96,12 @@ public class Pesquisa {
 		return lista;
 	}
 	
+	/**
+	 * Metodo de pesquisar partidas pela data.
+	 * @param data um LocalDate com a data que deseja pesquisar.
+	 * @return uma lista com todas as informações.
+	 */
+	
 	public static List<Object> pesquisarPartidas(LocalDate data){
 		List<Object> lista = new LinkedList<Object>();
 		PartidaDAO partidaDAO = DAO.getPartidas();
@@ -106,6 +124,13 @@ public class Pesquisa {
 		lista.add("+----------------------------------------+");
 		return lista;
 	}
+	
+	/**
+	 * Metodo de pesquisar uma categoria pelo nome.
+	 * @param nome uma string com o nome que deseja pesquisar.
+	 * @param opcao um inteiro com o numero da categoria.
+	 * @return uma lista com todas informaçoes.
+	 */
 	
 	public static List<Object> pesquisarCategoria(String nome, int opcao){
 		List<Object> lista = new LinkedList<Object>();

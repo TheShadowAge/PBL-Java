@@ -4,15 +4,21 @@ import main.model.DAO.ArbitroDAO;
 import main.model.DAO.DAO;
 import main.model.entities.Arbitro;
 
+/**
+ * Classe que controla os Arbitros do sistema.
+ * @author Gabriel Sena
+ * @author Ian Gabriel
+ */
+
 public class ControllerArbitro {
 	
 	
 	/**
-	 * Método que recebe os dados do view e envia para o model para criar um árbitro no sistema.
-	 * @param nome uma String com o nome do árbitro.
-	 * @param nacionalidade uma String com a nacionalidade do árbitro.
-	 * @param tipo uma string com o tipo de árbitro.
-	 * @param idade um inteiro com a idade do árbitro.
+	 * Metodo que envia dados para criação do Arbitro
+	 * @param nome uma string com o nome para criação do arbitro
+	 * @param nacionalidade uma string com a nacionalidade para criação do arbitro
+	 * @param tipo uma string com o tipo de arbitro para criação do arbitro
+	 * @param idade um inteiro com a idade para criação do arbitro
 	 */
 	
 	public static void createArbitro(String nome, String nacionalidade, String tipo, int idade) {
@@ -21,10 +27,22 @@ public class ControllerArbitro {
 	  		arbitroDAO.create(arbitro);
 		  }
 	  
+	/**
+	 * Metodo que envia dados para edição do Arbitro
+	 * @param idArbitro id do arbitro que será editado.
+	 * @param arbitroEditar um inteiro com a opção de edição.
+	 * @param atributo uma string com o atributo que será alterado.
+	 */
+	
 	  public static void updateArbitro(int idArbitro, int arbitroEditar,String atributo) {
 		  ArbitroDAO arbitroDAO = DAO.getArbitros();
 		  arbitroDAO.update(idArbitro, arbitroEditar, atributo);	  
 	  }
+	  
+	  /**
+	   * Metodo que envia dado para deletar arbitro
+	   * @param arbitroID id do arbitro que será deletado.
+	   */
 	  
 	  public static void deleteArbitro (int arbitroID) {
 		  ArbitroDAO arbitroDAO = DAO.getArbitros();
