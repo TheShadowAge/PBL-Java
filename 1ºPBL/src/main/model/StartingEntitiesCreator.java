@@ -73,6 +73,32 @@ public class StartingEntitiesCreator {
 	  tecnicoDAO.create(new Tecnico("Brasileiro", 1, "Corinthians", "Tite", 61));
 	  arbitroDAO.create(new Arbitro("Raphael Claus", "Brasileiro", "Arbitro", 46));
 	  arbitroDAO.create(new Arbitro("Wilton Pereira Sampaio", "Brasileiro", "Arbitro", 40));
-	  jogadorDAO.create(new Jogador("Alisson Argentino", 2, "Argentino", 29, "Goleiro", true));
+	  tecnicoDAO.create(new Tecnico("Argentino", 2, "River Plate", "Currito Gimenez", 57));
+	  jogadorDAO.create(new Jogador("Leopoldo Gashi", 2, "Argentino", 29, "Goleiro", true));
+	  jogadorDAO.create(new Jogador("Bautista Giménez", 2, "Brasileiro", 29, "Goleiro", false));
+	  jogadorDAO.create(new Jogador("Anibal Gomez", 2, "Brasileiro", 34, "Goleiro", false));
+	  jogadorDAO.create(new Jogador("Tito Molina", 2, "Brasileiro", 31, "Lateral Direito", false));
+	  jogadorDAO.create(new Jogador("Javier French", 2, "Brasileiro", 25, "Zagueiro", false));
+	  jogadorDAO.create(new Jogador("Agustin Fallaci", 2, "Brasileiro", 24, "Zagueiro", true));
+	  jogadorDAO.create(new Jogador("Angelo Ramos", 2, "Brasileiro", 23, "Zagueiro", false));
+	  jogadorDAO.create(new Jogador("Gualterio Gonzalezs", 2, "Brasileiro", 28, "Zagueiro", true));
+	  jogadorDAO.create(new Jogador("Veto Herrera", 2, "Brasileiro", 37, "Zagueiro", true));
+	  jogadorDAO.create(new Jogador("Cuartio Giménez", 2, "Brasileiro", 31, "Lateral esquerdo", false));
+	  jogadorDAO.create(new Jogador("Platon Cohen", 2, "Brasileiro", 29, "Lateral esquerdo", true));
+	  jogadorDAO.create(new Jogador("Iago DeRose", 2, "Brasileiro", 24, "Volante", false));
+	  jogadorDAO.create(new Jogador("Cristoval Costa", 2, "Brasileiro", 30, "Volante", true));
+	  jogadorDAO.create(new Jogador("Curcio Ledesma", 2, "Brasileiro", 28, "Volante", false));
+	  jogadorDAO.create(new Jogador("Lucas Páez", 2, "Brasileiro", 29, "Volante", false));
+	  jogadorDAO.create(new Jogador("José María Fetuccini", 2, "Brasileiro", 33, "Meio-campo", false));
+	  jogadorDAO.create(new Jogador("Heriberto Rousse", 2, "Brasileiro", 25, "Meio-campo", true));
+	  jogadorDAO.create(new Jogador("Manuelo Ortíz", 2, "Brasileiro", 22, "Atacante", false));
+	  jogadorDAO.create(new Jogador("Chico Núnez", 2, "Brasileiro", 23, "Atacante", false));
+	  jogadorDAO.create(new Jogador("Hermosa Fallaci", 2, "Brasileiro", 30, "Atacante", true));
+	  jogadorDAO.create(new Jogador("Simón Pirozzi", 2, "Brasileiro", 25, "Atacante", false));
+	  jogadorDAO.create(new Jogador("Ginebra Medina", 2, "Brasileiro", 23, "Atacante", true));
+	  jogadorDAO.create(new Jogador("Omar Coronel", 2, "Brasileiro", 25, "Atacante", true));
+	  jogadorDAO.create(new Jogador("Ramon Coronel", 2, "Brasileiro", 30, "Atacante", false));
+	  jogadorDAO.create(new Jogador("Pablo Villar", 2, "Brasileiro", 21, "Atacante", false));
+	  jogadorDAO.create(new Jogador("Ovidio Paz", 2, "Brasileiro", 22, "Atacante", true));
 	}
 }
