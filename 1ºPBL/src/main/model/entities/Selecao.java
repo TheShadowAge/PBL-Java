@@ -160,6 +160,10 @@ public class Selecao extends Entidade{
 		return contagemJogs++;
 	}
 	
+	/**
+	 * Retorna uma lista de inteiros com os Ids das partidas que a seleção particiou.
+	 * @return uma lista de inteiros com os Ids das partidas.
+	 */
 	public List<Integer> getPartidas() {
 		return partidas;
 	}

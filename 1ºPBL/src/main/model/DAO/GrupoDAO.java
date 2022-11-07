@@ -5,6 +5,7 @@ import java.util.List;
 import main.model.entities.Grupo;
 
 public interface GrupoDAO {
+	
 	/**
 	 * Método que cria um Grupo no sistema.
 	 * @param grupo O objeto do tipo jogador que será criado.

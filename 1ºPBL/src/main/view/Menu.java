@@ -11,17 +11,33 @@ import main.model.entities.Entidade;
 
 public class Menu {
 	
+	/**
+	 * printa listas de objetos enviados pelo controller.
+	 * @param lista uma lista de objetos.
+	 */
+	
 	public static void listarObjeto(List<Object> lista) {
 		for (Object objectIterator: lista) {
 			System.out.println(objectIterator);
 		}
 	}
 	
+	/**
+	 * printa as strings enviados pelo controller.
+	 * @param lista uma lista de strings.
+	 */
+	
 	public static void listar(List<String> lista) {
 		for (Object objectIterator: lista) {
 			System.out.println(objectIterator);
 		}
 	}
+	
+	/**
+	 * Faz a primeira letra de uma string ser maiuscula
+	 * @param nome uma string digitada pelo usuario
+	 * @return uma string formatada
+	 */
 	
 	public static String PrimeiraMaiuscula(String nome) {
 		nome = nome.toLowerCase();
@@ -30,11 +46,20 @@ public class Menu {
 		return nome;
 	}
 	
+	/**
+	 * printa uma lista de strings numerando elas
+	 * @param lista uma lista de string.
+	 */
+	
 	public static void mostrarListaNumerada(List<String> lista) {
 		for(int i=0;i<lista.size(); i++) {
   			System.out.println((i+1) + " - " + lista.get(i));
   		}
 	}
+	
+	/**
+	 * Printa os grupos
+	 */
 	
 	public static void mostrarGrupos() {
 		System.out.println("Esses sao os grupos:");
@@ -44,6 +69,9 @@ public class Menu {
   		}
 	}
 	
+	/*
+	 * menu principal do projeto.
+	 */
 	public static void main(String[] args) {
 		
 		MenuController.criarEntidades();
