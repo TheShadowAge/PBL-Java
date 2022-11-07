@@ -41,7 +41,7 @@ public class Partida extends Entidade {
 		 * @param golsTime2 Quantidade de gols que o segundo time fez na partida.
 		 * @param cartAmaTime2 Quantidade de cartões amarelos que o segundo time recebeu na partida.
 		 * @param cartVerTime2 Quantidade de cartões vermelhos que o segundo time recebeu na partida.
-		 * @param jogsGols1 Lista com id e quantidade de gols que cada jogador do time 1 fez na partida.
+		 * @param jogsGols1 Lista de id e quantidade de gols que cada jogador do time 1 fez na partida.
 		 * @param jogsGols2 Lista com id e quantidade de gols que cada jogador do time 2 fez na partida.
 		 * @param jogsCarts1 Lista com id e quantidade de cartões vermelhos e amarelos que cada jogador do time 1 recebeu na partida.
 		 * @param jogsCarts2 Lista com id e quantidade de cartões vermelhos e amarelos que cada jogador do time 2 recebeu na partida.
