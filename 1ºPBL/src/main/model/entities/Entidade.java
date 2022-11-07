@@ -57,4 +57,9 @@ public class Entidade {
 	public static int getContagem() {
 		return idContagem;
 	}
+	
+	public static void resetContagem() {
+		idContagem = 1;
+	}
+	
 }
