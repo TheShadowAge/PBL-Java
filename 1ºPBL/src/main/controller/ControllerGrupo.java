@@ -15,7 +15,7 @@ import main.model.entities.*;
 public class ControllerGrupo {
 	
 	/**
-	 * Lista os grupos
+	 * Lista os grupos retirando o que estão cheios
 	 * @return lista com os grupos
 	 */
 	
@@ -30,6 +30,11 @@ public class ControllerGrupo {
 		return lista;
 	}
 	
+	/**
+	 * Lista todos os grupos.
+	 * @return lista com os grupos
+	 */
+	
 	public static List<String> mostrarTodosGrupos() {
 		List<String> lista = new LinkedList<String>();
 		GrupoDAO grupoDAO = DAO.getGrupos();
@@ -39,6 +44,12 @@ public class ControllerGrupo {
   		}
 		return lista;
 	}
+	
+	/**
+	 * retorna o id do grupo da determindada selecao.
+	 * @param id da selecao
+	 * @return id do grupo da selecao.
+	 */
 	
 	public static int retornarIdGrupo(int id) {
 		SelecaoDAO selecaoDAO = DAO.getSelecoes();
@@ -57,6 +68,12 @@ public class ControllerGrupo {
 		grupoDAO.update(idGrupo, opcao, atributo);
 	}
 	
+	/**
+	 * Metodo que retorna o index da selecao nas selecoes do grupo.
+	 * @param id inteiro com id do grupo.
+	 * @param idselecao inteiro co o id da selecao.
+	 * @return inteiro com index da selecao;
+	 */
 	public static int retornarIndexSelecao(int id,int idselecao) {
 		GrupoDAO grupoDAO = DAO.getGrupos();
 		for(int i = 0; i < grupoDAO.read(id).getSelecoes().size(); i++) {

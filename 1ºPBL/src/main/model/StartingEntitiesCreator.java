@@ -1,6 +1,11 @@
 package main.model;
 
 
+import java.util.LinkedList;
+import java.util.List;
+
+import main.controller.ControllerGrupo;
+import main.controller.ControllerPartida;
 import main.model.DAO.ArbitroDAO;
 import main.model.DAO.DAO;
 import main.model.DAO.GrupoDAO;
@@ -33,9 +38,11 @@ public class StartingEntitiesCreator {
 	  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 	  ArbitroDAO arbitroDAO = DAO.getArbitros();
 	  GrupoDAO grupoDAO = DAO.getGrupos();
+	  PartidaDAO partidaDAO = DAO.getPartidas();
+	  List<Object> lista = new LinkedList<Object>();
 	  
-	  selecaoDAO.create(new Selecao("Brasil", "G", 1));
-	  selecaoDAO.create(new Selecao("Argentina", "G", 2));
+	  selecaoDAO.create(new Selecao("Brasil", 9, 1));
+	  selecaoDAO.create(new Selecao("Argentina", 9, 2));
 	  grupoDAO.create(new Grupo("A"));
 	  grupoDAO.create(new Grupo("B"));
 	  grupoDAO.create(new Grupo("C"));
@@ -44,6 +51,8 @@ public class StartingEntitiesCreator {
 	  grupoDAO.create(new Grupo("F"));
 	  grupoDAO.create(new Grupo("G"));
 	  grupoDAO.create(new Grupo("H"));
+	  grupoDAO.update(9, 2, "1");
+	  grupoDAO.update(9, 2, "2");
 	  jogadorDAO.create(new Jogador("Alisson", 1, "Brasileiro", 29, "Goleiro", true));
 	  jogadorDAO.create(new Jogador("Ederson", 1, "Brasileiro", 29, "Goleiro", false));
 	  jogadorDAO.create(new Jogador("Weverton", 1, "Brasileiro", 34, "Goleiro", false));
@@ -100,5 +109,6 @@ public class StartingEntitiesCreator {
 	  jogadorDAO.create(new Jogador("Ramon Coronel", 2, "Brasileiro", 30, "Atacante", false));
 	  jogadorDAO.create(new Jogador("Pablo Villar", 2, "Brasileiro", 21, "Atacante", false));
 	  jogadorDAO.create(new Jogador("Ovidio Paz", 2, "Brasileiro", 22, "Atacante", true));
+	  partidaDAO.create(new Partida("Brasil VS Argentina", ControllerPartida.formatarData("05/11/2022"),ControllerPartida.formatarHorario("20:00:00"),"Qatar",1,0,0,0,2,0,0,0,lista,lista,lista,lista));
 	}
 }
