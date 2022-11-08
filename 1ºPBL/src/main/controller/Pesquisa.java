@@ -239,6 +239,31 @@ public class Pesquisa {
 				}
 			lista.add("+----------------------------------------+");
 			break;
+		case 6:
+			GrupoDAO grupoDAO = DAO.getGrupos();
+			selecaoDAO = DAO.getSelecoes();
+			cont = 0;
+			for (Grupo grupoIterator: grupoDAO.readAll()) {
+				if (grupoIterator.getNome().toLowerCase().contains(nome.toLowerCase())) {
+					if (cont < 1) {
+						lista.add("+----------------------------------------+");
+						lista.add("Esses sao os grupos com nome:" + nome);
+						cont ++;
+							}
+					lista.add("+----------------------------------------+");
+					lista.add(grupoIterator);
+					for (Selecao selecaoIterator: selecaoDAO.readAll()) {
+						if (selecaoIterator.getGrupo() == grupoIterator.getId())
+							lista.add("+----------------------------------------+");
+							lista.add(selecaoIterator);
+					}
+				}	
+			}
+			if (cont == 0) {
+				lista.add("Nao ha grupos inscritos com esse nome.");
+				}
+			lista.add("+----------------------------------------+");
+			break;
 		}
 	return lista;
 	}

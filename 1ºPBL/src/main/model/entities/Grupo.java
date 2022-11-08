@@ -27,6 +27,10 @@ public class Grupo extends Entidade {
 	 * @return um inteiro com o a quantidade de selecoes no grupo.
 	 */
 	
+	public String toString() {
+		return "ID do Grupo: "+ id + "\nNome da Partida: " + nome + "\nQuantidade de Selecoes: " + quantidadeSelecoes;
+	}
+	
 	public int getQuantidadeSelecoes() {
 		return quantidadeSelecoes;
 	}
@@ -51,6 +55,7 @@ public class Grupo extends Entidade {
 	 * Retorna uma lista com id das selecoes presentes no grupo.
 	 * @return uma lista com id das selecoes presentes no grupo.
 	 */
+	
 	public List<Integer> getSelecoes() {
 		return selecoes;
 	}

@@ -31,7 +31,7 @@ public interface GrupoDAO {
 	/**
 	 * Método que atualiza as informações dos grupos do sistema. 
 	 * @param id Inteiro que representa o ID do grupo a ser atualizado. 
-	 * @param opcao Inteiro que define a informação que será atualizada. 1 para nome, 2 para selecao, 3 para posicao, 4 para a quantidade de cartões amarelos, 5 para a quantidade de cartões vermelhos, 6 para idade, 7 para nacionalidade e 8 para titular, 9 para a quantidade de gols, 10 CodJog.
+	 * @param opcao Inteiro que define a informação que será atualizada. opcao Inteiro que define a informação que será atualizada. 1 para nome, 2 para adicionar uma seleção e 3 para remover uma seleção.
 	 * @param atributo Uma String com o atributo que será atualizado.
 	 */
 

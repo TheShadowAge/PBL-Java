@@ -74,11 +74,12 @@ public class ControllerPartida {
 	  public static List<String> listarSelecaoPartida(int id) {
 		  List<String> lista = new LinkedList<String>();
 		  SelecaoDAO selecaoDAO = DAO.getSelecoes();
-		  
 		  lista.add("Esses sao as selecoes inscritas:");
 		  for (Selecao selecaoIterator: selecaoDAO.readAll()) {
 			  if (selecaoIterator.getId() != id) {
+				  if (selecaoIterator.getGrupo() == selecaoDAO.read(id).getGrupo()) {
 			  	lista.add(selecaoIterator.getId() + " - " + selecaoIterator.getNome());
+				  }
 			  }
 		  }
 		  return lista;

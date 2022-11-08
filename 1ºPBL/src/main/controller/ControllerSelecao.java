@@ -1,5 +1,7 @@
 package main.controller;
 
+import java.util.List;
+
 import main.model.DAO.DAO;
 import main.model.DAO.JogadorDAO;
 import main.model.DAO.SelecaoDAO;
@@ -15,7 +17,7 @@ public class ControllerSelecao {
 	 * @param posicaoGrupo um inteiro com a posição da seleção no grupo.
 	 */
 	
-	public static void createSelecao(String nome, String grupo, int posicaoGrupo) {
+	public static void createSelecao(String nome, int grupo, int posicaoGrupo) {
 		  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 		  Selecao selecao = new Selecao(nome, grupo, posicaoGrupo);
 		  selecaoDAO.create(selecao);
@@ -51,4 +53,15 @@ public class ControllerSelecao {
 			selecaoDAO.delete(selecaoID);
 		}
 	  
+	  public static String retornarUltimaSelecao() {
+		  SelecaoDAO selecaoDAO = DAO.getSelecoes();
+		  Selecao ultimaSelecao = null;
+		  List<Selecao> listaSelecao = selecaoDAO.readAll();
+		  for (int i = 0; i < listaSelecao.size(); i++ ) {
+			  ultimaSelecao = listaSelecao.get(i);
+		  }
+		  int Id = ultimaSelecao.getId();
+		  
+		return Integer.toString(Id);
+	  }
 }

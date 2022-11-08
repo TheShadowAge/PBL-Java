@@ -39,6 +39,8 @@ public class MenuController {
 	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
 	  ArbitroDAO arbitroDAO = DAO.getArbitros();
 	  PartidaDAO partidaDAO = DAO.getPartidas();
+	  GrupoDAO grupoDAO = DAO.getGrupos();
+	  
 	  
 	  switch (dao){
 		  case 1:
@@ -101,6 +103,24 @@ public class MenuController {
 				  lista.add("Nao ha partidas inscritas.");
 			  }
 			  break;
+		  case 6:
+			  if (grupoDAO.readAll().size() != 0) {
+				  lista.add("Esses sao as grupos inscritos:");
+				  for (Grupo grupoIterator: grupoDAO.readAll()) {
+					  lista.add("+----------------------------------------+");
+					  lista.add(grupoIterator);
+					  lista.add("Esses sao as selecoes do grupo:");
+						  for (Selecao selecaoIterator: selecaoDAO.readAll()) {
+							  if (selecaoIterator.getGrupo() == grupoIterator.getId()) {
+								  lista.add(selecaoIterator.getId() + " - " + selecaoIterator.getNome());
+							  }
+						  }
+				  }
+				  lista.add("+----------------------------------------+");
+			  } else {
+				  lista.add("Nao ha grupos inscritos.");
+			  }
+			  break;
 	  }
 	return lista;
 	}
@@ -117,6 +137,7 @@ public class MenuController {
 		  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
 		  ArbitroDAO arbitroDAO = DAO.getArbitros();
 		  PartidaDAO partidaDAO = DAO.getPartidas();
+		  GrupoDAO grupoDAO = DAO.getGrupos();
 		  
 		  switch (dao){
 			  case 1:
@@ -148,6 +169,13 @@ public class MenuController {
 				  for (Partida partidaIterator: partidaDAO.readAll()) {
 					  lista.add(partidaIterator.getId() + " - " + partidaIterator.getNome());
 				  }
+				  break;
+			  case 6:
+				  lista.add("Esses são os grupos inscritos:");
+				  for (Grupo grupoIterator: grupoDAO.readAll()) {
+					  lista.add(grupoIterator.getId() + " - " + grupoIterator.getNome());
+				  }
+				  
 		  }
 		  return lista;
 		}
@@ -186,6 +214,7 @@ public class MenuController {
 	  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
 	  ArbitroDAO arbitroDAO = DAO.getArbitros();
 	  PartidaDAO partidaDAO = DAO.getPartidas();
+	  GrupoDAO grupoDAO = DAO.getGrupos();
 	  
 	  switch(dao) {
 	  	case 1:
@@ -198,6 +227,8 @@ public class MenuController {
 	  			return arbitroDAO.readAll().isEmpty();
 	  	case 5:
 	  			return partidaDAO.readAll().isEmpty();
+	  	case 6:
+			  	return grupoDAO.readAll().isEmpty();
 	  			
 	  		}
 	  return false;
@@ -216,6 +247,7 @@ public class MenuController {
 	TecnicoDAO tecnicoDAO = DAO.getTecnicos();
 	ArbitroDAO arbitroDAO = DAO.getArbitros();
 	PartidaDAO partidaDAO = DAO.getPartidas();
+	GrupoDAO grupoDAO = DAO.getGrupos();
 	
 	switch(dao) {
 	  case 1:
@@ -228,6 +260,8 @@ public class MenuController {
 		  return arbitroDAO.read(id);
 	  case 5:
 		  return partidaDAO.read(id);
+	  case 6:
+		  return grupoDAO.read(id);
 	}
 	return null;
   }

@@ -1,7 +1,6 @@
 package main;
 import main.view.Menu;
 
-
 ///*******************************************************************************
 //Autores: Gabriel Sena e Ian Gabriel
 //Componente Curricular: MI - Programação
@@ -13,8 +12,6 @@ import main.view.Menu;
 //do código, e estou ciente que estes trechos não serão considerados para fins de avaliação.
 //******************************************************************************************/
 
-
-
 /**
  * Classe main do projeto.
  * @author Gabriel Sena
@@ -23,7 +20,6 @@ import main.view.Menu;
 
 public class Main {
 	
-
   public static void main(String[] args){
 	  Menu.main(args);
   }

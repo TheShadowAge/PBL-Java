@@ -14,7 +14,7 @@ public class Selecao extends Entidade{
 	private List<Integer> jogadores = new LinkedList<Integer>();
 	private int contagemJogs = 0;
 	private int tecnico = -1;
-	private String grupo;
+	private int grupo;
 	private int posicaoGrupo;
 	private int codSel;
 	private List<Integer> partidas = new LinkedList<Integer>();
@@ -26,7 +26,7 @@ public class Selecao extends Entidade{
 	 * @param posicaoGrupo Posição da seleção no grupo.
 	 */
 	
-	public Selecao(String nome, String grupo, int posicaoGrupo) {
+	public Selecao(String nome, int grupo, int posicaoGrupo) {
 		this.nome = nome;
 		this.grupo = grupo;
 		this.posicaoGrupo = posicaoGrupo;
@@ -68,7 +68,7 @@ public class Selecao extends Entidade{
 	 * @return Retorna uma String com o grupo da Seleção.
 	 */
 	
-	public String getGrupo() {
+	public int getGrupo() {
 		return grupo;
 	}
 	
@@ -77,7 +77,7 @@ public class Selecao extends Entidade{
 	 * @param grupo String com o grupo da seleção.
 	 */
 	
-	public void setGrupo(String grupo) {
+	public void setGrupo(int grupo) {
 		this.grupo = grupo;
 	}
 	

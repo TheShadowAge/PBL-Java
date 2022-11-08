@@ -57,25 +57,13 @@ public class Menu {
   		}
 	}
 	
-	/**
-	 * Printa os grupos
-	 */
-	
-	public static void mostrarGrupos() {
-		System.out.println("Esses sao os grupos:");
-		List<String> grupos = Arrays.asList("A","B","C","D","E","F","G","H");
-		for(int i=0;i<grupos.size(); i++) {
-  			System.out.println("Grupo " + grupos.get(i));
-  		}
-	}
-	
 	/*
 	 * menu principal do projeto.
 	 */
 	public static void main(String[] args) {
 		
 		MenuController.criarEntidades();
-		int opcao, opcao1,opcao2,opcao3,opcao4,opcao5, opcao6;
+		int opcao, opcao1,opcao2,opcao3,opcao4,opcao5, opcao6, opcao7;
 		Scanner entrada = new Scanner(System.in);
 		do {
 			  System.out.println("   +---------+ ");
@@ -88,10 +76,10 @@ public class Menu {
 			  System.out.println("4) Tecnico");
 			  System.out.println("5) Partida");
 			  System.out.println("6) Pesquisa");
-			  System.out.println("7) Sair");
+			  System.out.println("7) Grupo");
+			  System.out.println("8) Sair");
 			  System.out.print("Opcao: ");
 			  opcao = entrada.nextInt();
-			  
 			  
 			  switch (opcao) {
 			  case 1:
@@ -110,8 +98,8 @@ public class Menu {
 					  opcao1 = entrada.nextInt();
 					  switch(opcao1) {
 					  	case 1:
-					  		String nome, grupo;
-					  		int posicaoGrupo;
+					  		String nome;
+					  		int posicaoGrupo, grupo;
 					  		
 					  		System.out.println("   +---------+ ");
 							System.out.println("   | Inserir | "); 
@@ -119,18 +107,18 @@ public class Menu {
 					  		System.out.print("Digite o nome da selecao: ");
 					  		nome = entrada.next();
 					  		PrimeiraMaiuscula(nome);
-					  		mostrarGrupos();
-					  		System.out.print("Digite o grupo da selecao: ");
-					  		grupo = entrada.next();
-					  		PrimeiraMaiuscula(grupo);
+					  		listar(ControllerGrupo.mostrarGrupos());
+					  		System.out.print("Digite o id do grupo da selecao: ");
+					  		grupo = entrada.nextInt();
 					  		System.out.print("Digite a posicao no grupo da Selecao [1 a 4]: ");
 					  		posicaoGrupo = entrada.nextInt();
 					  		ControllerSelecao.createSelecao(nome, grupo, posicaoGrupo);
+					  		ControllerGrupo.updateGrupo(grupo, 2,ControllerSelecao.retornarUltimaSelecao());
 					  		break;
 					  		
 					  	case 2:
 					  		String atributo;
-					  		int idSelecao, selecaoEditar;
+					  		int idSelecao, selecaoEditar, numAtributo;
 							  
 							if(!MenuController.verificarExistencia(1)) {
 								listar(MenuController.listarDAOByID(4));
@@ -161,11 +149,13 @@ public class Menu {
 											break;
 											
 										case 2:
-											mostrarGrupos();
+											listar(ControllerGrupo.mostrarGrupos());
+											ControllerGrupo.updateGrupo(ControllerGrupo.retornarIdGrupo(idSelecao), 2,Integer.toString(idSelecao));
 											System.out.print("Digite o novo grupo:");
-											atributo = entrada.next();
-											ControllerSelecao.updateSelecao(idSelecao, selecaoEditar, atributo);
-											System.out.println("Selecao alterada com sucesso");
+											numAtributo = entrada.nextInt();
+											ControllerSelecao.updateSelecao(idSelecao, selecaoEditar, Integer.toString(numAtributo));
+											ControllerGrupo.updateGrupo(numAtributo, 2,Integer.toString(idSelecao));
+											System.out.println("Grupo alterada com sucesso");
 											break;	
 											
 										case 3:
@@ -1074,7 +1064,8 @@ public class Menu {
 						System.out.println("3) Tecnico");
 						System.out.println("4) Arbitros");
 						System.out.println("5) Selecao");
-						System.out.println("6) voltar");
+						System.out.println("6) Grupo");
+						System.out.println("7) voltar");
 						categoriaOpcao = entrada.nextInt();
 						switch (categoriaOpcao) {
 							case 1:
@@ -1106,8 +1097,13 @@ public class Menu {
 								nome = entrada.next();
 								listarObjeto(Pesquisa.pesquisarCategoria(nome, categoriaOpcao));
 								break;
+							case 6:
+								System.out.println("Digite o nome do Grupo que deseja pesquisar");
+								nome = entrada.next();
+								listarObjeto(Pesquisa.pesquisarCategoria(nome, categoriaOpcao));
+								break;
 							}
-						} while (categoriaOpcao != 6);
+						} while (categoriaOpcao != 7);
 						break;
 						
 					case 2:
@@ -1127,10 +1123,95 @@ public class Menu {
 				break;
 				
 			  case 7:
-				System.out.println(" ");
-				System.out.println("Fim do programa!!!");
-				System.exit(0);
-				break;
+				  do {
+				  System.out.println("   +--------+ ");
+				  System.out.println("   | Grupos | "); 
+				  System.out.println("   +--------+ ");
+				  System.out.println("Escolha uma opcao:");
+				  System.out.println("1) Editar");
+				  System.out.println("2) Listar Grupos");
+				  System.out.println("3) Voltar");
+				  System.out.print("Opcao: ");
+				  opcao7 = entrada.nextInt();
+				  switch(opcao7) {
+				  case 1:
+					String atributo;
+					int grupoEditar, idGrupo, numAtributo;
+					if(!MenuController.verificarExistencia(6)) {
+						listar(ControllerGrupo.mostrarTodosGrupos());
+						System.out.println("Digite o id do grupo que vc deseja editar:");
+						idGrupo = entrada.nextInt();
+						Object grupo = MenuController.selecionarDAO(6, idGrupo);
+						if(grupo == null) {
+							System.out.println("Partida nao encontrado!");
+						}
+						else {
+							do {
+								System.out.println("   +--------+ ");
+								System.out.println("   | Editar | "); 
+								System.out.println("   +--------+ ");
+								System.out.println("Escolha uma opcao:");
+								System.out.println("1) Nome");
+								System.out.println("2) Adicionar Seleção ao grupo");
+								System.out.println("3) Remover Seleção ao grupo");
+								System.out.println("4) Voltar");
+								grupoEditar = entrada.nextInt();
+								switch (grupoEditar) {
+								case 1:
+									System.out.print("Digite o novo nome do grupo:");
+									atributo = entrada.next();
+									ControllerGrupo.updateGrupo(idGrupo, 1, atributo);
+									System.out.println("Data alterada com sucesso");
+									break;
+								case 2:
+									if (ControllerGrupo.quantidadeGrupo(idGrupo) < 4) {
+										listar(MenuController.listarDAOByID(4));
+										System.out.print("Digite o id da seleção que deseja adicionar");
+										numAtributo = entrada.nextInt();
+										ControllerGrupo.updateGrupo(idGrupo, 2, Integer.toString(numAtributo));
+										System.out.println("Seleção adicionada ao grupo");
+									}
+									else {
+										System.out.print("Digite o grupo esta cheio");
+									}
+										break;
+								case 3:
+									if (ControllerGrupo.quantidadeGrupo(idGrupo) > 0) {
+										listar(MenuController.listarDAOByID(4));
+										System.out.print("Digite o id da seleção que deseja remover");
+										numAtributo = entrada.nextInt();
+										ControllerGrupo.updateGrupo(idGrupo, 3, Integer.toString(ControllerGrupo.retornarIndexSelecao(idGrupo, numAtributo)));
+										System.out.println("Seleção removida do grupo");
+									}
+									else {
+										System.out.print("Digite o grupo esta vazio");
+									}
+									break;
+									
+								case 4:
+									break;
+									
+									}
+								} while (grupoEditar != 4);
+							}
+						}
+					break;
+					  
+				  case 2:
+					  listarObjeto(MenuController.listarDAO(6));
+					  break;
+					  
+				  case 3:
+					  break;
+				  	}
+				  } while (opcao7 != 3);
+				  break;
+				
+			  case 8:
+				  System.out.println(" ");
+				  System.out.println("Fim do programa!!!");
+				  System.exit(0);
+				  break;
 				
 			  default:
 				System.out.println("O numero invalido! Digite um numero entre 1 a 7.");

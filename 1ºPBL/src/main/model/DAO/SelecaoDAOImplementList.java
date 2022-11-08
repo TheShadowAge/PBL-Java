@@ -67,7 +67,7 @@ public class SelecaoDAOImplementList implements SelecaoDAO {
 			selecoes.get(id).setNome(atributo);
 			break;
 		case 2:
-			selecoes.get(id).setGrupo(atributo);
+			selecoes.get(id).setGrupo(Integer.parseInt(atributo));
 			break;
 		case 3:
 			selecoes.get(id).setPosicaoGrupo(Integer.parseInt(atributo));

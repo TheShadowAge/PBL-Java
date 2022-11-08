@@ -1,7 +1,10 @@
 package main.controller;
 
-import main.model.DAO.DAO;
-import main.model.DAO.GrupoDAO;
+import java.util.LinkedList;
+import java.util.List;
+
+import main.model.DAO.*;
+import main.model.entities.*;
 
 /**
  * Classe que controla os grupos do sistema.
@@ -10,6 +13,37 @@ import main.model.DAO.GrupoDAO;
  */
 
 public class ControllerGrupo {
+	
+	/**
+	 * Lista os grupos
+	 * @return lista com os grupos
+	 */
+	
+	public static List<String> mostrarGrupos() {
+		List<String> lista = new LinkedList<String>();
+		GrupoDAO grupoDAO = DAO.getGrupos();
+		lista.add("Esses sao os grupos:");
+		for (Grupo grupoIterator: grupoDAO.readAll()) {
+			if (grupoIterator.getQuantidadeSelecoes()<4)
+				lista.add(grupoIterator.getId() + " - " + "Grupo " + grupoIterator.getNome() + " Espacos disponiveis " + "["+ (4 - grupoIterator.getQuantidadeSelecoes())+"]");
+  		}
+		return lista;
+	}
+	
+	public static List<String> mostrarTodosGrupos() {
+		List<String> lista = new LinkedList<String>();
+		GrupoDAO grupoDAO = DAO.getGrupos();
+		lista.add("Esses sao os grupos:");
+		for (Grupo grupoIterator: grupoDAO.readAll()) {
+				lista.add(grupoIterator.getId() + " - " + "Grupo " + grupoIterator.getNome() + " Espacos disponiveis " + "["+ (4 - grupoIterator.getQuantidadeSelecoes())+"]");
+  		}
+		return lista;
+	}
+	
+	public static int retornarIdGrupo(int id) {
+		SelecaoDAO selecaoDAO = DAO.getSelecoes();
+		return selecaoDAO.read(id).getGrupo();
+	}
 	
 	/**
 	 * Metodo que envia dados para edição do Grupo.
@@ -21,5 +55,20 @@ public class ControllerGrupo {
 	public static void updateGrupo(int idGrupo, int opcao, String atributo) {
 		GrupoDAO grupoDAO = DAO.getGrupos();
 		grupoDAO.update(idGrupo, opcao, atributo);
+	}
+	
+	public static int retornarIndexSelecao(int id,int idselecao) {
+		GrupoDAO grupoDAO = DAO.getGrupos();
+		for(int i = 0; i < grupoDAO.read(id).getSelecoes().size(); i++) {
+			if (grupoDAO.read(id).getSelecoes().get(i) == idselecao) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public static int quantidadeGrupo(int id) {
+		GrupoDAO grupoDAO = DAO.getGrupos();
+		return grupoDAO.read(id).getQuantidadeSelecoes();
 	}
 }
