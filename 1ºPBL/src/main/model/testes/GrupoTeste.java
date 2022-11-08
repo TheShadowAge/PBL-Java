@@ -9,6 +9,12 @@ import main.model.DAO.GrupoDAOImplementList;
 import main.model.entities.Entidade;
 import main.model.entities.Grupo;
 
+/**
+ * Teste que testa o DAO de Grupo.
+ * @author Gabriel Sena
+ * @author Ian Gabriel
+ */
+
 class GrupoTeste {
 
 	@Test

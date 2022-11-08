@@ -13,6 +13,12 @@ import main.model.entities.Entidade;
 import main.model.entities.Selecao;
 import main.model.entities.Tecnico;
 
+/**
+ * Teste que testa o DAO de Técnico.
+ * @author Gabriel Sena
+ * @author Ian Gabriel
+ */
+
 class TecnicoTeste {
 
 	@Test

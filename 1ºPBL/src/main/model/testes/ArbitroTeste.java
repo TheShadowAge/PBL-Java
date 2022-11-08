@@ -10,6 +10,12 @@ import main.model.DAO.ArbitroDAOImplementList;
 import main.model.entities.Arbitro;
 import main.model.entities.Entidade;
 
+/**
+ * Teste que testa o DAO de Árbitro.
+ * @author Gabriel Sena
+ * @author Ian Gabriel
+ */
+
 class ArbitroTeste {
 
 	@Test

@@ -9,6 +9,12 @@ import main.model.DAO.PartidaDAOImplementList;
 import main.model.entities.Entidade;
 import main.model.entities.Partida;
 
+/**
+ * Teste que testa o DAO de Partida.
+ * @author Gabriel Sena
+ * @author Ian Gabriel
+ */
+
 class PartidaTeste {
 
 	@Test

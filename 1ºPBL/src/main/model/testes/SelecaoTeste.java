@@ -10,6 +10,12 @@ import main.model.DAO.SelecaoDAOImplementList;
 import main.model.entities.Entidade;
 import main.model.entities.Selecao;
 
+/**
+ * Teste que testa o DAO de Seleção.
+ * @author Gabriel Sena
+ * @author Ian Gabriel
+ */
+
 class SelecaoTeste {
 
 	@Test

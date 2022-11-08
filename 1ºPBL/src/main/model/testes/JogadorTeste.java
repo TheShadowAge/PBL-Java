@@ -15,6 +15,12 @@ import main.model.entities.Entidade;
 import main.model.entities.Jogador;
 import main.model.entities.Selecao;
 
+/**
+ * Teste que testa o DAO de Jogador.
+ * @author Gabriel Sena
+ * @author Ian Gabriel
+ */
+
 class JogadorTeste {
 
 	@Test
