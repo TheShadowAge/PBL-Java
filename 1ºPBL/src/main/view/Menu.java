@@ -1214,9 +1214,9 @@ public class Menu {
 				  break;
 				
 			  default:
-				System.out.println("O numero invalido! Digite um numero entre 1 a 7.");
+				System.out.println("O numero invalido! Digite um numero entre 1 a 8.");
 			  }
-		  }while (opcao != 0);
+		  }while (opcao != 8);
 		 entrada.close();
 	  }
 	}
