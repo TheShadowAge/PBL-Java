@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pbl.controller.view.FXMLCadastroSelecaoController">
+   <children>
+      <SplitPane dividerPositions="0.3963210702341137" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TableView fx:id="TableViewSelecao" layoutX="-1.0" prefHeight="377.0" prefWidth="242.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="tableColumnSelecaoID" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="tableColumnSelecaoNome" prefWidth="75.0" text="Nome" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label layoutX="111.0" layoutY="14.0" text="Detalhes da Selecao">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <GridPane layoutX="28.0" layoutY="77.0" prefHeight="224.0" prefWidth="278.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="30.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="133.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="137.0" minWidth="10.0" prefWidth="134.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Id:" />
+                        <Label text="Nome:" GridPane.rowIndex="2" />
+                        <Label text="Grupo da selecao:" GridPane.rowIndex="3" />
+                        <Label text="Posicao no grupo:" GridPane.rowIndex="4" />
+                        <Label text="Quantidade de jogadores:" GridPane.rowIndex="5" />
+                        <Label fx:id="labelSelecaoID" GridPane.columnIndex="1" />
+                        <Label fx:id="labelSelecaoCodSel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="labelSelecaoNome" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="labelSelecaoGrupo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="labelSelecaoPosicaoGrupo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="labelSelecaoQuantJogs" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Tecnico da selecao:" GridPane.rowIndex="6" />
+                        <Label fx:id="labelSelecaoTecnico" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Codigo da selecao:" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Group layoutX="114.0" layoutY="314.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                     <children>
+                        <Button fx:id="ButtonInserirSelecao" mnemonicParsing="false" onAction="#handleButtonInserirSelecao" prefHeight="25.0" prefWidth="64.0" text="Inserir" />
+                        <Button fx:id="ButtonAlterarSelecao" layoutX="74.0" mnemonicParsing="false" onAction="#handleButtonAlterarSelecao" prefHeight="25.0" prefWidth="64.0" text="Alterar" />
+                        <Button fx:id="ButtonRemoverSelecao" layoutX="148.0" mnemonicParsing="false" onAction="#handleButtonRemoverSelecao" text="Remover" />
+                     </children>
+                  </Group>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

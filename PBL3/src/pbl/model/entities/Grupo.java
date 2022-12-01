@@ -28,7 +28,7 @@ public class Grupo extends Entidade {
 	 */
 	
 	public String toString() {
-		return "ID do Grupo: "+ id + "\nNome da Partida: " + nome + "\nQuantidade de Selecoes: " + quantidadeSelecoes;
+		return "Grupo: " + nome + "\nQuantidade de Selecoes: " + quantidadeSelecoes;
 	}
 	
 	public int getQuantidadeSelecoes() {

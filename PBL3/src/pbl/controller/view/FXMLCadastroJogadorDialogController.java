@@ -131,6 +131,11 @@ public class FXMLCadastroJogadorDialogController {
 		}
 		this.CBJogadorPosicao.setValue(jogador.getPosicao());
 		this.CBJogadorSelecao.setValue(jogador.getSelecao());
+		if (jogador.isTitular()) {
+			this.CBJogadorTitular.setValue("Titular");
+		} else {
+			this.CBJogadorTitular.setValue("Reserva");
+		}
 	}
 	
 	@FXML
@@ -190,7 +195,7 @@ public class FXMLCadastroJogadorDialogController {
 			return true;
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setTitle("Erro no cadastro");
+			alert.setTitle("Erro no cadastro do Jogador");
 			alert.setHeaderText("Campos inválidos, por favor, corrija...");
 			alert.setContentText(errorMessage);
 			alert.show();

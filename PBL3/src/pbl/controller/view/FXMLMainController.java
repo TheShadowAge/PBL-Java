@@ -56,8 +56,21 @@ public class FXMLMainController {
     }
     
     @FXML
+    void handleMenuItemInserirArbitro() throws IOException {
+    	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroArbitro.fxml"));
+    	anchorPane.getChildren().setAll(cena);
+    }
+    
+    @FXML
     public void handleMenuItemInserirJogador() throws IOException {
     	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroJogador.fxml"));
+    	anchorPane.getChildren().setAll(cena);
+    	
+    }
+    
+    @FXML
+    public void handleMenuItemInserirSelecao() throws IOException {
+    	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroSelecao.fxml"));
     	anchorPane.getChildren().setAll(cena);
     	
     }

@@ -253,7 +253,7 @@ public class Pesquisa {
 					lista.add("+----------------------------------------+");
 					lista.add(grupoIterator);
 					for (Selecao selecaoIterator: selecaoDAO.readAll()) {
-						if (selecaoIterator.getGrupo() == grupoIterator.getId())
+						if (selecaoIterator.getGrupo().getId() == grupoIterator.getId())
 							lista.add("+----------------------------------------+");
 							lista.add(selecaoIterator);
 					}

@@ -16,6 +16,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import pbl.controller.entities.ControllerJogador;
+import pbl.controller.entities.ControllerSelecao;
 import pbl.model.DAO.DAO;
 import pbl.model.DAO.JogadorDAO;
 import pbl.model.entities.Jogador;
@@ -81,13 +83,14 @@ public class FXMLCadastroJogadorController {
 
     
     public void carregarTableViewJogador() {
+    	listJogadores = jogadorDAO.readAll();
+    	
     	tableColumnJogadorID.setCellValueFactory(new PropertyValueFactory<>("id"));
     	tableColumnJogadorNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
     	
-    	listJogadores = jogadorDAO.readAll();
-    	
     	observableListJogadores = FXCollections.observableArrayList(listJogadores);
     	TableViewJogador.setItems(observableListJogadores);
+    	TableViewJogador.refresh();
     }
     
     public void selecionarItemTableViewJogador(Jogador jogador) {
@@ -133,15 +136,16 @@ public class FXMLCadastroJogadorController {
 	   if (jogador != null) {
 		   boolean buttonConfirmarClicked = showFXMLCadastrosJogadorDialog(jogador);
 		   if (buttonConfirmarClicked) {
-			   jogadorDAO.update(jogador.getId(), 1, jogador.getNome());
-			   jogadorDAO.update(jogador.getId(), 2, String.valueOf(jogador.getSelecao().getId()));
-			   jogadorDAO.update(jogador.getId(), 3, jogador.getPosicao());
-			   jogadorDAO.update(jogador.getId(), 6, String.valueOf(jogador.getIdade()));
-			   jogadorDAO.update(jogador.getId(), 7, jogador.getNacionalidade());
-			   jogadorDAO.update(jogador.getId(), 8, String.valueOf(jogador.isTitular()));
+			   ControllerJogador.updateJogador(jogador.getId(), 1, jogador.getNome());
+			   ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogador.getId()), 6, String.valueOf(jogador.getId()));
+			   ControllerJogador.updateJogador(jogador.getId(), 2, String.valueOf(jogador.getSelecao()));
+			   ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogador.getId()), 5, String.valueOf(jogador.getId()));
+			   ControllerJogador.updateJogador(jogador.getId(), 3, jogador.getPosicao());
+			   ControllerJogador.updateJogador(jogador.getId(), 6, String.valueOf(jogador.getIdade()));
+			   ControllerJogador.updateJogador(jogador.getId(), 7, jogador.getNacionalidade());
+			   ControllerJogador.updateJogador(jogador.getId(), 8, String.valueOf(jogador.isTitular()));
 			   carregarTableViewJogador();
 		   }
-		   carregarTableViewJogador();
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
 		   alert.setContentText("Por favor, escolha um jogador na tabela");
@@ -152,7 +156,8 @@ public class FXMLCadastroJogadorController {
    public void handleButtonRemoverJogador() throws IOException {
 	   Jogador jogador = TableViewJogador.getSelectionModel().getSelectedItem();
 	   if (jogador != null) {
-		   jogadorDAO.delete(jogador.getId());
+		   ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogador.getId()), 6, String.valueOf(jogador.getId()));
+		   ControllerJogador.deleteJogador(jogador.getId());
 		   carregarTableViewJogador();
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);

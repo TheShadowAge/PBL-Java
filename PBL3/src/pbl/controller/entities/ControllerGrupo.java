@@ -53,7 +53,7 @@ public class ControllerGrupo {
 	
 	public static int retornarIdGrupo(int id) {
 		SelecaoDAO selecaoDAO = DAO.getSelecoes();
-		return selecaoDAO.read(id).getGrupo();
+		return selecaoDAO.read(id).getGrupo().getId();
 	}
 	
 	/**

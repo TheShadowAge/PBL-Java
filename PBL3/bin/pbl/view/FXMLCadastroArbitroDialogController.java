@@ -12,7 +12,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import pbl.model.DAO.DAO;
+import pbl.model.DAO.SelecaoDAO;
 import pbl.model.entities.Arbitro;
+import pbl.model.entities.Arbitro;
+import pbl.model.entities.Selecao;
 
 public class FXMLCadastroArbitroDialogController {
 
@@ -103,13 +107,25 @@ public class FXMLCadastroArbitroDialogController {
 	public void handleBtConfirmar() {
 		
 		if (validarEntradaDeDados()) {
-			String tipo  = CBArbitroTipo.getSelectionModel().getSelectedItem();
+			Selecao selecao = CBArbitroSelecao.getSelectionModel().getSelectedItem();
+			Boolean titular = false;
+			String posicao = CBArbitroPosicao.getSelectionModel().getSelectedItem();
+			if (CBArbitroTitular.getSelectionModel().getSelectedItem().equals("Titular")) {
+				titular = true;
+			} else {
+				titular = false;
+			}
+		
 			arbitro.setNome(TFArbitroNome.getText());
+			arbitro.setSelecao(selecao.getId());
 			arbitro.setNacionalidade(TFArbitroNacionalidade.getText());
 			arbitro.setIdade(Integer.parseInt(TFArbitroIdade.getText()));
-			arbitro.setTipo(tipo);
+			arbitro.setPosicao(posicao);
+			arbitro.setTitular(titular);
+		
 			buttonConfirmarClicked = true;
 			dialogStage.close();
+		
 		}
 	}
 	
@@ -130,10 +146,16 @@ public class FXMLCadastroArbitroDialogController {
 		if (TFArbitroNacionalidade.getText() == null || TFArbitroNacionalidade.getText().length() == 0) {
 			errorMessage += "Nacionalidade Inválida!\n";
 		}
-		if (CBArbitroTipo.getValue() == null) {
-			errorMessage += "Tipo de Arbitro Inválido!\n";
+		if (CBArbitroPosicao.getValue() == null) {
+			errorMessage += "Posicao Inválida!\n";
 		}
-
+		if (CBArbitroSelecao.getValue() == null) {
+			errorMessage += "Selecao Inválida!\n";
+		}
+		if (CBArbitroTitular.getValue() == null) {
+			errorMessage += "Titular Inválida!\n";
+		}
+		
 		if (errorMessage.length() == 0) {
 			return true;
 		} else {

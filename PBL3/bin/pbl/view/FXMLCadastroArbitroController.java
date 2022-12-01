@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import pbl.model.DAO.DAO;
 import pbl.model.DAO.ArbitroDAO;
 import pbl.model.entities.Arbitro;
+import pbl.model.entities.Arbitro;
 
 public class FXMLCadastroArbitroController {
 
@@ -73,7 +74,6 @@ public class FXMLCadastroArbitroController {
     	
     	observableListArbitroes = FXCollections.observableArrayList(listArbitroes);
     	TableViewArbitro.setItems(observableListArbitroes);
-    	TableViewArbitro.refresh();
     }
     
     public void selecionarItemTableViewArbitro(Arbitro arbitro) {

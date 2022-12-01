@@ -2,6 +2,7 @@ package pbl.model.entities;
 import java.util.*;
 
 import pbl.model.DAO.DAO;
+import pbl.model.DAO.GrupoDAO;
 import pbl.model.DAO.JogadorDAO;
 
 /**
@@ -29,7 +30,6 @@ public class Selecao extends Entidade{
 	public Selecao(String nome, int grupo, int posicaoGrupo) {
 		this.nome = nome;
 		this.grupo = grupo;
-		this.posicaoGrupo = posicaoGrupo;
 	}
 	
 	/**
@@ -72,8 +72,9 @@ public class Selecao extends Entidade{
 	 * @return Retorna uma String com o grupo da Seleção.
 	 */
 	
-	public int getGrupo() {
-		return grupo;
+	public Grupo getGrupo() {
+		GrupoDAO grupoDAO = DAO.getGrupos();
+		return grupoDAO.read(grupo);
 	}
 	
 	/**
