@@ -5,14 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import pbl.model.StartingEntitiesCreator;
 
 
 public class Main extends Application {
 	
 	private static Stage stage;
 	private static Scene menuScene;
-	private static Scene partidaScene;
 	
 	@Override
 	public void start(@SuppressWarnings("exports") Stage primaryStage) throws Exception {
@@ -25,24 +23,9 @@ public class Main extends Application {
 			primaryStage.setScene(menuScene);
 			stage.setResizable(false);
 			primaryStage.show();
-			StartingEntitiesCreator.entitiesCreator();
 	}
 	
 	public static void main(String[] args) {
 		launch(args);
-	}
-	
-	public static void escolherTela(String opcao) {
-		switch(opcao) {
-			case "menu":
-				stage.setScene(menuScene);
-				break;
-			case "partida":
-				stage.setScene(partidaScene);
-				break;
-			case "sair": 
-				stage.close();
-				break;
-		}
 	}
 }

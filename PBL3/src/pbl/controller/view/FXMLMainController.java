@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import pbl.model.StartingEntitiesCreator;
 
 public class FXMLMainController {
 
@@ -52,11 +53,11 @@ public class FXMLMainController {
 
     @FXML
     void initialize() {
-
+    	StartingEntitiesCreator.entitiesCreator();
     }
     
     @FXML
-    void handleMenuItemInserirArbitro() throws IOException {
+    public void handleMenuItemInserirArbitro() throws IOException {
     	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroArbitro.fxml"));
     	anchorPane.getChildren().setAll(cena);
     }
@@ -70,6 +71,12 @@ public class FXMLMainController {
     @FXML
     public void handleMenuItemInserirSelecao() throws IOException {
     	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroSelecao.fxml"));
+    	anchorPane.getChildren().setAll(cena);
+    }
+    
+    @FXML
+    public void handleMenuItemInserirTecnico() throws IOException {
+    	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroTecnico.fxml"));
     	anchorPane.getChildren().setAll(cena);
     }
 

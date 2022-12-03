@@ -16,7 +16,7 @@
                   <MenuItem fx:id="menuInserirJogador" mnemonicParsing="false" onAction="#handleMenuItemInserirJogador" text="Jogador" />
                   <MenuItem fx:id="menuInserirPartida" mnemonicParsing="false" text="Partida" />
               <MenuItem fx:id="menuInserirSelecao" mnemonicParsing="false" onAction="#handleMenuItemInserirSelecao" text="Selecao" />
-                  <MenuItem fx:id="menuInserirTecnico" mnemonicParsing="false" text="Tecnico" />
+                  <MenuItem fx:id="menuInserirTecnico" mnemonicParsing="false" onAction="#handleMenuItemInserirTecnico" text="Tecnico" />
             </items>
           </Menu>
             <Menu fx:id="menuPesquisar" mnemonicParsing="false" text="Pesquisa">
