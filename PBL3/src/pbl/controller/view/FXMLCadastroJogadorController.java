@@ -156,7 +156,7 @@ public class FXMLCadastroJogadorController {
    public void handleButtonRemoverJogador() throws IOException {
 	   Jogador jogador = TableViewJogador.getSelectionModel().getSelectedItem();
 	   if (jogador != null) {
-		   ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogador.getId()), 6, String.valueOf(jogador.getId()));
+		   ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogador.getId()), 5, String.valueOf(jogador.getId()));
 		   ControllerJogador.deleteJogador(jogador.getId());
 		   carregarTableViewJogador();
 	   } else {

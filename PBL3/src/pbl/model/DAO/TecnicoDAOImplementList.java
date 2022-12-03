@@ -22,7 +22,7 @@ public class TecnicoDAOImplementList implements TecnicoDAO {
 	
 	@Override
 	public void create(Tecnico tecnico) {
-		DAO.getSelecoes().update(tecnico.getSelecao().getId(), 4, Integer.toString(tecnico.getId()));
+		DAO.getSelecoes().update(tecnico.getSelecao().getId(), 3, Integer.toString(tecnico.getId()));
 		tecnicos.put(tecnico.getId(), tecnico);
 	}
 

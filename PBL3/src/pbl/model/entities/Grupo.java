@@ -3,6 +3,9 @@ package pbl.model.entities;
 import java.util.LinkedList;
 import java.util.List;
 
+import pbl.model.DAO.DAO;
+import pbl.model.DAO.SelecaoDAO;
+
 /**
  * Classe que representa os Grupos do sistema.
  * @author Gabriel Sena
@@ -28,7 +31,11 @@ public class Grupo extends Entidade {
 	 */
 	
 	public String toString() {
-		return "Grupo: " + nome + "\nQuantidade de Selecoes: " + quantidadeSelecoes;
+		String cheio = ""; 
+		if (quantidadeSelecoes == 4) {
+			cheio = "\nGrupo Completo";
+		}
+		return "Grupo: " + nome + "\nQuantidade de Selecoes: " + quantidadeSelecoes + cheio;
 	}
 	
 	public int getQuantidadeSelecoes() {
@@ -43,10 +50,10 @@ public class Grupo extends Entidade {
 	public void setQuantidadeSelecoes(int opcao) {
 		switch (opcao){
 			case 1:
-				this.quantidadeSelecoes++;
+				this.quantidadeSelecoes--;
 				break;
 			case 2:
-				this.quantidadeSelecoes--;
+				this.quantidadeSelecoes++;
 				break;
 		}
 	}
@@ -58,6 +65,15 @@ public class Grupo extends Entidade {
 	
 	public List<Integer> getSelecoes() {
 		return selecoes;
+	}
+	
+	public List<Selecao> getSelecoesList() {
+		SelecaoDAO selDAO = DAO.getSelecoes();
+		List<Selecao> listSelecoes = new LinkedList<Selecao>();
+		for (Integer selecaoIterator: selecoes) {
+			listSelecoes.add(selDAO.read(selecaoIterator));
+		}
+		return listSelecoes;
 	}
 
 }

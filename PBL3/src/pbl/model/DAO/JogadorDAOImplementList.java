@@ -27,7 +27,7 @@ public class JogadorDAOImplementList implements JogadorDAO {
 	@Override
 	public void create(Jogador jogador) {
 		jogador.setCodJog(Integer.toString(jogador.getSelecao().getCodSel()) + Integer.toString(jogador.getSelecao().getContagemJogs()));
-		DAO.getSelecoes().update(jogador.getSelecao().getId(), 5, Integer.toString(jogador.getId()));
+		DAO.getSelecoes().update(jogador.getSelecao().getId(), 4, Integer.toString(jogador.getId()));
 		jogadores.put(jogador.getId(), jogador);
 	}
 
@@ -92,9 +92,6 @@ public class JogadorDAOImplementList implements JogadorDAO {
 			break;
 		case 9:
 			jogadores.get(id).setGolsQuantidade(Integer.parseInt(atributo));
-			break;
-		case 10:
-			jogadores.get(id).setCodJog(atributo);
 			break;
 		}	
 

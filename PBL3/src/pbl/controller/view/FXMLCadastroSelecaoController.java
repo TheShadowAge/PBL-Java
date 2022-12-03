@@ -52,9 +52,6 @@ public class FXMLCadastroSelecaoController {
     private Label labelSelecaoNome;
 
     @FXML
-    private Label labelSelecaoPosicaoGrupo;
-
-    @FXML
     private Label labelSelecaoQuantJogs;
 
     @FXML
@@ -98,7 +95,6 @@ public class FXMLCadastroSelecaoController {
     		labelSelecaoCodSel.setText(Integer.toString(selecao.getCodSel()));
     		labelSelecaoNome.setText(selecao.getNome());
     		labelSelecaoGrupo.setText(selecao.getGrupo().getNome());
-    		labelSelecaoPosicaoGrupo.setText(Integer.toString(selecao.getPosicaoGrupo()));
     		labelSelecaoQuantJogs.setText(Integer.toString(selecao.getJogadores().size()));
     		if (selecao.getTecnico() == -1) {
     		labelSelecaoTecnico.setText("Sem tecnico");
@@ -110,7 +106,6 @@ public class FXMLCadastroSelecaoController {
     		labelSelecaoCodSel.setText("");
     		labelSelecaoNome.setText("");
     		labelSelecaoGrupo.setText("");
-    		labelSelecaoPosicaoGrupo.setText("");
     		labelSelecaoQuantJogs.setText("");
     		labelSelecaoTecnico.setText("");
     	}
@@ -122,6 +117,7 @@ public class FXMLCadastroSelecaoController {
     	boolean buttonConfirmarClicked = showFXMLCadastrosSelecaoDialog(selecao);
     	if (buttonConfirmarClicked) {
     		selecaoDAO.create(selecao);
+    		ControllerGrupo.updateGrupo(selecao.getGrupo().getId(), 2,String.valueOf(selecao.getId()));
     		carregarTableViewSelecao();
     	}
     }
@@ -131,10 +127,10 @@ public class FXMLCadastroSelecaoController {
 	   if (selecao != null) {
 		   boolean buttonConfirmarClicked = showFXMLCadastrosSelecaoDialog(selecao);
 		   if (buttonConfirmarClicked) {
-			   selecaoDAO.update(selecao.getId(), 1, selecao.getNome());
+			   ControllerSelecao.updateSelecao(selecao.getId(), 1, selecao.getNome());
+			   ControllerGrupo.updateGrupo(selecao.getGrupo().getId(), 3 ,Integer.toString(selecao.getId()));
 			   ControllerSelecao.updateSelecao(selecao.getId(), 2, String.valueOf(selecao.getGrupo().getId()));
 			   ControllerGrupo.updateGrupo(selecao.getGrupo().getId(), 2,Integer.toString(selecao.getId()));
-			   selecaoDAO.update(selecao.getId(), 3, Integer.toString(selecao.getPosicaoGrupo()));
 			   carregarTableViewSelecao();
 		   }
 	   } else {

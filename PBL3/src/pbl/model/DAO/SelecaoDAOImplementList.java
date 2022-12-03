@@ -71,21 +71,18 @@ public class SelecaoDAOImplementList implements SelecaoDAO {
 			selecoes.get(id).setGrupo(Integer.parseInt(atributo));
 			break;
 		case 3:
-			selecoes.get(id).setPosicaoGrupo(Integer.parseInt(atributo));
-			break;
-		case 4:
 			selecoes.get(id).setTecnico(Integer.parseInt(atributo));
 			break;
-		case 5:
+		case 4:
 			selecoes.get(id).getJogadores().add(Integer.parseInt(atributo));
 			break;
-		case 6:
+		case 5:
 			selecoes.get(id).getJogadores().remove((Integer) Integer.parseInt(atributo));
 			break;
-		case 7:
+		case 6:
 			selecoes.get(id).getPartidas().add(Integer.parseInt(atributo));
 			break;
-		case 8:
+		case 7:
 			selecoes.get(id).getPartidas().remove((Integer) Integer.parseInt(atributo));
 			break;
 		}

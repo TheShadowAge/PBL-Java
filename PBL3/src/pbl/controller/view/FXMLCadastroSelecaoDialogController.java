@@ -1,8 +1,6 @@
 package pbl.controller.view;
 
-import java.util.Arrays;
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,8 +26,6 @@ public class FXMLCadastroSelecaoDialogController {
     @FXML
     private ChoiceBox<Grupo> CBSelecaoGrupo;
 
-    @FXML
-    private ChoiceBox<String> CBSelecaoPosicaoGrupo;
 
     @FXML
     private TextField TFSelecaoNome;
@@ -44,10 +40,8 @@ public class FXMLCadastroSelecaoDialogController {
     private Label labelSelecaoPosicaoGrupo;
     
     private List<Grupo> listGrupos;
-    private List<String> listPosicaoGrupo;
     
     private ObservableList<Grupo> observableListGrupos;
-    private ObservableList<String> observableListPosicoesGrupo;
     
     private final GrupoDAO grupoDAO = DAO.getGrupos();
     
@@ -58,7 +52,6 @@ public class FXMLCadastroSelecaoDialogController {
     @FXML
     void initialize() {
     	CarregarChoiceBoxGrupo();
-    	CarregarChoiceBoxPosicaoGrupo();
     }
     
     public void CarregarChoiceBoxGrupo() {
@@ -67,14 +60,6 @@ public class FXMLCadastroSelecaoDialogController {
     	observableListGrupos = FXCollections.observableArrayList(listGrupos);
     	CBSelecaoGrupo.setItems(observableListGrupos);
     }
-    
-    public void CarregarChoiceBoxPosicaoGrupo() {
-    	listPosicaoGrupo = Arrays.asList("1","2","3","4");
-    	
-    	observableListPosicoesGrupo = FXCollections.observableArrayList(listPosicaoGrupo);
-    	CBSelecaoPosicaoGrupo.setItems(observableListPosicoesGrupo);
-    }
-    
     
     public Stage getDialogStage() {
 		return dialogStage;
@@ -100,17 +85,14 @@ public class FXMLCadastroSelecaoDialogController {
 		this.selecao = selecao;
 		this.TFSelecaoNome.setText(selecao.getNome());
 		this.CBSelecaoGrupo.setValue(selecao.getGrupo());
-		this.CBSelecaoPosicaoGrupo.setValue(String.valueOf(selecao.getPosicaoGrupo()));
 	}
 	
 	@FXML
 	public void handleBtConfirmar() {
 		if (validarEntradaDeDados()) {
 			Grupo grupo = CBSelecaoGrupo.getSelectionModel().getSelectedItem();
-			String posicaoGrupo = CBSelecaoPosicaoGrupo.getSelectionModel().getSelectedItem();
 			selecao.setNome(TFSelecaoNome.getText());
 			selecao.setGrupo(grupo.getId());
-			selecao.setPosicaoGrupo(Integer.parseInt(posicaoGrupo));
 
 			buttonConfirmarClicked = true;
 			dialogStage.close();
@@ -131,9 +113,6 @@ public class FXMLCadastroSelecaoDialogController {
 		}
 		if (CBSelecaoGrupo.getValue() == null) {
 			errorMessage += "Grupo Inválido!\n";
-		}
-		if (CBSelecaoPosicaoGrupo.getValue() == null) {
-			errorMessage += "Posicao do grupo Inválido!\n";
 		}
 		if (errorMessage.length() == 0) {
 			return true;

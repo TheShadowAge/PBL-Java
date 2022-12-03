@@ -3,6 +3,7 @@ package pbl.controller.entities;
 import java.util.List;
 
 import pbl.model.DAO.DAO;
+import pbl.model.DAO.GrupoDAO;
 import pbl.model.DAO.JogadorDAO;
 import pbl.model.DAO.SelecaoDAO;
 import pbl.model.DAO.TecnicoDAO;
@@ -44,12 +45,14 @@ public class ControllerSelecao {
 		  SelecaoDAO selecaoDAO = DAO.getSelecoes();
 		  JogadorDAO jogadorDAO = DAO.getJogadores();
 		  TecnicoDAO tecnicoDAO = DAO.getTecnicos();
+		  GrupoDAO grupoDAO = DAO.getGrupos();
 		  
 		  Selecao selecaoDelete = selecaoDAO.read(selecaoID);
 		  for (Integer jogadorIterator: selecaoDelete.getJogadores()) {
 				jogadorDAO.delete(jogadorIterator);
 			}
-			tecnicoDAO.delete(selecaoDelete.getTecnico());
+			tecnicoDAO.delete(selecaoDAO.read(selecaoID).getTecnico());	
+			grupoDAO.update(selecaoDAO.read(selecaoID).getGrupo().getId(), 3, String.valueOf(selecaoID));
 			selecaoDAO.delete(selecaoID);
 		}
 	  

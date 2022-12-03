@@ -46,7 +46,6 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -54,16 +53,14 @@
                         <Label text="Id:" />
                         <Label text="Nome:" GridPane.rowIndex="2" />
                         <Label text="Grupo da selecao:" GridPane.rowIndex="3" />
-                        <Label text="Posicao no grupo:" GridPane.rowIndex="4" />
-                        <Label text="Quantidade de jogadores:" GridPane.rowIndex="5" />
+                        <Label text="Quantidade de jogadores:" GridPane.rowIndex="4" />
                         <Label fx:id="labelSelecaoID" GridPane.columnIndex="1" />
                         <Label fx:id="labelSelecaoCodSel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="labelSelecaoNome" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="labelSelecaoGrupo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="labelSelecaoPosicaoGrupo" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="labelSelecaoQuantJogs" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label text="Tecnico da selecao:" GridPane.rowIndex="6" />
-                        <Label fx:id="labelSelecaoTecnico" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label fx:id="labelSelecaoQuantJogs" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Tecnico da selecao:" GridPane.rowIndex="5" />
+                        <Label fx:id="labelSelecaoTecnico" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label text="Codigo da selecao:" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>

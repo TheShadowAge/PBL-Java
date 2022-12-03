@@ -4,6 +4,7 @@ import java.util.*;
 import pbl.model.DAO.DAO;
 import pbl.model.DAO.GrupoDAO;
 import pbl.model.DAO.JogadorDAO;
+import pbl.model.DAO.PartidaDAO;
 
 /**
  * Classe que representa as seleções do sistema.
@@ -16,7 +17,6 @@ public class Selecao extends Entidade{
 	private int contagemJogs = 0;
 	private int tecnico = -1;
 	private int grupo;
-	private int posicaoGrupo;
 	private int codSel;
 	private List<Integer> partidas = new LinkedList<Integer>();
 	
@@ -48,25 +48,7 @@ public class Selecao extends Entidade{
 		}
 		return "ID da selecao: "+ id + "\nCodigo da selecao: " + codSel + "\nNome da selecao: " + nome + "\nGrupo da selecao: " + grupo + "\nPosicao no Grupo da selecao: " + posicaoGrupo + "\nQuantidade de jogadores da selecao: " + jogadores.size() + "\nID tecnico da selecao: " + tecnicoPresente;
 	}*/
-	
-	/**
-	 * Retorna a posição no grupo da Seleção.
-	 * @return Retorna o Inteiro com a posição da seleção no grupo.
-	 */
-	
-	public int getPosicaoGrupo() {
-		return posicaoGrupo;
-	}
-	
-	/**
-	 * Atualiza a posição no grupo da seleção.
-	 * @param posicaoGrupo Inteiro com a posição nova da seleção.
-	 */
-	
-	public void setPosicaoGrupo(int posicaoGrupo) {
-		this.posicaoGrupo = posicaoGrupo;
-	}
-	
+
 	/**
 	 * Retorna o grupo da seleção.
 	 * @return Retorna uma String com o grupo da Seleção.
@@ -171,5 +153,14 @@ public class Selecao extends Entidade{
 	 */
 	public List<Integer> getPartidas() {
 		return partidas;
+	}
+	
+	public List<Partida> getPartidasList() {
+		PartidaDAO parDAO = DAO.getPartidas();
+		List<Partida> listPartidas = new LinkedList<Partida>();
+		for (Integer partidaIterator: partidas) {
+			listPartidas.add(parDAO.read(partidaIterator));
+		}
+		return listPartidas;
 	}
 }

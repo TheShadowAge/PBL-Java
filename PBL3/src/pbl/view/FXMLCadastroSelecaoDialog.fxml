@@ -20,15 +20,12 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label fx:id="labelSelecaoNome" text="Nome:" />
             <Label fx:id="labelSelecaoGrupo" text="Grupo:" GridPane.rowIndex="1" />
-            <Label fx:id="labelSelecaoPosicaoGrupo" text="Posicao no Grupo:" GridPane.rowIndex="2" />
             <TextField fx:id="TFSelecaoNome" GridPane.columnIndex="1" />
             <ChoiceBox fx:id="CBSelecaoGrupo" prefHeight="25.0" prefWidth="339.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="CBSelecaoPosicaoGrupo" prefHeight="25.0" prefWidth="287.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Group layoutX="267.0" layoutY="152.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">

@@ -81,6 +81,11 @@ public class StartingEntitiesCreator {
 	  tecnicoDAO.create(new Tecnico("Brasileiro", 1, "Corinthians", "Tite", 61));
 	  arbitroDAO.create(new Arbitro("Raphael Claus", "Brasileiro", "Arbitro", 46));
 	  arbitroDAO.create(new Arbitro("Wilton Pereira Sampaio", "Brasileiro", "Arbitro", 40));
+	  arbitroDAO.create(new Arbitro("Bruno Boschilia", "Brasileiro", "Arbitro auxiliar", 39));
+	  arbitroDAO.create(new Arbitro("Rodrigo Figueiredo", "Brasileiro", "Arbitro auxiliar", 39));
+	  arbitroDAO.create(new Arbitro("Bruno Pires", "Brasileiro", "Arbitro auxiliar", 37));
+	  arbitroDAO.create(new Arbitro("Danilo Simon", "Brasileiro", "Arbitro auxiliar", 41));
+	  arbitroDAO.create(new Arbitro("Neuza Back", "Brasileira", "Arbitro auxiliar", 38));
 	  tecnicoDAO.create(new Tecnico("Argentino", 2, "River Plate", "Currito Gimenez", 57));
 	  jogadorDAO.create(new Jogador("Leopoldo Gashi", 2, "Argentino", 29, "Goleiro", true));
 	  jogadorDAO.create(new Jogador("Bautista Giménez", 2, "Argentino", 29, "Goleiro", false));

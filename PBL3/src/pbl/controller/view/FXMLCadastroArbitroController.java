@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import pbl.model.DAO.DAO;
+import pbl.controller.entities.ControllerArbitro;
 import pbl.model.DAO.ArbitroDAO;
 import pbl.model.entities.Arbitro;
 
@@ -47,13 +48,16 @@ public class FXMLCadastroArbitroController {
     private Label labelArbitroTipo;
 
     @FXML
+    private Label labelArbitroId;
+    
+    @FXML
     private TableColumn<Arbitro, String> tableColumnArbitroID;
 
     @FXML
     private TableColumn<Arbitro, String> tableColumnArbitroNome;
     
-    private List<Arbitro> listArbitroes;
-    private ObservableList<Arbitro> observableListArbitroes;
+    private List<Arbitro> listArbitros;
+    private ObservableList<Arbitro> observableListArbitros;
 
     private final ArbitroDAO arbitroDAO = DAO.getArbitros();
     
@@ -69,20 +73,22 @@ public class FXMLCadastroArbitroController {
     	tableColumnArbitroID.setCellValueFactory(new PropertyValueFactory<>("id"));
     	tableColumnArbitroNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
     	
-    	listArbitroes = arbitroDAO.readAll();
+    	listArbitros = arbitroDAO.readAll();
     	
-    	observableListArbitroes = FXCollections.observableArrayList(listArbitroes);
-    	TableViewArbitro.setItems(observableListArbitroes);
+    	observableListArbitros = FXCollections.observableArrayList(listArbitros);
+    	TableViewArbitro.setItems(observableListArbitros);
     	TableViewArbitro.refresh();
     }
     
     public void selecionarItemTableViewArbitro(Arbitro arbitro) {
     	if (arbitro != null) {
+    		labelArbitroId.setText(Integer.toString(arbitro.getId()));
     		labelArbitroNome.setText(arbitro.getNome());
     		labelArbitroNacionalidade.setText(arbitro.getNacionalidade());
     		labelArbitroIdade.setText(Integer.toString(arbitro.getIdade()));
     		labelArbitroTipo.setText(arbitro.getTipo());
     	} else {
+    		labelArbitroId.setText("");
     		labelArbitroNome.setText("");
     		labelArbitroNacionalidade.setText("");
     		labelArbitroIdade.setText("");
@@ -105,13 +111,12 @@ public class FXMLCadastroArbitroController {
 	   if (arbitro != null) {
 		   boolean buttonConfirmarClicked = showFXMLCadastrosArbitroDialog(arbitro);
 		   if (buttonConfirmarClicked) {
-			   arbitroDAO.update(arbitro.getId(), 1, arbitro.getNome());
-			   arbitroDAO.update(arbitro.getId(), 2, String.valueOf(arbitro.getId()));
-			   arbitroDAO.update(arbitro.getId(), 3, arbitro.getNacionalidade());
-			   arbitroDAO.update(arbitro.getId(), 4, arbitro.getTipo());
+			   ControllerArbitro.updateArbitro(arbitro.getId(), 1, arbitro.getNome());
+			   ControllerArbitro.updateArbitro(arbitro.getId(), 2, String.valueOf(arbitro.getId()));
+			   ControllerArbitro.updateArbitro(arbitro.getId(), 3, arbitro.getNacionalidade());
+			   ControllerArbitro.updateArbitro(arbitro.getId(), 4, arbitro.getTipo());
 			   carregarTableViewArbitro();
 		   }
-		   carregarTableViewArbitro();
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
 		   alert.setContentText("Por favor, escolha um arbitro na tabela");
@@ -122,7 +127,7 @@ public class FXMLCadastroArbitroController {
    public void handleButtonRemoverArbitro() throws IOException {
 	   Arbitro arbitro = TableViewArbitro.getSelectionModel().getSelectedItem();
 	   if (arbitro != null) {
-		   arbitroDAO.delete(arbitro.getId());
+		   ControllerArbitro.deleteArbitro(arbitro.getId());
 		   carregarTableViewArbitro();
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
