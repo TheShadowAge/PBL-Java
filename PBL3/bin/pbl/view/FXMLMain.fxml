@@ -12,18 +12,36 @@
         <menus>
           <Menu fx:id="menuInserir" mnemonicParsing="false" text="Cadastro">
             <items>
-                  <MenuItem fx:id="menuInserirArbitro" mnemonicParsing="false" onAction="#handleMenuItemInserirArbitro" text="Arbitro" />
-                  <MenuItem fx:id="menuInserirJogador" mnemonicParsing="false" onAction="#handleMenuItemInserirJogador" text="Jogador" />
-                  <MenuItem fx:id="menuInserirPartida" mnemonicParsing="false" text="Partida" />
-              <MenuItem fx:id="menuInserirSelecao" mnemonicParsing="false" onAction="#handleMenuItemInserirSelecao" text="Selecao" />
-                  <MenuItem fx:id="menuInserirTecnico" mnemonicParsing="false" onAction="#handleMenuItemInserirTecnico" text="Tecnico" />
+                  <MenuItem fx:id="menuCadastroArbitro" mnemonicParsing="false" onAction="#handleMenuItemCadastroArbitro" text="Arbitro" />
+                  <MenuItem fx:id="menuCadastroGrupo" mnemonicParsing="false" text="Grupo" />
+                  <MenuItem fx:id="menuCadastroJogador" mnemonicParsing="false" onAction="#handleMenuItemCadastroJogador" text="Jogador" />
+                  <MenuItem fx:id="menuCadastroPartida" mnemonicParsing="false" text="Partida" />
+              <MenuItem fx:id="menuCadastroSelecao" mnemonicParsing="false" onAction="#handleMenuItemCadastroSelecao" text="Selecao" />
+                  <MenuItem fx:id="menuCadastroTecnico" mnemonicParsing="false" onAction="#handleMenuItemCadastroTecnico" text="Tecnico" />
             </items>
           </Menu>
+            <Menu fx:id="menuListar" mnemonicParsing="false" text="Listar">
+               <items>
+                  <MenuItem fx:id="menuListarArbitro" mnemonicParsing="false" text="Arbitro" />
+                  <MenuItem fx:id="menuListarJogador" mnemonicParsing="false" text="Jogador" />
+                  <MenuItem fx:id="menuListarPartida" mnemonicParsing="false" text="Partida" />
+                  <MenuItem fx:id="menuListarSelecao" mnemonicParsing="false" text="Selecao" />
+                  <MenuItem fx:id="menuListarTecnico" mnemonicParsing="false" text="Tecnico" />
+               </items>
+            </Menu>
             <Menu fx:id="menuPesquisar" mnemonicParsing="false" text="Pesquisa">
                <items>
-                  <MenuItem fx:id="menuPesquisarCategoria" mnemonicParsing="false" text="Pesquisa por Categoria" />
+                  <Menu fx:id="menuPesquisarCategoria" mnemonicParsing="false" text="Pesquisa por Categoria">
+                     <items>
+                        <MenuItem fx:id="menuPesquisarCategoriaArbitro" mnemonicParsing="false" text="Arbitro por nome" />
+                        <MenuItem fx:id="menuPesquisarCategoriaTecnico" mnemonicParsing="false" text="Tecnico por nome" />
+                        <MenuItem fx:id="menuPesquisarCategoriaJogador" mnemonicParsing="false" text="Jogador por nome" />
+                        <MenuItem fx:id="menuPesquisarCategoriaSelecao" mnemonicParsing="false" text="Selecao por nome" />
+                        <MenuItem fx:id="menuPesquisarCategoriaPartida" mnemonicParsing="false" text="Partida por nome" />
+                     </items>
+                  </Menu>
                   <MenuItem fx:id="menuPesquisarSelecao" mnemonicParsing="false" text="Pesquisa por Selecao" />
-                  <MenuItem fx:id="menuPesquisarPartidaPorData" mnemonicParsing="false" text="Pesquisa por Partida apartir da data" />
+                  <MenuItem fx:id="menuPesquisarPartidaPorData" mnemonicParsing="false" text="Pesquisa Partida apartir da data" />
                </items>
             </Menu>
         </menus>
