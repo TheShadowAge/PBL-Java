@@ -1,5 +1,6 @@
 package pbl.controller.view;
 
+import java.util.LinkedList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -66,12 +67,26 @@ public class FXMLCadastroTecnicoDialogController {
     
     @FXML
     void initialize() {
-    	CarregarChoiceBoxTipo();
+    	CarregarChoiceBoxSelecao();
     	
     }
     
-    public void CarregarChoiceBoxTipo() {
-    	listSelecao = selecaoDAO.readAll();
+    public void CarregarChoiceBoxSelecao() {
+    	List<Selecao> lista = new LinkedList<Selecao>();
+    	for (Selecao selecaoIterator: selecaoDAO.readAll()) {
+			if (selecaoIterator.getTecnico() == -1) {
+				lista.add(selecaoIterator);
+			}
+    	}
+    	
+    	listSelecao = lista;
+    	if (listSelecao.size() == 0) {
+    		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Erro no cadastro do Tecnico");
+			alert.setHeaderText("Não existe seleção criada ou todas seleções estão cheias");
+			alert.setContentText("Remova algum tecnico de umas das seleções existentes ou crie uma nova seleção");
+			alert.show();
+    	}
     	
     	observableListSelecao = FXCollections.observableArrayList(listSelecao);
     	CBTecnicoSelecao.setItems(observableListSelecao);

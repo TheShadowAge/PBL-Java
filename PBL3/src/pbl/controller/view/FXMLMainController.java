@@ -13,69 +13,105 @@ import pbl.model.StartingEntitiesCreator;
 public class FXMLMainController {
 
 	@FXML
-	private ResourceBundle resources;
+    private ResourceBundle resources;
 
-	@FXML
-	private URL location;
+    @FXML
+    private URL location;
 
-	@FXML
-	private AnchorPane anchorPane;
+    @FXML
+    private AnchorPane anchorPane;
 
-	@FXML
-	private Menu menuInserir;
+    @FXML
+    private MenuItem menuCadastroArbitro;
 
-	@FXML
-	private MenuItem menuInserirArbitro;
+    @FXML
+    private MenuItem menuCadastroGrupo;
 
-	@FXML
-	private MenuItem menuInserirJogador;
-	
-	@FXML
-	private MenuItem menuInserirPartida;
+    @FXML
+    private MenuItem menuCadastroJogador;
 
-	@FXML
-	private MenuItem menuInserirSelecao;
+    @FXML
+    private MenuItem menuCadastroPartida;
 
-	@FXML
-	private MenuItem menuInserirTecnico;
+    @FXML
+    private MenuItem menuCadastroSelecao;
 
-	@FXML
-	private Menu menuPesquisar;
+    @FXML
+    private MenuItem menuCadastroTecnico;
 
-	@FXML
-	private MenuItem menuPesquisarCategoria;
+    @FXML
+    private Menu menuInserir;
 
-	@FXML
-	private MenuItem menuPesquisarPartidaPorData;
+    @FXML
+    private Menu menuListar;
 
-	@FXML
-	private MenuItem menuPesquisarSelecao;
+    @FXML
+    private MenuItem menuListarArbitro;
 
+    @FXML
+    private MenuItem menuListarJogador;
+
+    @FXML
+    private MenuItem menuListarPartida;
+
+    @FXML
+    private MenuItem menuListarSelecao;
+
+    @FXML
+    private MenuItem menuListarTecnico;
+
+    @FXML
+    private Menu menuPesquisar;
+
+    @FXML
+    private Menu menuPesquisarCategoria;
+
+    @FXML
+    private MenuItem menuPesquisarCategoriaArbitro;
+
+    @FXML
+    private MenuItem menuPesquisarCategoriaJogador;
+
+    @FXML
+    private MenuItem menuPesquisarCategoriaPartida;
+
+    @FXML
+    private MenuItem menuPesquisarCategoriaSelecao;
+
+    @FXML
+    private MenuItem menuPesquisarCategoriaTecnico;
+
+    @FXML
+    private MenuItem menuPesquisarPartidaPorData;
+
+    @FXML
+    private MenuItem menuPesquisarSelecao;
+    
     @FXML
     void initialize() {
     	StartingEntitiesCreator.entitiesCreator();
     }
     
     @FXML
-    public void handleMenuItemInserirArbitro() throws IOException {
+    public void handleMenuItemCadastroArbitro() throws IOException {
     	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroArbitro.fxml"));
     	anchorPane.getChildren().setAll(cena);
     }
     
     @FXML
-    public void handleMenuItemInserirJogador() throws IOException {
+    public void handleMenuItemCadastroJogador() throws IOException {
     	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroJogador.fxml"));
     	anchorPane.getChildren().setAll(cena);
     }
     
     @FXML
-    public void handleMenuItemInserirSelecao() throws IOException {
+    public void handleMenuItemCadastroSelecao() throws IOException {
     	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroSelecao.fxml"));
     	anchorPane.getChildren().setAll(cena);
     }
     
     @FXML
-    public void handleMenuItemInserirTecnico() throws IOException {
+    public void handleMenuItemCadastroTecnico() throws IOException {
     	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroTecnico.fxml"));
     	anchorPane.getChildren().setAll(cena);
     }

@@ -111,7 +111,7 @@ public class MenuController {
 					  lista.add(grupoIterator);
 					  lista.add("Esses sao as selecoes do grupo:");
 						  for (Selecao selecaoIterator: selecaoDAO.readAll()) {
-							  if (selecaoIterator.getGrupo().getId() == grupoIterator.getId()) {
+							  if (selecaoIterator.getGrupo() == grupoIterator.getId()) {
 								  lista.add(selecaoIterator.getId() + " - " + selecaoIterator.getNome());
 							  }
 						  }

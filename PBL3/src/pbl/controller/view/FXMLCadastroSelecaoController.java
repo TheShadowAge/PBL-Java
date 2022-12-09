@@ -1,6 +1,7 @@
 package pbl.controller.view;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,13 @@ import javafx.stage.Stage;
 import pbl.controller.entities.ControllerGrupo;
 import pbl.controller.entities.ControllerSelecao;
 import pbl.model.DAO.DAO;
+import pbl.model.DAO.GrupoDAO;
 import pbl.model.DAO.SelecaoDAO;
+import pbl.model.DAO.JogadorDAO;
+import pbl.model.DAO.PartidaDAO;
 import pbl.model.DAO.TecnicoDAO;
+import pbl.model.entities.Jogador;
+import pbl.model.entities.Partida;
 import pbl.model.entities.Selecao;
 
 public class FXMLCadastroSelecaoController {
@@ -38,6 +44,12 @@ public class FXMLCadastroSelecaoController {
 
     @FXML
     private TableView<Selecao> TableViewSelecao;
+    
+    @FXML
+    private TableView<Jogador> TableViewSelecaoJogador;
+    
+    @FXML
+    private TableView<Partida> TableViewSelecaoPartidas;
 
     @FXML
     private Label labelSelecaoCodSel;
@@ -52,9 +64,6 @@ public class FXMLCadastroSelecaoController {
     private Label labelSelecaoNome;
 
     @FXML
-    private Label labelSelecaoQuantJogs;
-
-    @FXML
     private Label labelSelecaoTecnico;
 
     @FXML
@@ -62,13 +71,38 @@ public class FXMLCadastroSelecaoController {
 
     @FXML
     private TableColumn<Selecao, String> tableColumnSelecaoNome;
+    
+    @FXML
+    private TableColumn<Jogador, String> tableColumnSelecaoJogadores;
+    
+    @FXML
+    private TableColumn<Jogador, String> tableColumnSelecaoJogadorID;
+
+    @FXML
+    private TableColumn<Jogador, String> tableColumnSelecaoJogadorNome;
+    
+    @FXML
+    private TableColumn<Partida, String> tableColumnSelecaoPartida;
+    
+    @FXML
+    private TableColumn<Partida, String> tableColumnSelecaoPartidaID;
+
+    @FXML
+    private TableColumn<Partida, String> tableColumnSelecaoPartidaNome;
+
 
     private List<Selecao> listSelecoes;
+    private List<Jogador> listJogadores;
+    private List<Partida> listPartida;
     private ObservableList<Selecao> observableListSelecoes;
-    private int click = 0;
+    private ObservableList<Jogador> observableListJogadores;
+    private ObservableList<Partida> observableListPartidas;
 
     private final SelecaoDAO selecaoDAO = DAO.getSelecoes();
     private final TecnicoDAO tecnicoDAO = DAO.getTecnicos();
+    private final JogadorDAO jogadorDAO = DAO.getJogadores();
+    private final GrupoDAO grupoDAO = DAO.getGrupos();
+    private final PartidaDAO partidaDAO = DAO.getPartidas();
     
     @FXML
     void initialize() {
@@ -89,24 +123,61 @@ public class FXMLCadastroSelecaoController {
     	TableViewSelecao.refresh();
     }
     
+    public void carregarTableViewSelecaoJogador(Selecao selecao) {
+    	tableColumnSelecaoJogadorID.setCellValueFactory(new PropertyValueFactory<>("id"));
+    	tableColumnSelecaoJogadorNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+    	
+    	List<Jogador> lista = new LinkedList<Jogador>();
+    	for (Jogador jogadorIterator: jogadorDAO.readAll()) {
+			if (jogadorIterator.getSelecao().getId() == selecao.getId()) {
+				lista.add(jogadorIterator);
+			}
+    	}
+    	
+    	listJogadores = lista;
+    	
+    	observableListJogadores = FXCollections.observableArrayList(listJogadores);
+    	TableViewSelecaoJogador.setItems(observableListJogadores);
+    	TableViewSelecaoJogador.refresh();
+    }
+    
+    public void carregarTableViewSelecaoPartida(Selecao selecao) {
+    	tableColumnSelecaoPartidaID.setCellValueFactory(new PropertyValueFactory<>("id"));
+    	tableColumnSelecaoPartidaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+    	
+    	List<Partida> lista = new LinkedList<Partida>();
+    	for (Partida partidaIterator: partidaDAO.readAll()) {
+			if (partidaIterator.getTime1() == selecao.getId() || partidaIterator.getTime2() == selecao.getId()){
+				lista.add(partidaIterator);
+			}
+    	}
+    	
+    	listPartida = lista;
+    	
+    	observableListPartidas = FXCollections.observableArrayList(listPartida);
+    	TableViewSelecaoPartidas.setItems(observableListPartidas);
+    	TableViewSelecaoPartidas.refresh();
+    }
+    
+    
     public void selecionarItemTableViewSelecao(Selecao selecao) {
     	if (selecao != null) {
     		labelSelecaoID.setText(Integer.toString(selecao.getId()));
     		labelSelecaoCodSel.setText(Integer.toString(selecao.getCodSel()));
     		labelSelecaoNome.setText(selecao.getNome());
-    		labelSelecaoGrupo.setText(selecao.getGrupo().getNome());
-    		labelSelecaoQuantJogs.setText(Integer.toString(selecao.getJogadores().size()));
+    		labelSelecaoGrupo.setText(grupoDAO.read(selecao.getGrupo()).getNome());
     		if (selecao.getTecnico() == -1) {
     		labelSelecaoTecnico.setText("Sem tecnico");
     		} else {
     			labelSelecaoTecnico.setText(tecnicoDAO.read(selecao.getTecnico()).getNome());
     		}
+    		carregarTableViewSelecaoJogador(selecao);
+    		carregarTableViewSelecaoPartida(selecao);
     	} else {
     		labelSelecaoID.setText("");
     		labelSelecaoCodSel.setText("");
     		labelSelecaoNome.setText("");
     		labelSelecaoGrupo.setText("");
-    		labelSelecaoQuantJogs.setText("");
     		labelSelecaoTecnico.setText("");
     	}
     }
@@ -117,7 +188,7 @@ public class FXMLCadastroSelecaoController {
     	boolean buttonConfirmarClicked = showFXMLCadastrosSelecaoDialog(selecao);
     	if (buttonConfirmarClicked) {
     		selecaoDAO.create(selecao);
-    		ControllerGrupo.updateGrupo(selecao.getGrupo().getId(), 2,String.valueOf(selecao.getId()));
+    		ControllerGrupo.updateGrupo(selecao.getGrupo(), 2,String.valueOf(selecao.getId()));
     		carregarTableViewSelecao();
     	}
     }
@@ -128,13 +199,14 @@ public class FXMLCadastroSelecaoController {
 		   boolean buttonConfirmarClicked = showFXMLCadastrosSelecaoDialog(selecao);
 		   if (buttonConfirmarClicked) {
 			   ControllerSelecao.updateSelecao(selecao.getId(), 1, selecao.getNome());
-			   ControllerGrupo.updateGrupo(selecao.getGrupo().getId(), 3 ,Integer.toString(selecao.getId()));
-			   ControllerSelecao.updateSelecao(selecao.getId(), 2, String.valueOf(selecao.getGrupo().getId()));
-			   ControllerGrupo.updateGrupo(selecao.getGrupo().getId(), 2,Integer.toString(selecao.getId()));
+			   ControllerGrupo.updateGrupo(selecao.getGrupo(), 3 ,Integer.toString(selecao.getId()));
+			   ControllerSelecao.updateSelecao(selecao.getId(), 2, String.valueOf(selecao.getGrupo()));
+			   ControllerGrupo.updateGrupo(selecao.getGrupo(), 2,Integer.toString(selecao.getId()));
 			   carregarTableViewSelecao();
 		   }
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
+		   alert.setHeaderText("Nenhuma selecao foi selecionada");
 		   alert.setContentText("Por favor, escolha uma selecao na tabela");
 		   alert.show();
 	   }
@@ -143,7 +215,6 @@ public class FXMLCadastroSelecaoController {
    public void handleButtonRemoverSelecao() throws IOException {
 	   Selecao selecao = TableViewSelecao.getSelectionModel().getSelectedItem();
 	   if (selecao != null) {
-		   if (click == 0) {
 			   Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			   alert.setTitle("Deletar Seleção");
 			   alert.setContentText("Tem certeza que deseja excluir a selecao ? \nIsso vai excluir a selecao e todos os jogadores e o ténico dela.\nAperte OK para confirmar");
@@ -152,9 +223,9 @@ public class FXMLCadastroSelecaoController {
 				  ControllerSelecao.deleteSelecao(selecao.getId());
 				  carregarTableViewSelecao();
 				  }
-			   }
 	   }else{
 		   Alert alertError = new Alert(Alert.AlertType.ERROR);
+		   alertError.setHeaderText("Nenhuma selecao foi selecionada");
 		   alertError.setContentText("Por favor, escolha uma selecao na tabela");
 		   alertError.show();
 		}

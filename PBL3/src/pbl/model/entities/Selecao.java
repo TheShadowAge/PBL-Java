@@ -2,7 +2,6 @@ package pbl.model.entities;
 import java.util.*;
 
 import pbl.model.DAO.DAO;
-import pbl.model.DAO.GrupoDAO;
 import pbl.model.DAO.JogadorDAO;
 import pbl.model.DAO.PartidaDAO;
 
@@ -54,9 +53,8 @@ public class Selecao extends Entidade{
 	 * @return Retorna uma String com o grupo da Seleção.
 	 */
 	
-	public Grupo getGrupo() {
-		GrupoDAO grupoDAO = DAO.getGrupos();
-		return grupoDAO.read(grupo);
+	public int getGrupo() {
+		return grupo;
 	}
 	
 	/**

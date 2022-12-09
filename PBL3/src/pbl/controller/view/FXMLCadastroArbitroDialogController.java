@@ -44,7 +44,7 @@ public class FXMLCadastroArbitroDialogController {
     private Label labelArbitroNome;
 
     @FXML
-    private Label labelArbitroPosicao;
+    private Label labelArbitroTipo;
 
     
     private List<String> listTipo;
@@ -58,7 +58,6 @@ public class FXMLCadastroArbitroDialogController {
     @FXML
     void initialize() {
     	CarregarChoiceBoxTipo();
-    	
     }
     
     public void CarregarChoiceBoxTipo() {
@@ -101,7 +100,6 @@ public class FXMLCadastroArbitroDialogController {
 	
 	@FXML
 	public void handleBtConfirmar() {
-		
 		if (validarEntradaDeDados()) {
 			String tipo  = CBArbitroTipo.getSelectionModel().getSelectedItem();
 			arbitro.setNome(TFArbitroNome.getText());

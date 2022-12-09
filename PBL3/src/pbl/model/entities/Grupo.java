@@ -31,11 +31,7 @@ public class Grupo extends Entidade {
 	 */
 	
 	public String toString() {
-		String cheio = ""; 
-		if (quantidadeSelecoes == 4) {
-			cheio = "\nGrupo Completo";
-		}
-		return "Grupo: " + nome + "\nQuantidade de Selecoes: " + quantidadeSelecoes + cheio;
+		return "Grupo: " + nome + "\nQuantidade de Selecoes: " + quantidadeSelecoes;
 	}
 	
 	public int getQuantidadeSelecoes() {

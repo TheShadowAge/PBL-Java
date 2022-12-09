@@ -119,6 +119,7 @@ public class FXMLCadastroArbitroController {
 		   }
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
+		   alert.setHeaderText("Nenhum arbitro foi selecionado");
 		   alert.setContentText("Por favor, escolha um arbitro na tabela");
 		   alert.show();
 	   }
@@ -131,6 +132,7 @@ public class FXMLCadastroArbitroController {
 		   carregarTableViewArbitro();
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
+		   alert.setHeaderText("Nenhum arbitro foi selecionado");
 		   alert.setContentText("Por favor, escolha um arbitro na tabela");
 		   alert.show();
 	   }

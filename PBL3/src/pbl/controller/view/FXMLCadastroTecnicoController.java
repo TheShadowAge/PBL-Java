@@ -130,6 +130,7 @@ public class FXMLCadastroTecnicoController {
 		   }
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
+		   alert.setHeaderText("Nenhum Tecnico foi selecionado");
 		   alert.setContentText("Por favor, escolha um tecnico na tabela");
 		   alert.show();
 	   }
@@ -142,6 +143,7 @@ public class FXMLCadastroTecnicoController {
 		   carregarTableViewTecnico();
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
+		   alert.setHeaderText("Nenhum Tecnico foi selecionado");
 		   alert.setContentText("Por favor, escolha um tecnico na tabela");
 		   alert.show();
 	   }

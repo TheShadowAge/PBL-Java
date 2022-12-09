@@ -148,6 +148,7 @@ public class FXMLCadastroJogadorController {
 		   }
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
+		   alert.setHeaderText("Nenhum jogador foi selecionado");
 		   alert.setContentText("Por favor, escolha um jogador na tabela");
 		   alert.show();
 	   }
@@ -161,6 +162,7 @@ public class FXMLCadastroJogadorController {
 		   carregarTableViewJogador();
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
+		   alert.setHeaderText("Nenhum jogador foi selecionado");
 		   alert.setContentText("Por favor, escolha um jogador na tabela");
 		   alert.show();
 	   }

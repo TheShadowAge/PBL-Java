@@ -1,5 +1,6 @@
 package pbl.controller.view;
 
+import java.util.LinkedList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,10 +56,24 @@ public class FXMLCadastroSelecaoDialogController {
     }
     
     public void CarregarChoiceBoxGrupo() {
-    	listGrupos = grupoDAO.readAll();
-    	
-    	observableListGrupos = FXCollections.observableArrayList(listGrupos);
+    	List<Grupo> lista = new LinkedList<Grupo>();
     	CBSelecaoGrupo.setItems(observableListGrupos);
+    	for (Grupo grupoIterator: grupoDAO.readAll()) {
+			if (grupoIterator.getQuantidadeSelecoes() < 4) {
+				lista.add(grupoIterator);
+			}
+    	}
+    	listGrupos = lista;
+    	if (listGrupos.size() == 0) {
+    		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Erro no cadastro da Selecao");
+			alert.setHeaderText("Todos grupos estão cheios");
+			alert.setContentText("Remova alguma selecao de um dos grupos existentes");
+			alert.show();
+    	} else {
+    		observableListGrupos = FXCollections.observableArrayList(listGrupos);
+        	CBSelecaoGrupo.setItems(observableListGrupos);
+    	}
     }
     
     public Stage getDialogStage() {
@@ -84,7 +99,7 @@ public class FXMLCadastroSelecaoDialogController {
 	public void setSelecao(Selecao selecao) {
 		this.selecao = selecao;
 		this.TFSelecaoNome.setText(selecao.getNome());
-		this.CBSelecaoGrupo.setValue(selecao.getGrupo());
+		this.CBSelecaoGrupo.setValue(grupoDAO.read(selecao.getGrupo()));
 	}
 	
 	@FXML

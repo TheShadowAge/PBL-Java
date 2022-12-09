@@ -1,6 +1,7 @@
 package pbl.controller.view;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -81,8 +82,20 @@ public class FXMLCadastroJogadorDialogController {
     }
     
     public void CarregarChoiceBoxSelecao() {
-    	listSelecoes = selecaoDAO.readAll();
+    	List<Selecao> lista = new LinkedList<Selecao>();
+    	for (Selecao selecaoIterator: selecaoDAO.readAll()) {
+			if (selecaoIterator.getJogadores().size() < 26) {
+				lista.add(selecaoIterator);
+			}
+    	}
     	
+    	listSelecoes = lista;
+    	if (listSelecoes.size() == 0) {
+    		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText("Não existe seleção criada ou todas seleções estão cheias");
+			alert.setContentText("Remova algum jogador de umas das seleções existentes ou crie uma nova seleção");
+			alert.show();
+    	}
     	observableListSelecoes = FXCollections.observableArrayList(listSelecoes);
     	CBJogadorSelecao.setItems(observableListSelecoes);
     }
