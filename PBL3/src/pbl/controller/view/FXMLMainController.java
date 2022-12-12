@@ -115,5 +115,11 @@ public class FXMLMainController {
     	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroTecnico.fxml"));
     	anchorPane.getChildren().setAll(cena);
     }
+    
+    @FXML
+    public void handleMenuItemListarGrupo() throws IOException {
+    	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLListarGrupo.fxml"));
+    	anchorPane.getChildren().setAll(cena);
+    }
 
 }
