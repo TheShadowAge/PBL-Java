@@ -10,10 +10,10 @@
    <children>
       <MenuBar>
         <menus>
-          <Menu fx:id="menuInserir" mnemonicParsing="false" text="Menu">
+          <Menu fx:id="menuInserir" mnemonicParsing="false" text="Cadastro">
             <items>
                   <MenuItem fx:id="menuCadastroArbitro" mnemonicParsing="false" onAction="#handleMenuItemCadastroArbitro" text="Arbitro" />
-                  <MenuItem fx:id="menuCadastroGrupo" mnemonicParsing="false" onAction="#handleMenuItemListarGrupo" text="Grupo" />
+                  <MenuItem fx:id="menuCadastroGrupo" mnemonicParsing="false" text="Grupo" />
                   <MenuItem fx:id="menuCadastroJogador" mnemonicParsing="false" onAction="#handleMenuItemCadastroJogador" text="Jogador" />
                   <MenuItem fx:id="menuCadastroPartida" mnemonicParsing="false" text="Partida" />
               <MenuItem fx:id="menuCadastroSelecao" mnemonicParsing="false" onAction="#handleMenuItemCadastroSelecao" text="Selecao" />
