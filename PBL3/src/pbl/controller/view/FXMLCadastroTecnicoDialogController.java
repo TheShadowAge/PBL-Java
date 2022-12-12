@@ -85,7 +85,7 @@ public class FXMLCadastroTecnicoDialogController {
 			alert.setTitle("Erro no cadastro do Tecnico");
 			alert.setHeaderText("Não existe seleção criada ou todas seleções estão cheias");
 			alert.setContentText("Remova algum tecnico de umas das seleções existentes ou crie uma nova seleção");
-			alert.show();
+			alert.showAndWait();
     	}
     	
     	observableListSelecao = FXCollections.observableArrayList(listSelecao);

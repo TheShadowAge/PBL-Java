@@ -1,7 +1,9 @@
 package pbl.controller.view;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,9 +12,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -32,6 +36,15 @@ public class FXMLCadastroTecnicoController {
 
     @FXML
     private Button ButtonRemoverTecnico;
+    
+    @FXML
+    private Button ButtonLimparPesquisa;
+
+    @FXML
+    private Button ButtonPesquisar;
+    
+    @FXML
+    private TextField TextFieldPesquisa;
 
     @FXML
     private TableView<Tecnico> TableViewTecnico;
@@ -139,14 +152,43 @@ public class FXMLCadastroTecnicoController {
    public void handleButtonRemoverTecnico() throws IOException {
 	   Tecnico tecnico = TableViewTecnico.getSelectionModel().getSelectedItem();
 	   if (tecnico != null) {
-		   ControllerTecnico.deleteTecnico(tecnico.getId());
-		   carregarTableViewTecnico();
+		   Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		   alert.setTitle("Deletar Seleção");
+		   alert.setContentText("Tem certeza que deseja excluir a selecao ? \nIsso vai excluir a selecao e todos os jogadores e o ténico dela.\nAperte OK para confirmar");
+		   Optional<ButtonType> result = alert.showAndWait();
+		   if (result.get() == ButtonType.OK) {
+			  ControllerTecnico.deleteTecnico(tecnico.getId());
+			  carregarTableViewTecnico();
+			  }
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
+		   
 		   alert.setHeaderText("Nenhum Tecnico foi selecionado");
 		   alert.setContentText("Por favor, escolha um tecnico na tabela");
 		   alert.show();
 	   }
+   }
+   
+   @FXML
+   void handleButtonPesquisar() throws IOException {
+	   List<Tecnico> listaPesquisa = new LinkedList<Tecnico>();
+	   for (Tecnico tecnicoIterator: tecnicoDAO.readAll()) {
+		   if (tecnicoIterator.getNome().toLowerCase().contains(TextFieldPesquisa.getText().toLowerCase())) {
+			   listaPesquisa.add(tecnicoIterator);
+		   }
+	   }
+	   tableColumnTecnicoId.setCellValueFactory(new PropertyValueFactory<>("id"));
+	   tableColumnTecnicoNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+	   listTecnicos = listaPesquisa;
+	   observableListTecnicos = FXCollections.observableArrayList(listTecnicos);
+	   TableViewTecnico.setItems(observableListTecnicos);
+	   TableViewTecnico.refresh();
+   }
+   
+   @FXML
+   void handleButtonLimpar() {
+	   TextFieldPesquisa.setText("");
+	   carregarTableViewTecnico();
    }
    
    public boolean showFXMLCadastrosTecnicoDialog(Tecnico tecnico) throws IOException {

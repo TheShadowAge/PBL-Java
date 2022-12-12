@@ -94,7 +94,7 @@ public class FXMLCadastroJogadorDialogController {
     		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText("Não existe seleção criada ou todas seleções estão cheias");
 			alert.setContentText("Remova algum jogador de umas das seleções existentes ou crie uma nova seleção");
-			alert.show();
+			alert.showAndWait();
     	}
     	observableListSelecoes = FXCollections.observableArrayList(listSelecoes);
     	CBJogadorSelecao.setItems(observableListSelecoes);

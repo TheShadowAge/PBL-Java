@@ -69,7 +69,7 @@ public class FXMLCadastroSelecaoDialogController {
 			alert.setTitle("Erro no cadastro da Selecao");
 			alert.setHeaderText("Todos grupos estão cheios");
 			alert.setContentText("Remova alguma selecao de um dos grupos existentes");
-			alert.show();
+			alert.showAndWait();
     	} else {
     		observableListGrupos = FXCollections.observableArrayList(listGrupos);
         	CBSelecaoGrupo.setItems(observableListGrupos);

@@ -16,6 +16,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -41,6 +42,12 @@ public class FXMLCadastroSelecaoController {
 
     @FXML
     private Button ButtonRemoverSelecao;
+    
+    @FXML
+    private Button ButtonLimparPesquisa;
+
+    @FXML
+    private Button ButtonPesquisar;
 
     @FXML
     private TableView<Selecao> TableViewSelecao;
@@ -50,6 +57,9 @@ public class FXMLCadastroSelecaoController {
     
     @FXML
     private TableView<Partida> TableViewSelecaoPartidas;
+    
+    @FXML
+    private TextField TextFieldPesquisa;
 
     @FXML
     private Label labelSelecaoCodSel;
@@ -192,7 +202,8 @@ public class FXMLCadastroSelecaoController {
     		carregarTableViewSelecao();
     	}
     }
-    
+   
+   @FXML
    public void handleButtonAlterarSelecao() throws IOException {
 	   Selecao selecao = (Selecao) TableViewSelecao.getSelectionModel().getSelectedItem();
 	   if (selecao != null) {
@@ -212,6 +223,7 @@ public class FXMLCadastroSelecaoController {
 	   }
    }
    
+   @FXML
    public void handleButtonRemoverSelecao() throws IOException {
 	   Selecao selecao = TableViewSelecao.getSelectionModel().getSelectedItem();
 	   if (selecao != null) {
@@ -230,6 +242,28 @@ public class FXMLCadastroSelecaoController {
 		   alertError.show();
 		}
    }	   
+   
+   @FXML
+   void handleButtonPesquisar() throws IOException {
+	   List<Selecao> listaPesquisa = new LinkedList<Selecao>();
+	   for (Selecao selecaoIterator: selecaoDAO.readAll()) {
+		   if (selecaoIterator.getNome().toLowerCase().contains(TextFieldPesquisa.getText().toLowerCase())) {
+			   listaPesquisa.add(selecaoIterator);
+		   }
+	   }
+	   tableColumnSelecaoID.setCellValueFactory(new PropertyValueFactory<>("id"));
+	   tableColumnSelecaoNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+	   listSelecoes = listaPesquisa;
+	   observableListSelecoes = FXCollections.observableArrayList(listSelecoes);
+	   TableViewSelecao.setItems(observableListSelecoes);
+	   TableViewSelecao.refresh();
+   }
+   
+   @FXML
+   void handleButtonLimpar() {
+	   TextFieldPesquisa.setText("");
+	   carregarTableViewSelecao();
+   }
    
    public boolean showFXMLCadastrosSelecaoDialog(Selecao selecao) throws IOException {
 	   FXMLLoader loader = new FXMLLoader();

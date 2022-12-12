@@ -1,7 +1,9 @@
 package pbl.controller.view;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,9 +12,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -35,6 +39,15 @@ public class FXMLCadastroJogadorController {
 
     @FXML
     private TableView<Jogador> TableViewJogador;
+    
+    @FXML
+    private Button ButtonLimparPesquisa;
+
+    @FXML
+    private Button ButtonPesquisar;
+    
+    @FXML
+    private TextField TextFieldPesquisa;
     
     @FXML
     private Label labelJogadorCartoesAmarelos;
@@ -157,15 +170,43 @@ public class FXMLCadastroJogadorController {
    public void handleButtonRemoverJogador() throws IOException {
 	   Jogador jogador = TableViewJogador.getSelectionModel().getSelectedItem();
 	   if (jogador != null) {
-		   ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogador.getId()), 5, String.valueOf(jogador.getId()));
-		   ControllerJogador.deleteJogador(jogador.getId());
-		   carregarTableViewJogador();
+		   Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		   alert.setTitle("Deletar Jogador");
+		   alert.setContentText("Tem certeza que deseja excluir o Jogador? \nAperte OK para confirmar");
+		   Optional<ButtonType> result = alert.showAndWait();
+		   if (result.get() == ButtonType.OK) {
+			   ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogador.getId()), 5, String.valueOf(jogador.getId()));
+			   ControllerJogador.deleteJogador(jogador.getId());
+			   carregarTableViewJogador();
+			   }
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
 		   alert.setHeaderText("Nenhum jogador foi selecionado");
 		   alert.setContentText("Por favor, escolha um jogador na tabela");
 		   alert.show();
 	   }
+   }
+   
+   @FXML
+   void handleButtonPesquisar() throws IOException {
+	   List<Jogador> listaPesquisa = new LinkedList<Jogador>();
+	   for (Jogador jogadorIterator: jogadorDAO.readAll()) {
+		   if (jogadorIterator.getNome().toLowerCase().contains(TextFieldPesquisa.getText().toLowerCase())) {
+			   listaPesquisa.add(jogadorIterator);
+		   }
+	   }
+	   tableColumnJogadorID.setCellValueFactory(new PropertyValueFactory<>("id"));
+	   tableColumnJogadorNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+	   listJogadores = listaPesquisa;
+	   observableListJogadores = FXCollections.observableArrayList(listJogadores);
+	   TableViewJogador.setItems(observableListJogadores);
+	   TableViewJogador.refresh();
+   }
+   
+   @FXML
+   void handleButtonLimpar() {
+	   TextFieldPesquisa.setText("");
+	   carregarTableViewJogador();
    }
    
    public boolean showFXMLCadastrosJogadorDialog(Jogador jogador) throws IOException {

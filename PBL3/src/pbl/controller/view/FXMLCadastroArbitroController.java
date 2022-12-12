@@ -1,7 +1,9 @@
 package pbl.controller.view;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,9 +12,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -33,8 +37,17 @@ public class FXMLCadastroArbitroController {
     private Button ButtonRemoverArbitro;
 
     @FXML
+    private Button ButtonLimparPesquisa;
+
+    @FXML
+    private Button ButtonPesquisar;
+    
+    @FXML
     private TableView<Arbitro> TableViewArbitro;
 
+    @FXML
+    private TextField TextFieldPesquisa;
+    
     @FXML
     private Label labelArbitroIdade;
 
@@ -105,7 +118,8 @@ public class FXMLCadastroArbitroController {
     		carregarTableViewArbitro();
     	}
     }
-    
+   
+   @FXML
    public void handleButtonAlterarArbitro() throws IOException {
 	   Arbitro arbitro = TableViewArbitro.getSelectionModel().getSelectedItem();
 	   if (arbitro != null) {
@@ -125,17 +139,46 @@ public class FXMLCadastroArbitroController {
 	   }
    }
    
+   @FXML
    public void handleButtonRemoverArbitro() throws IOException {
 	   Arbitro arbitro = TableViewArbitro.getSelectionModel().getSelectedItem();
 	   if (arbitro != null) {
-		   ControllerArbitro.deleteArbitro(arbitro.getId());
-		   carregarTableViewArbitro();
+		   Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		   alert.setTitle("Deletar Arbitro");
+		   alert.setContentText("Tem certeza que deseja excluir o Arbitro? \nAperte OK para confirmar");
+		   Optional<ButtonType> result = alert.showAndWait();
+		   if (result.get() == ButtonType.OK) {
+			   ControllerArbitro.deleteArbitro(arbitro.getId());
+			   carregarTableViewArbitro();
+			   }
 	   } else {
 		   Alert alert = new Alert(Alert.AlertType.ERROR);
 		   alert.setHeaderText("Nenhum arbitro foi selecionado");
 		   alert.setContentText("Por favor, escolha um arbitro na tabela");
 		   alert.show();
 	   }
+   }
+   
+   @FXML
+   void handleButtonPesquisar() throws IOException {
+	   List<Arbitro> listaPesquisa = new LinkedList<Arbitro>();
+	   for (Arbitro arbitroIterator: arbitroDAO.readAll()) {
+		   if (arbitroIterator.getNome().toLowerCase().contains(TextFieldPesquisa.getText().toLowerCase())) {
+			   listaPesquisa.add(arbitroIterator);
+		   }
+	   }
+	   tableColumnArbitroID.setCellValueFactory(new PropertyValueFactory<>("id"));
+	   tableColumnArbitroNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+	   listArbitros = listaPesquisa;
+	   observableListArbitros = FXCollections.observableArrayList(listArbitros);
+	   TableViewArbitro.setItems(observableListArbitros);
+	   TableViewArbitro.refresh();
+   }
+   
+   @FXML
+   void handleButtonLimpar() {
+	   TextFieldPesquisa.setText("");
+	   carregarTableViewArbitro();
    }
    
    public boolean showFXMLCadastrosArbitroDialog(Arbitro arbitro) throws IOException {
