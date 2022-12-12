@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pbl.controller.view.FXMLMainController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pbl.controller.view.FXMLMainController">
    <children>
       <MenuBar>
         <menus>
@@ -20,15 +20,6 @@
                   <MenuItem fx:id="menuCadastroTecnico" mnemonicParsing="false" onAction="#handleMenuItemCadastroTecnico" text="Tecnico" />
             </items>
           </Menu>
-            <Menu fx:id="menuListar" mnemonicParsing="false" text="Listar">
-               <items>
-                  <MenuItem fx:id="menuListarArbitro" mnemonicParsing="false" text="Arbitro" />
-                  <MenuItem fx:id="menuListarJogador" mnemonicParsing="false" text="Jogador" />
-                  <MenuItem fx:id="menuListarPartida" mnemonicParsing="false" text="Partida" />
-                  <MenuItem fx:id="menuListarSelecao" mnemonicParsing="false" text="Selecao" />
-                  <MenuItem fx:id="menuListarTecnico" mnemonicParsing="false" text="Tecnico" />
-               </items>
-            </Menu>
             <Menu fx:id="menuPesquisar" mnemonicParsing="false" text="Pesquisa">
                <items>
                   <Menu fx:id="menuPesquisarCategoria" mnemonicParsing="false" text="Pesquisa por Categoria">
@@ -46,6 +37,6 @@
             </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane fx:id="anchorPane" prefHeight="379.0" prefWidth="600.0" />
+      <AnchorPane fx:id="anchorPane" prefHeight="379.0" prefWidth="700.0" />
    </children>
 </VBox>
