@@ -79,7 +79,7 @@ public class FXMLListarGrupoController {
     @FXML
     void initialize() {
     	carregarTableViewGrupo();
-        
+    	TableViewGrupo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selecionarItemTableViewGrupo(newValue));
     }
     
     public void carregarTableViewGrupo() {
@@ -99,8 +99,10 @@ public class FXMLListarGrupoController {
     	
     	List<Selecao> lista = new LinkedList<Selecao>();
     	
-    	for (Integer integerIterator: grupo.getSelecoes()) {
-    		lista.add(selecaoDAO.read(integerIterator));
+    	for (Selecao selecaoIterator: selecaoDAO.readAll()) {
+    		if (selecaoIterator.getGrupo() == grupo.getId()) {
+    			lista.add(selecaoIterator);
+    		}
     	}
     	
     	observableListSelecoes = FXCollections.observableArrayList(lista);
