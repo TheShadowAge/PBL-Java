@@ -22,10 +22,10 @@ public class Partida extends Entidade {
 		private int golsTime2;
 		private int cartAmaTime2;
 		private int cartVerTime2;
-		private List<Object> jogsGols1;
-		private List<Object> jogsGols2;
-		private List<Object> jogsCarts1;
-		private List<Object> jogsCarts2;
+		private List<JogadorGols> jogsGols1;
+		private List<JogadorGols> jogsGols2;
+		private List<JogadorCartoes> jogsCarts1;
+		private List<JogadorCartoes> jogsCarts2;
 		
 		/**
 		 * Construtor da classe partida.
