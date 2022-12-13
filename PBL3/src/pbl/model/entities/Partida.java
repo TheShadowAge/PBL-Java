@@ -22,10 +22,10 @@ public class Partida extends Entidade {
 		private int golsTime2;
 		private int cartAmaTime2;
 		private int cartVerTime2;
-		private List<Object> jogsGols1;
-		private List<Object> jogsGols2;
-		private List<Object> jogsCarts1;
-		private List<Object> jogsCarts2;
+		private List<JogadorGols> jogsGols1;
+		private List<JogadorGols> jogsGols2;
+		private List<JogadorCartoes> jogsCarts1;
+		private List<JogadorCartoes> jogsCarts2;
 		
 		/**
 		 * Construtor da classe partida.
@@ -47,7 +47,7 @@ public class Partida extends Entidade {
 		 * @param jogsCarts2 Lista com id e quantidade de cartões vermelhos e amarelos que cada jogador do time 2 recebeu na partida.
 		 */
 		
-		public Partida(String nome, LocalDate data, LocalTime horario,String local, int time1, int golsTime1, int cartAmaTime1, int cartVerTime1, int time2, int golsTime2, int cartAmaTime2, int cartVerTime2, List<Object> jogsGols1, List<Object> jogsGols2, List<Object> jogsCarts1, List<Object> jogsCarts2){
+		public Partida(String nome, LocalDate data, LocalTime horario,String local, int time1, int golsTime1, int cartAmaTime1, int cartVerTime1, int time2, int golsTime2, int cartAmaTime2, int cartVerTime2, List<JogadorGols> jogsGols1, List<JogadorGols> jogsGols2, List<JogadorCartoes> jogsCarts1, List<JogadorCartoes> jogsCarts2){
 			this.nome = nome;
 			this.data = data;
 			this.horario = horario;
@@ -278,7 +278,7 @@ public class Partida extends Entidade {
 		 * @return Uma lista com os jogadores do time 1 que fizeram gols e a quantidade de gols.
 		 */
 		
-		public List<Object> getJogsGols1() {
+		public List<JogadorGols> getJogsGols1() {
 			return jogsGols1;
 		}
 		
@@ -287,7 +287,7 @@ public class Partida extends Entidade {
 		 * @param jogsGols1 Uma lista com os novos jogadores do time 1 que fizeram gols e a quantidade de gols.
 		 */
 		
-		public void setJogsGols1(List<Object> jogsGols1) {
+		public void setJogsGols1(List<JogadorGols> jogsGols1) {
 			this.jogsGols1 = jogsGols1;
 		}
 
@@ -296,7 +296,7 @@ public class Partida extends Entidade {
 		 * @return Uma lista com os jogadores do time 2 que fizeram gols e a quantidade de gols.
 		 */
 		
-		public List<Object> getJogsGols2() {
+		public List<JogadorGols> getJogsGols2() {
 			return jogsGols2;
 		}
 
@@ -305,7 +305,7 @@ public class Partida extends Entidade {
 		 * @param jogsGols2 Uma lista com os novos jogadores do time 2 que fizeram gols e a quantidade de gols.
 		 */
 		
-		public void setJogsGols2(List<Object> jogsGols2) {
+		public void setJogsGols2(List<JogadorGols> jogsGols2) {
 			this.jogsGols2 = jogsGols2;
 		}
 
@@ -314,7 +314,7 @@ public class Partida extends Entidade {
 		 * @return Uma lista com os jogadores do time 2 que receberam cartão e a quantidade de cartões.
 		 */
 		
-		public List<Object> getJogsCarts2() {
+		public List<JogadorCartoes> getJogsCarts2() {
 			return jogsCarts2;
 		}
 
@@ -323,7 +323,7 @@ public class Partida extends Entidade {
 		 * @param jogsGols1 Uma lista com os novos jogadores do time 2 que fizeram gols e a quantidade de gols.
 		 */
 		
-		public void setJogsCarts2(List<Object> jogsCarts2) {
+		public void setJogsCarts2(List<JogadorCartoes> jogsCarts2) {
 			this.jogsCarts2 = jogsCarts2;
 		}
 
@@ -332,7 +332,7 @@ public class Partida extends Entidade {
 		 * @return Uma lista com os jogadores do time 1 que receberam cartão e a quantidade de cartões.
 		 */
 		
-		public List<Object> getJogsCarts1() {
+		public List<JogadorCartoes> getJogsCarts1() {
 			return jogsCarts1;
 		}
 
@@ -341,7 +341,7 @@ public class Partida extends Entidade {
 		 * @param jogsGols1 Uma lista com os novos jogadores do time 2 que fizeram gols e a quantidade de gols.
 		 */
 		
-		public void setJogsCarts1(List<Object> jogsCarts1) {
+		public void setJogsCarts1(List<JogadorCartoes> jogsCarts1) {
 			this.jogsCarts1 = jogsCarts1;
 		}
 

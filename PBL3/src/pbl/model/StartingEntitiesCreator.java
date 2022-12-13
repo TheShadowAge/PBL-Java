@@ -3,6 +3,7 @@ package pbl.model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import pbl.controller.entities.ControllerPartida;
 import pbl.model.DAO.ArbitroDAO;
@@ -15,6 +16,8 @@ import pbl.model.DAO.TecnicoDAO;
 import pbl.model.entities.Arbitro;
 import pbl.model.entities.Grupo;
 import pbl.model.entities.Jogador;
+import pbl.model.entities.JogadorCartoes;
+import pbl.model.entities.JogadorGols;
 import pbl.model.entities.Partida;
 import pbl.model.entities.Selecao;
 import pbl.model.entities.Tecnico;
@@ -38,7 +41,10 @@ public class StartingEntitiesCreator {
 	  ArbitroDAO arbitroDAO = DAO.getArbitros();
 	  GrupoDAO grupoDAO = DAO.getGrupos();
 	  PartidaDAO partidaDAO = DAO.getPartidas();
-	  List<Object> lista = new LinkedList<Object>();
+	  List<JogadorGols> listaJ1G = new LinkedList<JogadorGols>();
+	  List<JogadorGols> listaJ2G = new LinkedList<JogadorGols>();
+	  List<JogadorCartoes> listaJ1C = new LinkedList<JogadorCartoes>();
+	  List<JogadorCartoes> listaJ2C = new LinkedList<JogadorCartoes>();
 	  
 	  selecaoDAO.create(new Selecao("Brasil", 9, 1));
 	  selecaoDAO.create(new Selecao("Argentina", 9, 2));
@@ -113,6 +119,18 @@ public class StartingEntitiesCreator {
 	  jogadorDAO.create(new Jogador("Ramon Coronel", 2, "Argentino", 30, "Atacante", false));
 	  jogadorDAO.create(new Jogador("Pablo Villar", 2, "Argentino", 21, "Atacante", false));
 	  jogadorDAO.create(new Jogador("Ovidio Paz", 2, "Argentino", 22, "Atacante", true));
-	  partidaDAO.create(new Partida("Brasil VS Argentina", ControllerPartida.formatarData("05/11/2022"),ControllerPartida.formatarHorario("20:00:00"),"Qatar",1,0,0,0,2,0,0,0,lista,lista,lista,lista));
+
+	  listaJ1G.add(new JogadorGols(13, 1));
+	  listaJ1G.add(new JogadorGols(16, 1));
+	  listaJ1G.add(new JogadorGols(19, 2));
+	  listaJ2G.add(new JogadorGols(47, 1));
+	  listaJ1C.add(new JogadorCartoes(22, 1, 0));
+	  listaJ1C.add(new JogadorCartoes(25, 2, 1));
+	  listaJ1C.add(new JogadorCartoes(12, 1, 1));
+	  listaJ2C.add(new JogadorCartoes(46, 2, 0));
+	  listaJ2C.add(new JogadorCartoes(49, 1, 1));
+	  listaJ2C.add(new JogadorCartoes(43, 1, 0));
+	  
+	  partidaDAO.create(new Partida("Brasil VS Argentina", ControllerPartida.formatarData("05/11/2022"),ControllerPartida.formatarHorario("20:00:00"),"Qatar",1,0,0,0,2,0,0,0,listaJ1G,listaJ2G,listaJ1C,listaJ2C));
 	}
 }

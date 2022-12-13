@@ -38,7 +38,7 @@ public class ControllerPartida {
 	 * @param jogsCarts2 Lista com id e quantidade de cartões vermelhos e amarelos que cada jogador do time 2 recebeu na partida.
 	 */
 	
-	public static void createPartida(String nome, LocalDate data, LocalTime horario,String local, int time1, int golsTime1, int cartAmaTime1, int cartVerTime1, int time2, int golsTime2, int cartAmaTime2, int cartVerTime2, List<Object> jogsGols1, List<Object> jogsGols2, List<Object> jogsCarts1, List<Object> jogsCarts2) {
+	public static void createPartida(String nome, LocalDate data, LocalTime horario,String local, int time1, int golsTime1, int cartAmaTime1, int cartVerTime1, int time2, int golsTime2, int cartAmaTime2, int cartVerTime2, List<JogadorGols> jogsGols1, List<JogadorGols> jogsGols2, List<JogadorCartoes> jogsCarts1, List<JogadorCartoes> jogsCarts2) {
 		  PartidaDAO partidaDAO = DAO.getPartidas();
 		  Partida partida = new Partida(nome,data,horario,local,time1, golsTime1, cartAmaTime1, cartVerTime1, time2, golsTime2, cartAmaTime2, cartVerTime2, jogsGols1, jogsGols2, jogsCarts1, jogsCarts2);
 		  partidaDAO.create(partida);

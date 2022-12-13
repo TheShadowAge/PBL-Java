@@ -121,5 +121,11 @@ public class FXMLMainController {
     	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLListarGrupo.fxml"));
     	anchorPane.getChildren().setAll(cena);
     }
+    
+    @FXML
+    public void handleMenuItemCadastrarPartida() throws IOException {
+    	AnchorPane cena = (AnchorPane) FXMLLoader.load(getClass().getResource("/pbl/view/FXMLCadastroPartida.fxml"));
+    	anchorPane.getChildren().setAll(cena);
+    }
 
 }

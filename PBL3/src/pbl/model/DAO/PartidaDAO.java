@@ -1,6 +1,7 @@
 package pbl.model.DAO;
 import java.util.List;
 
+import pbl.model.entities.ListGolsCart;
 import pbl.model.entities.Partida;
 
 /**
@@ -49,7 +50,7 @@ public interface PartidaDAO {
 	 * @param atributo Uma lista com os dados que serão atualizados.
 	 */
 	
-	public void updateList(int id, int opcao, List<Object> lista);
+	public void updateList(int id, int opcao, ListGolsCart lista);
 	
 	/**
 	 * Método que deleta um partidas do Sistema pelo ID.

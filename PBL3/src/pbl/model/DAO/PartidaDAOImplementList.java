@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import pbl.controller.entities.ControllerPartida;
+import pbl.model.entities.ListGolsCart;
 import pbl.model.entities.Partida;
 
 
@@ -106,20 +107,20 @@ public class PartidaDAOImplementList implements PartidaDAO {
 	 */
 	
 	@Override
-	public void updateList(int id, int opcao, List<Object> lista) {
+	public void updateList(int id, int opcao, ListGolsCart lista) {
 		PartidaDAO partidaDAO = DAO.getPartidas();
 		switch (opcao) {
 		case 1:
-			partidaDAO.read(id).setJogsGols1(lista);
+			partidaDAO.read(id).setJogsGols1(lista.getJogGols());
 			break;
 		case 2:
-			partidaDAO.read(id).setJogsCarts1(lista);
+			partidaDAO.read(id).setJogsCarts1(lista.getJogCart());
 			break;
 		case 3:
-			partidaDAO.read(id).setJogsGols2(lista);
+			partidaDAO.read(id).setJogsGols2(lista.getJogGols());
 			break;
 		case 4:
-			partidaDAO.read(id).setJogsCarts2(lista);
+			partidaDAO.read(id).setJogsCarts2(lista.getJogCart());
 			break;
 		}
 	}
