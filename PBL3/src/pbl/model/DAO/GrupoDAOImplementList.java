@@ -66,7 +66,6 @@ public class GrupoDAOImplementList implements GrupoDAO {
 			case 1:
 				grupos.get(id).setQuantidadeSelecoes(1);
 				grupos.get(id).getSelecoes().remove((Integer) Integer.parseInt(atributo));
-				grupos.get(id).getSelecoes().add(Integer.parseInt(atributo));
 				break;
 			case 2:
 				grupos.get(id).setQuantidadeSelecoes(2);
