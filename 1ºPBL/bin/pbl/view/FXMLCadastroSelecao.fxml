@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pbl.controller.view.FXMLCadastroSelecaoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pbl.controller.view.FXMLCadastroSelecaoController">
    <children>
-      <SplitPane dividerPositions="0.3438395415472779" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.267260579064588" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
             <TableView fx:id="TableViewSelecao" prefHeight="377.0" prefWidth="218.0" SplitPane.resizableWithParent="false">
                <columns>
@@ -30,18 +30,18 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <GridPane layoutX="53.0" layoutY="63.0" prefHeight="270.0" prefWidth="350.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0">
+                  <GridPane layoutX="39.0" layoutY="85.0" prefHeight="339.0" prefWidth="498.0" AnchorPane.bottomAnchor="99.0" AnchorPane.leftAnchor="39.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="175.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="175.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="370.0" minWidth="10.0" prefWidth="252.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="252.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="102.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="185.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="Id:" />
@@ -59,18 +59,18 @@
                           <columns>
                               <TableColumn fx:id="tableColumnSelecaoJogadores" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" text="Jogadores">
                                  <columns>
-                                  <TableColumn fx:id="tableColumnSelecaoJogadorID" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" text="ID" />
-                                  <TableColumn fx:id="tableColumnSelecaoJogadorNome" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" resizable="false" text="Nome" />
+                                  <TableColumn fx:id="tableColumnSelecaoJogadorID" maxWidth="35.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="ID" />
+                                  <TableColumn fx:id="tableColumnSelecaoJogadorNome" maxWidth="140.0" minWidth="200.0" prefWidth="200.0" resizable="false" text="Nome" />
                                  </columns>
                               </TableColumn>
                           </columns>
                         </TableView>
-                        <TableView fx:id="TableViewSelecaoPartidas" prefHeight="154.0" prefWidth="175.0" GridPane.rowIndex="5">
+                        <TableView fx:id="TableViewSelecaoPartidas" prefHeight="168.0" prefWidth="187.0" GridPane.rowIndex="5">
                            <columns>
                               <TableColumn fx:id="tableColumnSelecaoPartida" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" text="Partidas">
                                  <columns>
-                                    <TableColumn fx:id="tableColumnSelecaoPartidaID" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" text="ID" />
-                                    <TableColumn fx:id="tableColumnSelecaoPartidaNome" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" resizable="false" text="Nome" />
+                                    <TableColumn fx:id="tableColumnSelecaoPartidaID" maxWidth="35.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="ID" />
+                                    <TableColumn fx:id="tableColumnSelecaoPartidaNome" maxWidth="140.0" minWidth="200.0" prefWidth="140.0" resizable="false" text="Nome" />
                                  </columns>
                               </TableColumn>
                            </columns>

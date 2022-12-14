@@ -4,16 +4,20 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import pbl.controller.entities.ControllerSelecao;
 import pbl.model.DAO.DAO;
 import pbl.model.DAO.JogadorDAO;
 import pbl.model.DAO.PartidaDAO;
@@ -22,6 +26,7 @@ import pbl.model.entities.JogadorCartoes;
 import pbl.model.entities.JogadorGols;
 import pbl.model.entities.JogadorGolsCartoes;
 import pbl.model.entities.Partida;
+import pbl.model.entities.Selecao;
 import pbl.model.entities.SelecaoGolsCartoes;
 
 public class FXMLCadastroPartidaController {
@@ -123,7 +128,7 @@ public class FXMLCadastroPartidaController {
     void initialize() {
     	carregarTableViewPartida();
     	TableViewPartida.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selecionarItemTableViewPartida(newValue));
-    	TableViewSelecaoPartidas.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selecionarTableViewSelecaoJogador(newValue));
+    	TableViewSelecaoPartidas.getSelectionModel().selectedItemProperty().addListener((observablea, oldaValue, newaValue) -> selecionarTableViewSelecaoJogador(newaValue));
     }
 
     public void carregarTableViewPartida() {
@@ -164,24 +169,52 @@ public class FXMLCadastroPartidaController {
     	tableColumnPartidaJogadorGol.setCellValueFactory(new PropertyValueFactory<>("gols"));
     	tableColumnPartidaJogadorCVerm.setCellValueFactory(new PropertyValueFactory<>("cartVer"));
     	tableColumnPartidaJogadorCAmar.setCellValueFactory(new PropertyValueFactory<>("cartAma"));
-
-
+    	
+    	List<Integer> ids = new LinkedList<Integer>();
+    	
     	List<JogadorGolsCartoes> jolista = new LinkedList<JogadorGolsCartoes>();
     	if (partidaDAO.read(selecao.getPartida()).getTime1() == selecao.getId()) {
     		for (JogadorGols jogadorIterator: partidaDAO.read(selecao.getPartida()).getJogsGols1()) {
     			for (JogadorCartoes jogadorCIterator: partidaDAO.read(selecao.getPartida()).getJogsCarts1()){
     				if (jogadorCIterator.getId() == jogadorIterator.getId()) {
     					jolista.add(new JogadorGolsCartoes(jogadorIterator.getId(), jogadorIterator.getGols(), jogadorCIterator.getCartAma(), jogadorCIterator.getCartVer(), jogadorDAO.read(jogadorIterator.getId()).getNome()));
+    					ids.add(jogadorCIterator.getId());
     				}
     			}
     		}
+    		
+    		for (JogadorGols jogadorIterator: partidaDAO.read(selecao.getPartida()).getJogsGols1()) {
+    			if (!ids.contains(jogadorIterator.getId())){
+    				jolista.add(new JogadorGolsCartoes(jogadorIterator.getId(), jogadorIterator.getGols(), 0, 0, jogadorDAO.read(jogadorIterator.getId()).getNome()));
+    			}
+    		}
+    		for (JogadorCartoes jogadorCIterator: partidaDAO.read(selecao.getPartida()).getJogsCarts1()) {
+    			if (!ids.contains(jogadorCIterator.getId())){
+    				jolista.add(new JogadorGolsCartoes(jogadorCIterator.getId(), 0, jogadorCIterator.getCartAma(), jogadorCIterator.getCartVer(), jogadorDAO.read(jogadorCIterator.getId()).getNome()));
+    			}
+    		}
+    		
+    		
     	}
     	else {
     		for (JogadorGols jogadorIterator: partidaDAO.read(selecao.getPartida()).getJogsGols2()) {
     			for (JogadorCartoes jogadorCIterator: partidaDAO.read(selecao.getPartida()).getJogsCarts2()){
     				if (jogadorCIterator.getId() == jogadorIterator.getId()) {
     					jolista.add(new JogadorGolsCartoes(jogadorIterator.getId(), jogadorIterator.getGols(), jogadorCIterator.getCartAma(), jogadorCIterator.getCartVer(), jogadorDAO.read(jogadorIterator.getId()).getNome()));
+    					ids.add(jogadorCIterator.getId());
     				}
+    			}
+    		}
+
+    		for (JogadorGols jogadorIterator: partidaDAO.read(selecao.getPartida()).getJogsGols2()) {
+    			if (!ids.contains(jogadorIterator.getId())){
+    				jolista.add(new JogadorGolsCartoes(jogadorIterator.getId(), jogadorIterator.getGols(), 0, 0, jogadorDAO.read(jogadorIterator.getId()).getNome()));
+    			}
+    		}
+    		for (JogadorCartoes jogadorCIterator: partidaDAO.read(selecao.getPartida()).getJogsCarts2()) {
+    			if (!ids.contains(jogadorCIterator.getId())){
+    				JogadorGolsCartoes jog = new JogadorGolsCartoes(jogadorCIterator.getId(), 0, jogadorCIterator.getCartAma(), jogadorCIterator.getCartVer(), jogadorDAO.read(jogadorCIterator.getId()).getNome());
+    				jolista.add(jog);
     			}
     		}
     	}
@@ -249,7 +282,24 @@ public class FXMLCadastroPartidaController {
 
     @FXML
     void handleButtonRemoverSelecao() {
-
+ 	   Partida selecao = TableViewPartida.getSelectionModel().getSelectedItem();
+ 	   if (selecao != null) {
+ 			   Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+ 			   alert.setTitle("Deletar Seleção");
+ 			   alert.setContentText("Tem certeza que deseja excluir a selecao ? \nIsso vai excluir a selecao e todos os jogadores e o ténico dela.\nAperte OK para confirmar");
+ 			   Optional<ButtonType> result = alert.showAndWait();
+ 			   if (result.get() == ButtonType.OK) {
+ 				  partidaDAO.delete(selecao.getId());
+ 				  carregarTableViewPartida();
+ 				  TableViewSelecaoPartidas.getItems().clear();
+ 				  TableViewSelecaoJogador.getItems().clear();
+ 				  }
+ 	   }else{
+ 		   Alert alertError = new Alert(Alert.AlertType.ERROR);
+ 		   alertError.setHeaderText("Nenhuma partida foi selecionada");
+ 		   alertError.setContentText("Por favor, escolha uma partida na tabela");
+ 		   alertError.show();
+ 		}
     }
 
 }

@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pbl.controller.view.FXMLMainController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pbl.controller.view.FXMLMainController">
    <children>
       <MenuBar>
         <menus>
-          <Menu fx:id="menuInserir" mnemonicParsing="false" text="Cadastro">
+          <Menu fx:id="menuInserir" mnemonicParsing="false" text="Menu">
             <items>
                   <MenuItem fx:id="menuCadastroArbitro" mnemonicParsing="false" onAction="#handleMenuItemCadastroArbitro" text="Arbitro" />
-                  <MenuItem fx:id="menuCadastroGrupo" mnemonicParsing="false" text="Grupo" />
+                  <MenuItem fx:id="menuCadastroGrupo" mnemonicParsing="false" onAction="#handleMenuItemListarGrupo" text="Grupo" />
                   <MenuItem fx:id="menuCadastroJogador" mnemonicParsing="false" onAction="#handleMenuItemCadastroJogador" text="Jogador" />
-                  <MenuItem fx:id="menuCadastroPartida" mnemonicParsing="false" text="Partida" />
+                  <MenuItem fx:id="menuCadastroPartida" mnemonicParsing="false" onAction="#handleMenuItemCadastrarPartida" text="Partida" />
               <MenuItem fx:id="menuCadastroSelecao" mnemonicParsing="false" onAction="#handleMenuItemCadastroSelecao" text="Selecao" />
                   <MenuItem fx:id="menuCadastroTecnico" mnemonicParsing="false" onAction="#handleMenuItemCadastroTecnico" text="Tecnico" />
             </items>
@@ -37,6 +37,6 @@
             </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane fx:id="anchorPane" prefHeight="379.0" prefWidth="700.0" />
+      <AnchorPane fx:id="anchorPane" prefHeight="525.0" prefWidth="900.0" />
    </children>
 </VBox>

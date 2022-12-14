@@ -129,8 +129,8 @@ public class StartingEntitiesCreator {
 	  listaJ1C.add(new JogadorCartoes(12, 1, 1));
 	  listaJ2C.add(new JogadorCartoes(46, 2, 0));
 	  listaJ2C.add(new JogadorCartoes(49, 1, 1));
-	  listaJ2C.add(new JogadorCartoes(43, 1, 0));
+	  listaJ2C.add(new JogadorCartoes(47, 1, 0));
 	  
-	  partidaDAO.create(new Partida("Brasil VS Argentina", ControllerPartida.formatarData("05/11/2022"),ControllerPartida.formatarHorario("20:00:00"),"Qatar",1,0,0,0,2,0,0,0,listaJ1G,listaJ2G,listaJ1C,listaJ2C));
+	  partidaDAO.create(new Partida("Brasil VS Argentina", ControllerPartida.formatarData("05/11/2022"),ControllerPartida.formatarHorario("20:00:00"),"Qatar",1,3,4,2,2,1,4,1,listaJ1G,listaJ2G,listaJ1C,listaJ2C));
 	}
 }
