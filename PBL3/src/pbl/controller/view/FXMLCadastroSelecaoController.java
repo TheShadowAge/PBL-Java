@@ -203,25 +203,27 @@ public class FXMLCadastroSelecaoController {
     	}
     }
    
-   @FXML
-   public void handleButtonAlterarSelecao() throws IOException {
-	   Selecao selecao = (Selecao) TableViewSelecao.getSelectionModel().getSelectedItem();
-	   if (selecao != null) {
-		   boolean buttonConfirmarClicked = showFXMLCadastrosSelecaoDialog(selecao);
-		   if (buttonConfirmarClicked) {
-			   ControllerSelecao.updateSelecao(selecao.getId(), 1, selecao.getNome());
-			   ControllerGrupo.updateGrupo(selecao.getGrupo(), 3 ,Integer.toString(selecao.getId()));
-			   ControllerSelecao.updateSelecao(selecao.getId(), 2, String.valueOf(selecao.getGrupo()));
-			   ControllerGrupo.updateGrupo(selecao.getGrupo(), 2,Integer.toString(selecao.getId()));
-			   carregarTableViewSelecao();
-		   }
-	   } else {
-		   Alert alert = new Alert(Alert.AlertType.ERROR);
-		   alert.setHeaderText("Nenhuma selecao foi selecionada");
-		   alert.setContentText("Por favor, escolha uma selecao na tabela");
-		   alert.show();
-	   }
-   }
+    @FXML
+    public void handleButtonAlterarSelecao() throws IOException {
+ 	   Selecao selecao = (Selecao) TableViewSelecao.getSelectionModel().getSelectedItem();
+ 	   if (selecao != null) {
+ 		   ControllerGrupo.updateGrupo(selecao.getGrupo(), 3 ,Integer.toString(selecao.getId()));
+ 		   int aux = selecao.getGrupo();
+ 		   boolean buttonConfirmarClicked = showFXMLCadastrosSelecaoDialog(selecao);
+ 		   if (buttonConfirmarClicked) {
+ 			   ControllerSelecao.updateSelecao(selecao.getId(), 1, selecao.getNome());
+ 			   ControllerSelecao.updateSelecao(selecao.getId(), 2, String.valueOf(selecao.getGrupo()));
+ 			   ControllerGrupo.updateGrupo(selecao.getGrupo(), 2,Integer.toString(selecao.getId()));
+ 			   grupoDAO.read(aux).setQuantidadeSelecoes(1);;
+ 			   carregarTableViewSelecao();
+ 		   }
+ 	   } else {
+ 		   Alert alert = new Alert(Alert.AlertType.ERROR);
+ 		   alert.setHeaderText("Nenhuma selecao foi selecionada");
+ 		   alert.setContentText("Por favor, escolha uma selecao na tabela");
+ 		   alert.show();
+ 	   }
+    }
    
    @FXML
    public void handleButtonRemoverSelecao() throws IOException {

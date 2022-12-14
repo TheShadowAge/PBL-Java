@@ -10,26 +10,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import pbl.model.DAO.SelecaoDAO;
 import pbl.model.entities.Grupo;
 import pbl.model.entities.Selecao;
 import pbl.model.DAO.DAO;
-import pbl.controller.entities.ControllerGrupo;
 import pbl.model.DAO.GrupoDAO;
-import pbl.model.entities.Arbitro;
 
 public class FXMLListarGrupoController {
 
@@ -70,7 +56,6 @@ public class FXMLListarGrupoController {
     private TableColumn<Selecao, String> tableColumnGrupoSelecoesNome;
     
     private List<Grupo> listGrupos;
-    private List<Selecao> listSelecoes;
     private ObservableList<Grupo> observableListGrupos;
     private ObservableList<Selecao> observableListSelecoes;
     

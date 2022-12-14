@@ -144,28 +144,28 @@ public class FXMLCadastroJogadorController {
     	}
     }
     
-   public void handleButtonAlterarJogador() throws IOException {
-	   Jogador jogador = TableViewJogador.getSelectionModel().getSelectedItem();
-	   if (jogador != null) {
-		   boolean buttonConfirmarClicked = showFXMLCadastrosJogadorDialog(jogador);
-		   if (buttonConfirmarClicked) {
-			   ControllerJogador.updateJogador(jogador.getId(), 1, jogador.getNome());
+	public void handleButtonAlterarJogador() throws IOException {
+		   Jogador jogador = TableViewJogador.getSelectionModel().getSelectedItem();
+		   if (jogador != null) {
 			   ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogador.getId()), 6, String.valueOf(jogador.getId()));
-			   ControllerJogador.updateJogador(jogador.getId(), 2, String.valueOf(jogador.getSelecao()));
-			   ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogador.getId()), 5, String.valueOf(jogador.getId()));
-			   ControllerJogador.updateJogador(jogador.getId(), 3, jogador.getPosicao());
-			   ControllerJogador.updateJogador(jogador.getId(), 6, String.valueOf(jogador.getIdade()));
-			   ControllerJogador.updateJogador(jogador.getId(), 7, jogador.getNacionalidade());
-			   ControllerJogador.updateJogador(jogador.getId(), 8, String.valueOf(jogador.isTitular()));
-			   carregarTableViewJogador();
+			   boolean buttonConfirmarClicked = showFXMLCadastrosJogadorDialog(jogador);
+			   if (buttonConfirmarClicked) {
+				   ControllerJogador.updateJogador(jogador.getId(), 1, jogador.getNome());
+				   ControllerJogador.updateJogador(jogador.getId(), 2, String.valueOf(jogador.getSelecao()));
+				   ControllerSelecao.updateSelecao(ControllerJogador.SelecaoJogador(jogador.getId()), 5, String.valueOf(jogador.getId()));
+				   ControllerJogador.updateJogador(jogador.getId(), 3, jogador.getPosicao());
+				   ControllerJogador.updateJogador(jogador.getId(), 6, String.valueOf(jogador.getIdade()));
+				   ControllerJogador.updateJogador(jogador.getId(), 7, jogador.getNacionalidade());
+				   ControllerJogador.updateJogador(jogador.getId(), 8, String.valueOf(jogador.isTitular()));
+				   carregarTableViewJogador();
+			   }
+		   } else {
+			   Alert alert = new Alert(Alert.AlertType.ERROR);
+			   alert.setHeaderText("Nenhum jogador foi selecionado");
+			   alert.setContentText("Por favor, escolha um jogador na tabela");
+			   alert.show();
 		   }
-	   } else {
-		   Alert alert = new Alert(Alert.AlertType.ERROR);
-		   alert.setHeaderText("Nenhum jogador foi selecionado");
-		   alert.setContentText("Por favor, escolha um jogador na tabela");
-		   alert.show();
-	   }
-   }
+	   }   
    
    public void handleButtonRemoverJogador() throws IOException {
 	   Jogador jogador = TableViewJogador.getSelectionModel().getSelectedItem();

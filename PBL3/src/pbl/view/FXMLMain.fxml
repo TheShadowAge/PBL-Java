@@ -20,23 +20,8 @@
                   <MenuItem fx:id="menuCadastroTecnico" mnemonicParsing="false" onAction="#handleMenuItemCadastroTecnico" text="Tecnico" />
             </items>
           </Menu>
-            <Menu fx:id="menuPesquisar" mnemonicParsing="false" text="Pesquisa">
-               <items>
-                  <Menu fx:id="menuPesquisarCategoria" mnemonicParsing="false" text="Pesquisa por Categoria">
-                     <items>
-                        <MenuItem fx:id="menuPesquisarCategoriaArbitro" mnemonicParsing="false" text="Arbitro por nome" />
-                        <MenuItem fx:id="menuPesquisarCategoriaTecnico" mnemonicParsing="false" text="Tecnico por nome" />
-                        <MenuItem fx:id="menuPesquisarCategoriaJogador" mnemonicParsing="false" text="Jogador por nome" />
-                        <MenuItem fx:id="menuPesquisarCategoriaSelecao" mnemonicParsing="false" text="Selecao por nome" />
-                        <MenuItem fx:id="menuPesquisarCategoriaPartida" mnemonicParsing="false" text="Partida por nome" />
-                     </items>
-                  </Menu>
-                  <MenuItem fx:id="menuPesquisarSelecao" mnemonicParsing="false" text="Pesquisa por Selecao" />
-                  <MenuItem fx:id="menuPesquisarPartidaPorData" mnemonicParsing="false" text="Pesquisa Partida apartir da data" />
-               </items>
-            </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane fx:id="anchorPane" prefHeight="379.0" prefWidth="700.0" />
+      <AnchorPane fx:id="anchorPane" prefHeight="525.0" prefWidth="900.0" />
    </children>
 </VBox>

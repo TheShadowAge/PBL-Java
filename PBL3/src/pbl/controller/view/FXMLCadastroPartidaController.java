@@ -1,32 +1,27 @@
 package pbl.controller.view;
 
-import java.text.SimpleDateFormat;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pbl.model.DAO.DAO;
-import pbl.model.DAO.GrupoDAO;
 import pbl.model.DAO.JogadorDAO;
 import pbl.model.DAO.PartidaDAO;
 import pbl.model.DAO.SelecaoDAO;
-import pbl.model.DAO.TecnicoDAO;
-import pbl.model.entities.Jogador;
 import pbl.model.entities.JogadorCartoes;
 import pbl.model.entities.JogadorGols;
 import pbl.model.entities.JogadorGolsCartoes;
 import pbl.model.entities.Partida;
-import pbl.model.entities.Selecao;
 import pbl.model.entities.SelecaoGolsCartoes;
 
 public class FXMLCadastroPartidaController {
@@ -56,7 +51,7 @@ public class FXMLCadastroPartidaController {
     private TableView<SelecaoGolsCartoes> TableViewSelecaoPartidas;
 
     @FXML
-    private TextField TextFieldPesquisa;
+    private DatePicker DatePickerPesquisa;
 
     @FXML
     private Label labelLocalPartida;
@@ -72,6 +67,15 @@ public class FXMLCadastroPartidaController {
 
     @FXML
     private Label labelPartidaNome;
+    
+    @FXML
+    private TableColumn<Partida, String> tableColumnPartidaNome;
+    
+    @FXML
+    private TableColumn<Partida, String> tableColumnPartidaData;
+
+    @FXML
+    private TableColumn<Partida, String> tableColumnPartidaID;
 
     @FXML
     private TableColumn<JogadorGolsCartoes, String> tableColumnPartidaJogadorCAmar;
@@ -89,12 +93,6 @@ public class FXMLCadastroPartidaController {
     private TableColumn<JogadorGolsCartoes, String> tableColumnPartidaJogadores;
 
     @FXML
-    private TableColumn<JogadorGolsCartoes, String> tableColumnSelecaoID;
-
-    @FXML
-    private TableColumn<SelecaoGolsCartoes, String> tableColumnSelecaoNome;
-
-    @FXML
     private TableColumn<SelecaoGolsCartoes, String> tableColumnSelecaoPartida;
 
     @FXML
@@ -109,34 +107,29 @@ public class FXMLCadastroPartidaController {
     @FXML
     private TableColumn<SelecaoGolsCartoes, String> tablePartidaSelecaoCVerm;
 
-    private List<Selecao> listSelecoes;
+
     private List<Partida> listPartidas;
-    private List<JogadorGols> listJogadorGols;
-    private List<JogadorCartoes> listJogadorCartoes;
     private List<JogadorGolsCartoes> listJogadorGolsCartoes;
     private List<SelecaoGolsCartoes> listSelecoesGolsCartoes;
-    private ObservableList<Selecao> observableListSelecoes;
-    private ObservableList<Jogador> observableListJogadores;
     private ObservableList<Partida> observableListPartidas;
     private ObservableList<JogadorGolsCartoes> observablelistJogadorGolsCartoes;
     private ObservableList<SelecaoGolsCartoes> observableListSelecoesGolsCartoes;
     
     private final SelecaoDAO selecaoDAO = DAO.getSelecoes();
-    private final TecnicoDAO tecnicoDAO = DAO.getTecnicos();
     private final JogadorDAO jogadorDAO = DAO.getJogadores();
-    private final GrupoDAO grupoDAO = DAO.getGrupos();
     private final PartidaDAO partidaDAO = DAO.getPartidas();
     
     @FXML
     void initialize() {
-    	carregarTableViewSelecao();
-    	TableViewPartida.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selecionarItemTableViewSelecao(newValue));
+    	carregarTableViewPartida();
+    	TableViewPartida.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selecionarItemTableViewPartida(newValue));
     	TableViewSelecaoPartidas.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selecionarTableViewSelecaoJogador(newValue));
     }
 
-    public void carregarTableViewSelecao() {
-    	tableColumnSelecaoID.setCellValueFactory(new PropertyValueFactory<>("id"));
-    	tableColumnSelecaoNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+    public void carregarTableViewPartida() {
+    	tableColumnPartidaID.setCellValueFactory(new PropertyValueFactory<>("id"));
+    	tableColumnPartidaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+    	tableColumnPartidaData.setCellValueFactory(new PropertyValueFactory<>("data"));
     	
     	listPartidas = partidaDAO.readAll();
     	
@@ -163,6 +156,7 @@ public class FXMLCadastroPartidaController {
     	observableListSelecoesGolsCartoes = FXCollections.observableArrayList(listSelecoesGolsCartoes);
     	TableViewSelecaoPartidas.setItems(observableListSelecoesGolsCartoes);
     	TableViewSelecaoPartidas.refresh();
+    	
     }
     
     public void carregarTableViewSelecaoJogador(SelecaoGolsCartoes selecao) {
@@ -170,8 +164,8 @@ public class FXMLCadastroPartidaController {
     	tableColumnPartidaJogadorGol.setCellValueFactory(new PropertyValueFactory<>("gols"));
     	tableColumnPartidaJogadorCVerm.setCellValueFactory(new PropertyValueFactory<>("cartVer"));
     	tableColumnPartidaJogadorCAmar.setCellValueFactory(new PropertyValueFactory<>("cartAma"));
-    	
-    	
+
+
     	List<JogadorGolsCartoes> jolista = new LinkedList<JogadorGolsCartoes>();
     	if (partidaDAO.read(selecao.getPartida()).getTime1() == selecao.getId()) {
     		for (JogadorGols jogadorIterator: partidaDAO.read(selecao.getPartida()).getJogsGols1()) {
@@ -191,21 +185,20 @@ public class FXMLCadastroPartidaController {
     			}
     		}
     	}
-    	
+
     	listJogadorGolsCartoes = jolista;
-    	
+
     	observablelistJogadorGolsCartoes = FXCollections.observableArrayList(listJogadorGolsCartoes);
     	TableViewSelecaoJogador.setItems(observablelistJogadorGolsCartoes);
     	TableViewSelecaoJogador.refresh();
     }
     
-    public void selecionarItemTableViewSelecao(Partida partida) {
+    public void selecionarItemTableViewPartida(Partida partida) {
     	if (partida != null) {
-    		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     		labelPartidaID.setText(Integer.toString(partida.getId()));
     		labelLocalPartida.setText(partida.getLocal());
     		labelPartidaNome.setText(partida.getNome());
-    		labelPartidaData.setText(formatter.format(partida.getData()));
+    		labelPartidaData.setText(String.valueOf(partida.getData()));
     		labelPartidaHorário.setText(partida.getHorario().format(DateTimeFormatter.ofPattern("HH:mm")));
     		carregarTableViewSelecaoPartida(partida);
     	} else {
@@ -222,27 +215,40 @@ public class FXMLCadastroPartidaController {
     }
     
     @FXML
-    void handleButtonAlterarSelecao(ActionEvent event) {
+    void handleButtonAlterarSelecao() {
 
     }
 
     @FXML
-    void handleButtonInserirSelecao(ActionEvent event) {
+    void handleButtonInserirSelecao() {
 
     }
 
     @FXML
-    void handleButtonLimpar(ActionEvent event) {
-
+    void handleButtonLimpar() {
+ 	   DatePickerPesquisa.setValue(null);
+ 	   carregarTableViewPartida();
     }
 
     @FXML
-    void handleButtonPesquisar(ActionEvent event) {
-
-    }
+    void handleButtonPesquisar() throws IOException {
+    	List<Partida> listaPesquisa = new LinkedList<Partida>();
+    	for (Partida partidaIterator: partidaDAO.readAll()) {
+    		if (partidaIterator.getData().equals(DatePickerPesquisa.getValue())){
+    			listaPesquisa.add(partidaIterator);
+ 	 		   }
+    	}
+ 		tableColumnPartidaID.setCellValueFactory(new PropertyValueFactory<>("id"));
+ 	 	tableColumnPartidaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+ 	 	tableColumnPartidaData.setCellValueFactory(new PropertyValueFactory<>("data"));
+ 	 	listPartidas = listaPesquisa;
+ 	 	observableListPartidas = FXCollections.observableArrayList(listPartidas);
+ 	 	TableViewPartida.setItems(observableListPartidas);
+ 	 	TableViewPartida.refresh();
+ 	}
 
     @FXML
-    void handleButtonRemoverSelecao(ActionEvent event) {
+    void handleButtonRemoverSelecao() {
 
     }
 

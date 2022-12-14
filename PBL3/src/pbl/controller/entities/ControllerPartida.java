@@ -13,6 +13,7 @@ import pbl.model.DAO.SelecaoDAO;
 import pbl.model.entities.Jogador;
 import pbl.model.entities.JogadorCartoes;
 import pbl.model.entities.JogadorGols;
+import pbl.model.entities.ListGolsCart;
 import pbl.model.entities.Partida;
 import pbl.model.entities.Selecao;
 
@@ -88,7 +89,7 @@ public class ControllerPartida {
 	 * @param lista uma lista com objeto.
 	 */
 	
-	public static void updateListPartida(int idPartida, int partidaEditar,List<Object> lista) {
+	public static void updateListPartida(int idPartida, int partidaEditar, ListGolsCart lista) {
 		  PartidaDAO partidaDAO = DAO.getPartidas();
 		  partidaDAO.updateList(idPartida, partidaEditar, lista);	  
 	  }

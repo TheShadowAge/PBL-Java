@@ -2,25 +2,26 @@
 
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pbl.controller.view.FXMLCadastroPartidaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pbl.controller.view.FXMLCadastroPartidaController">
    <children>
       <SplitPane dividerPositions="0.3438395415472779" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
             <TableView fx:id="TableViewPartida" prefHeight="377.0" prefWidth="218.0" SplitPane.resizableWithParent="false">
                <columns>
-                  <TableColumn fx:id="tableColumnSelecaoID" maxWidth="61.0" minWidth="50.0" prefWidth="61.0" resizable="false" text="ID" />
-                  <TableColumn fx:id="tableColumnSelecaoNome" maxWidth="256.0" minWidth="190.0" prefWidth="245.0" resizable="false" text="Nome" />
+                  <TableColumn fx:id="tableColumnPartidaID" maxWidth="61.0" minWidth="50.0" prefWidth="61.0" resizable="false" text="ID" />
+                  <TableColumn fx:id="tableColumnPartidaNome" maxWidth="256.0" minWidth="190.0" prefWidth="245.0" resizable="false" text="Nome" />
+                  <TableColumn fx:id="tableColumnPartidaData" maxWidth="256.0" minWidth="190.0" prefWidth="245.0" resizable="false" text="Data" />
                </columns>
             </TableView>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -90,13 +91,9 @@
                   </Group>
                   <Group layoutX="353.0" layoutY="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <children>
-                        <TextField fx:id="TextFieldPesquisa" alignment="CENTER" layoutX="-96.0" layoutY="1.0" prefHeight="25.0" prefWidth="109.0" promptText="Pesquisar Nome">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </TextField>
-                        <Button fx:id="ButtonPesquisar" layoutX="18.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleButtonPesquisar" text="pesquisar" />
-                        <Button fx:id="ButtonLimparPesquisa" layoutX="-96.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleButtonLimpar" prefHeight="25.0" prefWidth="109.0" text="Limpar pesquisa" />
+                        <Button fx:id="ButtonPesquisar" layoutX="20.0" mnemonicParsing="false" onAction="#handleButtonPesquisar" prefHeight="25.0" prefWidth="110.0" text="pesquisar" />
+                        <Button fx:id="ButtonLimparPesquisa" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleButtonLimpar" prefHeight="25.0" prefWidth="110.0" text="Limpar pesquisa" />
+                        <DatePicker fx:id="DatePickerPesquisa" layoutX="-120.0" prefHeight="25.0" prefWidth="130.0" promptText="Pesquisar Data" />
                      </children>
                   </Group>
                </children>

@@ -127,27 +127,27 @@ public class FXMLCadastroTecnicoController {
     	}
     }
     
-   public void handleButtonAlterarTecnico() throws IOException {
-	   Tecnico tecnico = TableViewTecnico.getSelectionModel().getSelectedItem();
-	   if (tecnico != null) {
-		   boolean buttonConfirmarClicked = showFXMLCadastrosTecnicoDialog(tecnico);
-		   if (buttonConfirmarClicked) {
-			   ControllerTecnico.updateTecnico(tecnico.getId(), 1, tecnico.getNome());
-			   ControllerSelecao.updateSelecao(tecnico.getSelecao().getId(), 4, String.valueOf(-1));
-			   ControllerTecnico.updateTecnico(tecnico.getId(), 2, String.valueOf(tecnico.getSelecao().getId()));
-			   ControllerSelecao.updateSelecao(tecnico.getSelecao().getId(), 4, String.valueOf(tecnico.getId()));
-			   ControllerTecnico.updateTecnico(tecnico.getId(), 3, String.valueOf(tecnico.getIdade()));
-			   ControllerTecnico.updateTecnico(tecnico.getId(), 4, tecnico.getNacionalidade());
-			   ControllerTecnico.updateTecnico(tecnico.getId(), 5, tecnico.getTimeAnterior());
-			   carregarTableViewTecnico();
-		   }
-	   } else {
-		   Alert alert = new Alert(Alert.AlertType.ERROR);
-		   alert.setHeaderText("Nenhum Tecnico foi selecionado");
-		   alert.setContentText("Por favor, escolha um tecnico na tabela");
-		   alert.show();
-	   }
-   }
+    public void handleButtonAlterarTecnico() throws IOException {
+ 	   Tecnico tecnico = TableViewTecnico.getSelectionModel().getSelectedItem();
+ 	   if (tecnico != null) {
+ 		   ControllerSelecao.updateSelecao(tecnico.getSelecao().getId(), 4, String.valueOf(-1));
+ 		   boolean buttonConfirmarClicked = showFXMLCadastrosTecnicoDialog(tecnico);
+ 		   if (buttonConfirmarClicked) {
+ 			   ControllerTecnico.updateTecnico(tecnico.getId(), 1, tecnico.getNome());
+ 			   ControllerTecnico.updateTecnico(tecnico.getId(), 2, String.valueOf(tecnico.getSelecao().getId()));
+ 			   ControllerSelecao.updateSelecao(tecnico.getSelecao().getId(), 4, String.valueOf(tecnico.getId()));
+ 			   ControllerTecnico.updateTecnico(tecnico.getId(), 3, String.valueOf(tecnico.getIdade()));
+ 			   ControllerTecnico.updateTecnico(tecnico.getId(), 4, tecnico.getNacionalidade());
+ 			   ControllerTecnico.updateTecnico(tecnico.getId(), 5, tecnico.getTimeAnterior());
+ 			   carregarTableViewTecnico();
+ 		   }
+ 	   } else {
+ 		   Alert alert = new Alert(Alert.AlertType.ERROR);
+ 		   alert.setHeaderText("Nenhum Tecnico foi selecionado");
+ 		   alert.setContentText("Por favor, escolha um tecnico na tabela");
+ 		   alert.show();
+ 	   }
+    }
    
    public void handleButtonRemoverTecnico() throws IOException {
 	   Tecnico tecnico = TableViewTecnico.getSelectionModel().getSelectedItem();

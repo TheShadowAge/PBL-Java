@@ -52,7 +52,7 @@ public class ControllerSelecao {
 				jogadorDAO.delete(jogadorIterator);
 			}
 			tecnicoDAO.delete(selecaoDAO.read(selecaoID).getTecnico());	
-			grupoDAO.update(selecaoDAO.read(selecaoID).getGrupo(), 3, String.valueOf(selecaoID));
+			grupoDAO.update(selecaoDAO.read(selecaoID).getGrupo(), 1, String.valueOf(selecaoID));
 			selecaoDAO.delete(selecaoID);
 		}
 	  
